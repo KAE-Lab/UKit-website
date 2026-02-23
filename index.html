@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKit - Le kit de l'étudiant bordelais</title>
+    <meta name="description" content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <script type="module" src="/src/main.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-50 font-sans antialiased selection:bg-[#7F1734] selection:text-white">
+
+    <!-- NAV -->
+    <nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+        <img src="/app.png" alt="UKit" class="h-8">
+        <a href="https://github.com/Illumye/UKit" target="_blank" class="text-slate-300 hover:text-white transition flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700/50 hover:border-slate-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+            <span class="text-sm font-medium">Voir sur GitHub</span>
+        </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="container mx-auto px-6 py-20 flex flex-col items-center text-center">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+            Le kit de survie pour <br>
+            <span class="text-[#7F1734]">l'étudiant bordelais.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10">
+            Consultez votre emploi du temps, accédez à l'ENT et retrouvez vos cours en une seule application fluide et open-source.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="https://github.com/Illumye/UKit/releases/latest/download/ukit-release.apk" class="px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-200 transition flex items-center justify-center gap-2">
+                ⬇️ Télécharger (APK)
+            </a>
+            <a href="#features" class="px-8 py-4 bg-slate-800 text-white font-bold rounded-xl border border-slate-700 hover:bg-slate-700 transition flex items-center justify-center">
+                Découvrir
+            </a>
+        </div>
+
+        <!-- Screenshot principal -->
+        <div class="relative mt-20 w-full max-w-sm overflow-hidden rounded-3xl border border-slate-800 shadow-2xl mx-auto">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[#7F1734]/20 blur-3xl rounded-full -z-10 pointer-events-none"></div>
+            <img src="/app-screenshot.jpg" alt="Capture d'écran de UKit" class="w-full object-cover">
+        </div>
+    </section>
+
+    <!-- FEATURES avec onglets -->
+    <section id="features" class="container mx-auto px-6 py-24">
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+
+            <!-- Onglets à gauche -->
+            <div class="flex flex-row lg:flex-col gap-3 w-full lg:w-80 shrink-0">
+
+                <button onclick="switchTab('navigation')" id="tab-navigation"
+                    class="tab-btn active-tab text-left p-5 rounded-2xl border transition-all w-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xl">🗓️</span>
+                        <span class="font-bold text-white">Navigation</span>
+                    </div>
+                    <p class="text-slate-400 text-sm hidden lg:block">Planning quotidien et hebdomadaire en un geste.</p>
+                </button>
+
+                <button onclick="switchTab('search')" id="tab-search"
+                    class="tab-btn text-left p-5 rounded-2xl border transition-all w-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xl">🔍</span>
+                        <span class="font-bold text-white">Recherche</span>
+                    </div>
+                    <p class="text-slate-400 text-sm hidden lg:block">Retrouvez votre groupe en quelques secondes.</p>
+                </button>
+
+                <button onclick="switchTab('filters')" id="tab-filters"
+                    class="tab-btn text-left p-5 rounded-2xl border transition-all w-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xl">🎛️</span>
+                        <span class="font-bold text-white">Filtres</span>
+                    </div>
+                    <p class="text-slate-400 text-sm hidden lg:block">Masquez les cours qui ne vous concernent pas.</p>
+                </button>
+
+                <button onclick="switchTab('browser')" id="tab-browser"
+                    class="tab-btn text-left p-5 rounded-2xl border transition-all w-full">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xl">🎓</span>
+                        <span class="font-bold text-white">ENT</span>
+                    </div>
+                    <p class="text-slate-400 text-sm hidden lg:block">L'ENT universitaire intégré directement dans l'app.</p>
+                </button>
+
+            </div>
+
+            <!-- Vidéo à droite -->
+            <div class="flex-1 w-full flex items-center justify-center bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-8">
+
+                <div id="video-navigation" class="video-panel w-full max-w-xs">
+                    <video src="/navigation.mp4" autoplay loop muted playsinline class="w-full rounded-2xl"></video>
+                </div>
+
+                <div id="video-search" class="video-panel hidden w-full max-w-xs">
+                    <video src="/search.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
+                </div>
+
+                <div id="video-filters" class="video-panel hidden w-full max-w-xs">
+                    <video src="/filters.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
+                </div>
+
+                <div id="video-browser" class="video-panel hidden w-full max-w-xs">
+                    <video src="/browser.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="container mx-auto px-6 py-24 flex flex-col items-center text-center">
+        <div class="relative bg-slate-900 border border-slate-800 rounded-3xl p-12 w-full max-w-2xl overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#7F1734]/10 blur-3xl rounded-full pointer-events-none"></div>
+            <h2 class="text-4xl font-extrabold mb-4">Prêt à simplifier votre vie étudiante ?</h2>
+            <p class="text-slate-400 mb-8">Gratuit, open-source, sans publicité.</p>
+            <a href="https://github.com/Illumye/UKit/releases/latest/download/ukit-release.apk" class="inline-block px-10 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-200 transition">
+                ⬇️ Télécharger l'APK
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800">
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-sm">
+                Maintenu par <a href="https://github.com/Illumye" target="_blank" class="text-slate-300 hover:text-white">Illumye</a>.
+                Fork de <a href="https://github.com/kb-dev/UKit" target="_blank" class="text-slate-300 hover:text-white">kb-dev</a>.
+            </p>
+            <div class="text-slate-500 text-sm">Sous licence Apache 2.0</div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(name) {
+            // Cacher toutes les vidéos et stopper la lecture
+            document.querySelectorAll('.video-panel').forEach(panel => {
+                panel.classList.add('hidden')
+                panel.querySelector('video').pause()
+            })
+
+            // Retirer le style actif de tous les onglets
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active-tab')
+                btn.classList.add('bg-slate-900', 'border-slate-800', 'text-slate-400')
+            })
+
+            // Afficher la vidéo sélectionnée et la lancer
+            const panel = document.getElementById('video-' + name)
+            panel.classList.remove('hidden')
+            panel.querySelector('video').play()
+
+            // Activer l'onglet sélectionné
+            const tab = document.getElementById('tab-' + name)
+            tab.classList.add('active-tab')
+            tab.classList.remove('bg-slate-900', 'border-slate-800', 'text-slate-400')
+        }
+
+        // Style initial des onglets
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.add('bg-slate-900', 'border-slate-800', 'text-slate-400')
+        })
+
+        // Onglet actif par défaut
+        document.getElementById('tab-navigation').classList.add('active-tab')
+    </script>
+
+    <style>
+        .active-tab {
+            background-color: rgb(15 23 42); /* slate-900 */
+            border-color: #7F1734;
+            color: white;
+        }
+    </style>
+
+</body>
+</html>
