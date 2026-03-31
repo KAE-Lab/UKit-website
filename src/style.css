@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bordeaux: #7F1734;
+  --color-primary-blue: #007AFF;
+  --color-primary-purple: #5E5CE6;
+}
+
+@keyframes gradient-xy {
+    0%, 100% {
+        background-size: 400% 400%;
+        background-position: left center;
+    }
+    50% {
+        background-size: 200% 200%;
+        background-position: right center;
+    }
+}
+
+.animate-gradient {
+    animation: gradient-xy 8s ease infinite;
 }
