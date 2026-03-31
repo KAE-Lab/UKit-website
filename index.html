@@ -1,158 +1,208 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" class="scroll-smooth snap-y snap-mandatory">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UKit - Le kit de l'étudiant bordelais</title>
     <meta name="description" content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT.">
-    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="icon" type="image/png" href="/icon.png">
     <script type="module" src="/src/main.js"></script>
 </head>
-<body class="bg-slate-950 text-slate-50 font-sans antialiased selection:bg-[#7F1734] selection:text-white overflow-x-hidden">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-primary-blue selection:text-white overflow-x-hidden relative">
 
-    <!-- NAV -->
-    <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <img src="/app.png" alt="UKit" class="h-8">
-            <div class="flex items-center gap-3">
-                <button onclick="handleDownload()" class="flex items-center gap-2 bg-[#7F1734] hover:bg-[#9b1d3e] text-white px-4 py-2 rounded-full border border-[#9b1d3e]/60 transition text-sm font-bold">
+    <div id="tsparticles" class="fixed inset-0 z-[-1] w-full h-full pointer-events-none" style="-webkit-mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%); mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%);"></div>
+
+    <!-- HEADER -->
+    <header class="hidden md:block fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 shadow-sm">
+        <nav class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <img src="/logo.png" alt="UKit" class="h-12 transition-transform duration-300 cursor-pointer">
+            <button onclick="handleDownload()" class="group flex items-center gap-2.5 bg-gradient-to-r from-primary-blue to-primary-purple text-white px-7 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-base font-bold">
                     <span>Télécharger</span>
                 </button>
-            </div>
         </nav>
     </header>
 
+    <div class="md:hidden fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 px-6 py-3 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-1">
+            <img src="/logo.png" alt="UKit" onclick="scrollToTop()" class="h-8 transition-transform active:scale-95 cursor-pointer">
+            <button onclick="openInfoModal()" class="text-slate-500 hover:text-slate-900 p-2 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+            </button>
+        </div>
+        
+        <button onclick="handleDownload()" class="bg-gradient-to-r from-primary-blue to-primary-purple text-white px-5 py-2.5 rounded-full shadow-md active:shadow-sm active:translate-y-0.5 text-sm font-bold flex items-center gap-2">
+            <span>Télécharger</span>
+        </button>
+    </div>
+
+    <div id="info-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeInfoModal()"></div>
+        <div class="relative bg-white border border-slate-200 rounded-3xl p-6 flex flex-col items-center gap-4 max-w-xs w-full shadow-2xl">
+            <button onclick="closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 p-1 rounded-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <h3 class="text-lg font-bold text-slate-900">À propos</h3>
+            <p class="text-slate-500 text-sm text-center">
+                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank" class="text-slate-900 font-medium hover:underline">KAE Lab</a><br>
+                Fork de <a href="https://github.com/kb-dev/UKit" target="_blank" class="text-slate-900 font-medium hover:underline">kb-dev</a>.
+            </p>
+            <p class="text-slate-400 text-xs">Sous licence Apache 2.0</p>
+            <a href="https://github.com/Illumye/UKit" target="_blank" class="mt-2 text-slate-700 hover:text-slate-900 transition flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full border border-slate-200 text-sm font-medium">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+
     <!-- HERO -->
-    <section class="container mx-auto px-6 flex items-center justify-center min-h-[calc(100svh-65px)] py-3">
+   <div id="scrolly-container" class="relative h-[110vh] w-full bg-transparent">
+        
+        <div class="snap-point absolute top-0 h-px w-full"></div>
 
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12 w-full lg:max-w-[80%]">
+        <div class="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center px-6">
+            
+            <div class="flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full max-w-6xl mx-auto">
+                
+                <div class="grid flex-1 w-full items-center mt-20 lg:mt-0">
+                    
+                    <div id="hero-text" class="col-start-1 row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left transition-opacity duration-700 opacity-100 z-20">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">
+                            Le kit de survie pour <br>
+                            <span class="bg-gradient-to-r from-primary-blue to-primary-purple text-transparent bg-clip-text">l'étudiant bordelais.</span>
+                        </h1>
+                        <p class="hidden md:block text-lg md:text-xl text-slate-600 leading-relaxed max-w-xl">
+                            Consultez votre emploi du temps, accédez à l'ENT et plus encore en une seule application fluide et open-source.
+                        </p>
+                    </div>
 
-            <!-- Screenshot principal — au-dessus sur mobile, à droite sur desktop -->
-            <div class="relative order-first lg:order-last shrink-0 w-full max-w-[160px] lg:max-w-[338px] overflow-hidden rounded-xl lg:rounded-3xl border border-slate-800 shadow-2xl mx-auto">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[#7F1734]/20 blur-3xl rounded-full -z-10 pointer-events-none"></div>
-                <img src="/app-screenshot.jpg" alt="Capture d'écran de UKit" class="w-full object-contain">
+                    <div id="features-grid" class="col-start-1 row-start-1 flex flex-row lg:grid lg:grid-cols-3 gap-3 lg:gap-5 overflow-x-auto lg:overflow-x-visible -mx-6 px-6 pt-2 pb-4 lg:mx-0 lg:px-0 lg:py-0 w-auto lg:w-full snap-x snap-mandatory tabs-scroll transition-opacity duration-700 opacity-0 pointer-events-none z-10">
+                        
+                        <button onclick="switchTab('navigation')" id="tab-navigation" class="tab-btn active-tab text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+                                <span class="font-bold text-slate-900 whitespace-nowrap transition-colors">Navigation</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">Planning quotidien et hebdomadaire en un geste.</p>
+                        </button>
+
+                        <button onclick="switchTab('search')" id="tab-search" class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                                <span class="font-bold text-slate-500 whitespace-nowrap transition-colors">Recherche</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">Retrouvez votre groupe en quelques secondes.</p>
+                        </button>
+
+                        <button onclick="switchTab('filters')" id="tab-filters" class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/></svg>
+                                <span class="font-bold text-slate-500 whitespace-nowrap transition-colors">Filtres</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">Masquez les cours qui ne vous concernent pas.</p>
+                        </button>
+
+                        <button onclick="switchTab('browser')" id="tab-browser" class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+                                <span class="font-bold text-slate-500 whitespace-nowrap transition-colors">ENT</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">L'ENT universitaire intégré directement dans l'app.</p>
+                        </button>
+
+                        <button onclick="switchTab('crous')" id="tab-crous" class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7.5V5.25m0 0a2.25 2.25 0 110 4.5m0-4.5h-9m9 0H18a2.25 2.25 0 012.25 2.25v.75m0 0a2.25 2.25 0 01-2.25 2.25H15m3-3V15a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 15V7.5A2.25 2.25 0 016 5.25h9z" /></svg>
+                                <span class="font-bold text-slate-500 whitespace-nowrap transition-colors">CROUS</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">Menus des Restos U et cafétérias en temps réel.</p>
+                        </button>
+
+                        <button onclick="switchTab('bu')" id="tab-bu" class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
+                                <span class="font-bold text-slate-500 whitespace-nowrap transition-colors">Bibliothèques</span>
+                            </div>
+                            <p class="text-slate-500 text-sm hidden lg:block">Affluence et horaires de vos BU favorites.</p>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="relative shrink-0 w-full max-w-[240px] lg:max-w-[300px] translate-y-25 md:translate-y-0">
+                    <div class="relative w-full bg-slate-900 p-2 lg:p-2.25 shadow-2xl rounded-[2.5rem] lg:rounded-[3rem]">
+                        
+                        <div class="relative w-full overflow-hidden rounded-[2rem] lg:rounded-[2.25rem] bg-white grid">
+                            
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[42%] h-5.5 bg-slate-900 rounded-b-xl z-50 
+                                before:absolute before:content-[''] before:-left-3 before:top-0 before:w-3 before:h-3 before:bg-transparent before:rounded-tr-md before:shadow-[3px_-3px_0_0_#0f172a] 
+                                after:absolute after:content-[''] after:-right-3 after:top-0 after:w-3 after:h-3 after:bg-transparent after:rounded-tl-md after:shadow-[-3px_-3px_0_0_#0f172a]">
+                            </div>
+                            
+                            <img id="hero-screen" src="/app-screenshot.png" alt="Capture d'écran de UKit" class="col-start-1 row-start-1 w-full object-contain block transition-opacity duration-700 opacity-100 z-20">
+
+                            <div id="features-screen" class="col-start-1 row-start-1 w-full h-full transition-opacity duration-700 opacity-0 z-10 bg-white grid">
+                                <div id="video-navigation" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-100 z-10">
+                                    <video src="/navigation.mov" autoplay loop muted playsinline class="w-full"></video>
+                                </div>
+                                <div id="video-search" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
+                                    <video src="/search.mov" loop muted playsinline class="w-full"></video>
+                                </div>
+                                <div id="video-filters" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
+                                    <video src="/filters.mov" loop muted playsinline class="w-full"></video>
+                                </div>
+                                <div id="video-browser" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
+                                    <video src="/browser.mov" loop muted playsinline class="w-full"></video>
+                                </div>
+                                <div id="video-crous" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
+                                    <video src="/crous.mov" loop muted playsinline class="w-full"></video>
+                                </div>
+                                <div id="video-bu" class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
+                                    <video src="/bu.mov" loop muted playsinline class="w-full"></video>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- Texte + CTA -->
-            <div class="flex flex-col items-center lg:items-start text-center lg:text-start lg:text-left flex-1">
-                <h1 class="text-3xl md:text-7xl font-extrabold tracking-tight mb-4 md:mb-6">
-                    Le kit de survie pour <br>
-                    <span class="text-[#7F1734]">l'étudiant bordelais.</span>
-                </h1>
-                <p class="text-sm md:text-xl text-slate-400 max-w-xl mb-8 md:mb-10">
-                    Consultez votre emploi du temps, accédez à l'ENT et retrouvez vos cours en une seule application fluide et open-source.
-                </p>
-            </div>
-
         </div>
+    </div>
 
-    </section>
-
-    <!-- SÉPARATEUR -->
-    <!-- <div class="flex flex-col items-center gap-2 py-4">
-        <div class="w-px h-8 bg-gradient-to-b from-transparent to-slate-700"></div>
-        <a href="#features" aria-label="Faire défiler vers les fonctionnalités">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-500 hover:text-slate-300 transition animate-bounce" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
-        </a>
-        <div class="w-px h-8 bg-gradient-to-b from-slate-700 to-transparent"></div>
-    </div> -->
-
-    <!-- FEATURES avec onglets -->
-    <section id="features" class="container mx-auto px-6 py-24">
-        <div class="flex flex-col lg:flex-row gap-8 items-start">
-
-            <!-- Onglets à gauche -->
-            <div class="flex flex-row lg:flex-col gap-3 lg:w-80 shrink-0 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 w-full snap-x snap-mandatory tabs-scroll">
-
-                <button onclick="switchTab('navigation')" id="tab-navigation"
-                    class="tab-btn active-tab text-left p-5 rounded-2xl border transition-all shrink-0 lg:w-full snap-start">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-                        <span class="font-bold text-white whitespace-nowrap">Navigation</span>
-                    </div>
-                    <p class="text-slate-400 text-sm hidden lg:block">Planning quotidien et hebdomadaire en un geste.</p>
-                </button>
-
-                <button onclick="switchTab('search')" id="tab-search"
-                    class="tab-btn text-left p-5 rounded-2xl border transition-all shrink-0 lg:w-full snap-start">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
-                        <span class="font-bold text-white whitespace-nowrap">Recherche</span>
-                    </div>
-                    <p class="text-slate-400 text-sm hidden lg:block">Retrouvez votre groupe en quelques secondes.</p>
-                </button>
-
-                <button onclick="switchTab('filters')" id="tab-filters"
-                    class="tab-btn text-left p-5 rounded-2xl border transition-all shrink-0 lg:w-full snap-start">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/></svg>
-                        <span class="font-bold text-white whitespace-nowrap">Filtres</span>
-                    </div>
-                    <p class="text-slate-400 text-sm hidden lg:block">Masquez les cours qui ne vous concernent pas.</p>
-                </button>
-
-                <button onclick="switchTab('browser')" id="tab-browser"
-                    class="tab-btn text-left p-5 rounded-2xl border transition-all shrink-0 lg:w-full snap-start">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
-                        <span class="font-bold text-white whitespace-nowrap">ENT</span>
-                    </div>
-                    <p class="text-slate-400 text-sm hidden lg:block">L'ENT universitaire intégré directement dans l'app.</p>
-                </button>
-
-            </div>
-
-            <!-- Vidéo à droite -->
-            <div class="flex-1 w-full flex items-center justify-center bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl p-8">
-
-                <div id="video-navigation" class="video-panel w-full max-w-xs">
-                    <video src="/navigation.mp4" autoplay loop muted playsinline class="w-full rounded-2xl"></video>
-                </div>
-
-                <div id="video-search" class="video-panel hidden w-full max-w-xs">
-                    <video src="/search.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
-                </div>
-
-                <div id="video-filters" class="video-panel hidden w-full max-w-xs">
-                    <video src="/filters.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
-                </div>
-
-                <div id="video-browser" class="video-panel hidden w-full max-w-xs">
-                    <video src="/browser.mp4" loop muted playsinline class="w-full rounded-2xl"></video>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    <div class="absolute bottom-0 h-px w-full snap-end"></div>
 
     <!-- MODAL QR CODE -->
     <div id="qr-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQrModal()"></div>
-        <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-8 flex flex-col items-center gap-5 max-w-xs w-full shadow-2xl">
-            <button onclick="closeQrModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        <div class="relative bg-white border border-slate-200 rounded-3xl p-8 md:p-10 flex flex-col items-center gap-6 max-w-sm w-full shadow-2xl">
+            <button onclick="closeQrModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 p-1.5 rounded-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
-            <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#7F1734]" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"/></svg>
-                <h3 class="text-lg font-bold">Scanner pour télécharger</h3>
+            <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-blue" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"/></svg>
+                <h3 class="text-xl font-bold text-slate-900">Scanner pour télécharger</h3>
             </div>
-            <p class="text-slate-400 text-sm text-center">Scannez avec votre téléphone Android pour télécharger UKit</p>
-            <div class="p-3 bg-white rounded-2xl">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://github.com/Illumye/UKit/releases/latest/download/ukit-release.apk&margin=0" alt="QR Code de téléchargement UKit" class="w-44 h-44 rounded-lg block">
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                <img src="/qrcode.svg" alt="QR Code de téléchargement UKit" class="w-56 h-56 rounded-xl block">
             </div>
-            <p class="text-slate-500 text-xs">APK Android &bull; Gratuit &amp; open-source</p>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-800">
-        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <footer class="hidden md:block fixed bottom-0 left-0 w-full z-50 border-t border-white/20 bg-white/40 backdrop-blur-xs shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
+        <div class="container mx-auto px-6 py-6 md:py-0 md:h-20 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-slate-500 text-sm">
-                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank" class="text-slate-300 hover:text-white">KAE Lab</a> &bull; Fork de <a href="https://github.com/kb-dev/UKit" target="_blank" class="text-slate-300 hover:text-white">kb-dev</a>.
+                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank" class="text-slate-600 hover:text-primary-blue transition-colors font-medium">KAE Lab</a> &bull; Fork de <a href="https://github.com/kb-dev/UKit" target="_blank" class="text-slate-600 hover:text-primary-blue transition-colors font-medium">kb-dev</a>.
             </p>
             <div class="flex items-center gap-4">
                 <span class="text-slate-500 text-sm">Sous licence Apache 2.0</span>
-                <a href="https://github.com/Illumye/UKit" target="_blank" class="text-slate-400 hover:text-white transition flex items-center gap-2 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700/50 hover:border-slate-500 text-sm">
+                <a href="https://github.com/Illumye/UKit" target="_blank" class="text-slate-600 hover:text-slate-900 transition flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 text-sm font-medium">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
                     GitHub
                 </a>
@@ -161,9 +211,28 @@
     </footer>
 
     <script>
-        // ---------- Téléchargement intelligent selon la plateforme ----------
         const ANDROID_URL = 'https://github.com/Illumye/UKit/releases/latest/download/ukit-release.apk'
-        const IOS_URL     = 'https://apps.apple.com/app/ukit/id0000000000' // à mettre à jour
+        const IOS_URL     = 'https://apps.apple.com/app/ukit/id0000000000'
+
+        function openInfoModal() {
+            document.getElementById('info-modal').classList.remove('hidden')
+            document.body.style.overflow = 'hidden'
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden')
+            // Ne restaure l'overflow que si la modale QR n'est pas ouverte non plus
+            if (document.getElementById('qr-modal').classList.contains('hidden')) {
+                document.body.style.overflow = ''
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeQrModal()
+                closeInfoModal()
+            }
+        })
 
         function handleDownload() {
             const ua = navigator.userAgent.toLowerCase()
@@ -182,59 +251,217 @@
             document.body.style.overflow = ''
         }
 
-        // Fermer le modal avec Echap
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeQrModal()
         })
 
-        // ---------- Onglets ----------
         function switchTab(name) {
-            // Cacher toutes les vidéos et stopper la lecture
             document.querySelectorAll('.video-panel').forEach(panel => {
-                panel.classList.add('hidden')
-                panel.querySelector('video').pause()
+                if (panel.id !== 'video-' + name && panel.classList.contains('opacity-100')) {
+                    // On lance le fondu vers la transparence
+                    panel.classList.remove('opacity-100', 'z-10')
+                    panel.classList.add('opacity-0', 'z-0')
+                    
+                    const video = panel.querySelector('video')
+                    // On attend la fin de la transition (300ms) pour couper et reset la video,
+                    // ca evite de la voir sauter au debut pendant qu'elle disparait
+                    setTimeout(() => {
+                        video.pause()
+                        video.currentTime = 0
+                    }, 300)
+                }
             })
 
-            // Retirer le style actif de tous les onglets
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active-tab')
-                btn.classList.add('bg-slate-900', 'border-slate-800', 'text-slate-400')
+                // On retire les classes de l'onglet actif et on applique le grossissement au survol
+                btn.classList.remove('active-tab', 'bg-white/20', 'backdrop-blur-sm')
+                btn.classList.add('bg-white/10', 'backdrop-blur-xs', 'hover:-translate-y-1') 
+                btn.querySelector('span').classList.add('text-slate-500')
+                btn.querySelector('span').classList.remove('text-slate-900')
             })
 
-            // Afficher la vidéo sélectionnée et la lancer
+            // On affiche la nouvelle video en fondu
             const panel = document.getElementById('video-' + name)
-            panel.classList.remove('hidden')
-            panel.querySelector('video').play()
+            panel.classList.remove('opacity-0', 'z-0')
+            panel.classList.add('opacity-100', 'z-10')
+            
+            const activeVideo = panel.querySelector('video')
+            activeVideo.currentTime = 0 
+            activeVideo.play()
 
-            // Activer l'onglet sélectionné
             const tab = document.getElementById('tab-' + name)
-            tab.classList.add('active-tab')
-            tab.classList.remove('bg-slate-900', 'border-slate-800', 'text-slate-400')
+            // L'onglet actif ne grossit plus au survol puisqu'il est deja en avant
+            tab.classList.add('active-tab', 'bg-white/20', 'backdrop-blur-sm')
+            tab.classList.remove('bg-white/10', 'backdrop-blur-xs', 'hover:-translate-y-1')
+            tab.querySelector('span').classList.replace('text-slate-500', 'text-slate-900')
         }
 
-        // Style initial des onglets
+        // On nettoie les classes par defaut
         document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.add('bg-slate-900', 'border-slate-800', 'text-slate-400')
+            btn.classList.add('bg-white/10', 'backdrop-blur-xs', 'hover:-translate-y-1', 'text-slate-500', 'border-transparent')
+            btn.classList.remove('bg-white', 'border-slate-200', 'bg-white/20', 'backdrop-blur-sm', 'hover:bg-white/20')
+            btn.querySelector('span').classList.add('text-slate-500')
         })
 
-        // Onglet actif par défaut
-        document.getElementById('tab-navigation').classList.add('active-tab')
+        const activeTab = document.getElementById('tab-navigation')
+        activeTab.classList.add('active-tab', 'bg-white/20', 'backdrop-blur-sm')
+        activeTab.classList.remove('bg-white/10', 'backdrop-blur-xs', 'hover:-translate-y-1', 'border-transparent')
+        activeTab.querySelector('span').classList.replace('text-slate-500', 'text-slate-900')
+
+        // Observer pour afficher les elements quand ils entrent dans le viewport
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Declenche quand 15% de l'element est visible
+        }
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible')
+                } else {
+                    // On retire la classe quand l'element sort de la vue pour que l'animation se rejoue au prochain passage
+                    entry.target.classList.remove('is-visible')
+                }
+            })
+        }, observerOptions)
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            scrollObserver.observe(el)
+        })
+
+       const transitionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        // On detecte si on a depasse l'ancre du haut
+        const isPastTrigger = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        
+        const heroText = document.getElementById('hero-text');
+        const featuresGrid = document.getElementById('features-grid');
+        const heroScreen = document.getElementById('hero-screen');
+        const featuresScreen = document.getElementById('features-screen');
+
+        if (isPastTrigger) {
+            heroText.style.opacity = '0';
+            heroText.style.pointerEvents = 'none';
+            heroScreen.style.opacity = '0';
+            
+            featuresGrid.style.opacity = '1';
+            featuresGrid.style.pointerEvents = 'auto';
+            featuresScreen.style.opacity = '1';
+            
+            // On ne relance le switch que si on arrive sur la section
+            if (featuresScreen.getAttribute('data-active') !== 'true') {
+                featuresScreen.setAttribute('data-active', 'true');
+                switchTab('navigation');
+            }
+        } else {
+            heroText.style.opacity = '1';
+            heroText.style.pointerEvents = 'auto';
+            heroScreen.style.opacity = '1';
+            
+            featuresGrid.style.opacity = '0';
+            featuresGrid.style.pointerEvents = 'none';
+            featuresScreen.style.opacity = '0';
+            featuresScreen.setAttribute('data-active', 'false');
+            
+            // On reset les videos pour la prochaine fois
+            document.querySelectorAll('.video-panel video').forEach(v => {
+                v.pause();
+                v.currentTime = 0;
+            });
+        }
+    });
+}, { threshold: 0 });
+
+// On observe la premiere ancre invisible pour declencher la bascule
+transitionObserver.observe(document.querySelector('.snap-point'));
     </script>
 
     <style>
-        .active-tab {
-            background-color: rgb(15 23 42); /* slate-900 */
-            border-color: #7F1734;
-            color: white;
+        html {
+            /* On force l'arret obligatoire et on reserve l'espace du header */
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            overscroll-behavior: none;
+            height: 100dvh;
+            overflow: hidden;
         }
 
-        /* Masquer la scrollbar sur le conteneur des onglets en mobile */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100dvh;; /* Fixe ton erreur de 50% */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            background-color: #f8fafc;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            /* Le blocage du rebond sera parfaitement respecte ici */
+            overscroll-behavior-y: none;
+        }
+
+        #scrolly-container {
+            scroll-snap-align: start;
+            /* Force l'arret sur le point d'ancrage sans glissement */
+            scroll-snap-stop: always; 
+            background: transparent !important;
+        }
+
+        /* On s'assure que l'ancre invisible est bien prise en compte */
+        .snap-point {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        /* On evite le scroll horizontal sur mobile du au carrousel */
+        .tabs-scroll {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Plus de hacks GPU ici */
+        }
+
+        .active-tab {
+            border-color: #5E5CE6 !important; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            /* Maintient la carte en elevation pour correspondre au hover et eviter le flou du zoom */
+            transform: translateY(-4px); 
+        }
+        .active-tab svg {
+            color: #5E5CE6 !important;
+        }
+
+        .active-tab span {
+            color: #0f172a !important;
+        }
+
         .tabs-scroll {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
         .tabs-scroll::-webkit-scrollbar {
             display: none;
+        }
+
+        /* Animations au scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
         }
     </style>
 
