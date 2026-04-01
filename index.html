@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth snap-y snap-mandatory">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-visual-viewport">
     <title>UKit - Le kit de l'étudiant bordelais</title>
     <meta name="description" content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT.">
     <link rel="icon" type="image/png" href="/icon.png">
@@ -56,8 +56,11 @@
         </div>
     </div>
 
+    <!-- SCROLL WRAPPER : le scroll se fait ici au lieu du body pour empecher la barre d'adresse mobile de bouger -->
+    <div id="scroll-wrapper">
+
     <!-- HERO -->
-   <div id="scrolly-container" class="relative h-[110vh] w-full bg-transparent">
+   <div id="scrolly-container" class="relative w-full bg-transparent">
         
         <div class="snap-point absolute top-0 h-px w-full"></div>
 
@@ -177,6 +180,8 @@
 
     <div class="absolute bottom-0 h-px w-full snap-end"></div>
 
+    </div> <!-- /scroll-wrapper -->
+
     <!-- MODAL QR CODE -->
     <div id="qr-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQrModal()"></div>
@@ -216,14 +221,16 @@
 
         function openInfoModal() {
             document.getElementById('info-modal').classList.remove('hidden')
-            document.body.style.overflow = 'hidden'
+            const sw = document.getElementById('scroll-wrapper');
+            if (sw) sw.style.overflow = 'hidden'
         }
 
         function closeInfoModal() {
             document.getElementById('info-modal').classList.add('hidden')
             // Ne restaure l'overflow que si la modale QR n'est pas ouverte non plus
             if (document.getElementById('qr-modal').classList.contains('hidden')) {
-                document.body.style.overflow = ''
+                const sw = document.getElementById('scroll-wrapper');
+                if (sw) sw.style.overflow = ''
             }
         }
 
@@ -242,13 +249,20 @@
                 window.location.href = IOS_URL
             } else {
                 document.getElementById('qr-modal').classList.remove('hidden')
-                document.body.style.overflow = 'hidden'
+                const sw = document.getElementById('scroll-wrapper');
+                if (sw) sw.style.overflow = 'hidden'
             }
         }
 
         function closeQrModal() {
             document.getElementById('qr-modal').classList.add('hidden')
-            document.body.style.overflow = ''
+            const sw = document.getElementById('scroll-wrapper');
+            if (sw) sw.style.overflow = ''
+        }
+
+        function scrollToTop() {
+            const sw = document.getElementById('scroll-wrapper');
+            if (sw) sw.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.addEventListener('keydown', e => {
@@ -309,8 +323,9 @@
         activeTab.querySelector('span').classList.replace('text-slate-500', 'text-slate-900')
 
         // Observer pour afficher les elements quand ils entrent dans le viewport
+        const scrollWrapper = document.getElementById('scroll-wrapper');
         const observerOptions = {
-            root: null,
+            root: scrollWrapper,
             rootMargin: '0px',
             threshold: 0.15 // Declenche quand 15% de l'element est visible
         }
@@ -371,46 +386,99 @@
             });
         }
     });
-}, { threshold: 0 });
+}, { root: scrollWrapper, threshold: 0 });
 
 // On observe la premiere ancre invisible pour declencher la bascule
 transitionObserver.observe(document.querySelector('.snap-point'));
+
+// === MOBILE TOUCH HANDLER ===
+// Sur certains mobiles, le scroll-snap CSS ne fonctionne pas correctement
+// (le contenu apparait puis revient). On detecte le swipe et on scroll
+// programmatiquement vers la bonne position.
+(function() {
+    // On ne s'active que sur mobile (ecrans tactiles)
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (!isMobile) return;
+
+    let touchStartY = 0;
+    let touchStartTime = 0;
+    const scrollEl = document.getElementById('scroll-wrapper') || document.body;
+    const SWIPE_THRESHOLD = 30; // pixels minimum pour considerer un swipe
+
+    scrollEl.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+    }, { passive: true });
+
+    scrollEl.addEventListener('touchend', function(e) {
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchStartY - touchEndY; // positif = swipe vers le haut (scroll down)
+        const elapsed = Date.now() - touchStartTime;
+
+        // On ignore les taps et les gestes trop lents (>800ms = probablement un drag precis)
+        if (Math.abs(deltaY) < SWIPE_THRESHOLD || elapsed > 800) return;
+
+        const scrollTop = scrollEl.scrollTop;
+        const viewportHeight = window.innerHeight;
+
+        if (deltaY > 0) {
+            // Swipe vers le haut = on veut voir les features
+            // Si on est encore pres du haut, on scroll vers le bas du container
+            if (scrollTop < viewportHeight * 0.5) {
+                scrollEl.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+            }
+        } else {
+            // Swipe vers le bas = on veut revenir au hero
+            // Si on est dans la zone features, on retourne en haut
+            if (scrollTop > 0) {
+                scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    }, { passive: true });
+})();
     </script>
 
     <style>
-        html {
-            /* On force l'arret obligatoire et on reserve l'espace du header */
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            overscroll-behavior: none;
-            height: 100dvh;
-            overflow: hidden;
-        }
-
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            height: 100dvh;; /* Fixe ton erreur de 50% */
-            overflow-y: auto; 
-            overflow-x: hidden;
+            height: 100dvh;
+            overflow: hidden;
+            overscroll-behavior: none;
             background-color: #f8fafc;
+        }
+
+        #scroll-wrapper {
+            height: 100dvh;
+            overflow-y: auto;
+            overflow-x: hidden;
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            /* Le blocage du rebond sera parfaitement respecte ici */
             overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         #scrolly-container {
+            height: 110vh;
             scroll-snap-align: start;
-            /* Force l'arret sur le point d'ancrage sans glissement */
             scroll-snap-stop: always; 
             background: transparent !important;
         }
 
-        /* On s'assure que l'ancre invisible est bien prise en compte */
         .snap-point {
             scroll-snap-align: start;
             scroll-snap-stop: always;
+        }
+
+        /* Mobile: on agrandit la zone de scroll et on relache le snap */
+        @media (max-width: 767px) {
+            #scrolly-container {
+                height: 200vh;
+            }
+            #scroll-wrapper {
+                /* proximity au lieu de mandatory pour eviter le rebond sur mobile */
+                scroll-snap-type: y proximity;
+            }
         }
 
         /* On evite le scroll horizontal sur mobile du au carrousel */
