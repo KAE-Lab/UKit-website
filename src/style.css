@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+/* ── Tokens de couleur ───────────────────────────────────────────── */
 @theme {
   --color-primary-blue: #007AFF;
   --color-primary-purple: #5E5CE6;
 }
 
+/* ── Animation de dégradé animé ─────────────────────────────────── */
 @keyframes gradient-xy {
     0%, 100% {
         background-size: 400% 400%;
@@ -18,4 +20,117 @@
 
 .animate-gradient {
     animation: gradient-xy 8s ease infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BASE – html / body
+   Hauteur fixe + overflow caché : le scroll est géré par
+   #scroll-wrapper pour éviter le déplacement de la barre d'adresse
+   sur mobile.
+══════════════════════════════════════════════════════════════════ */
+html {
+    margin: 0;
+    padding: 0;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+/* ── Conteneur de scroll principal ──────────────────────────────── */
+#scroll-wrapper {
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── Section hero (zone scrollable avec sticky interne) ─────────── */
+#scrolly-container {
+    height: 110vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    background: transparent !important;
+}
+
+/* Ancre invisible utilisée par l'IntersectionObserver pour détecter
+   le passage hero → features */
+.snap-point {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+/* ── Overrides mobiles ───────────────────────────────────────────── */
+/* On agrandit la zone de scroll et on relâche le snap pour éviter
+   le rebond sur mobile */
+@media (max-width: 767px) {
+    #scrolly-container {
+        height: 200vh;
+    }
+
+    #scroll-wrapper {
+        scroll-snap-type: y proximity;
+    }
+}
+
+/* ── Carrousel d'onglets (mobile) ───────────────────────────────── */
+/* On masque la scrollbar horizontale du carrousel de features */
+.tabs-scroll {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tabs-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Onglets de features ─────────────────────────────────────────── */
+.tab-btn {
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* État actif : bordure colorée + élévation fixe */
+.active-tab {
+    border-color: #5E5CE6 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
+}
+
+.active-tab svg {
+    color: #5E5CE6 !important;
+}
+
+.active-tab span {
+    color: #0f172a !important;
+}
+
+/* ── Animations au scroll (reveal) ──────────────────────────────── */
+/* Les éléments marqués .reveal partent invisibles et descendent ;
+   la classe .is-visible est ajoutée par l'IntersectionObserver. */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-200 {
+    transition-delay: 200ms;
 }
