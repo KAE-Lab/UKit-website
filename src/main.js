@@ -73,7 +73,8 @@ async function initGraph() {
                 },
                 number: {
                     density: { enable: true, width: 1000 },
-                    value: 80
+                    value: 80,
+                    max: 80
                 },
                 opacity: {
                     value: { min: 0.6, max: 0.9 }
