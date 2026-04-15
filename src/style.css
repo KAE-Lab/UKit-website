@@ -18,6 +18,10 @@
     }
 }
 
+:root {
+    --app-height: 100dvh;
+}
+
 .animate-gradient {
     animation: gradient-xy 8s ease infinite;
 }
@@ -46,7 +50,7 @@ body {
 
 /* ── Conteneur de scroll principal ──────────────────────────────── */
 #scroll-wrapper {
-    height: 100dvh;
+    height: var(--app-height);
     overflow-y: auto;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;

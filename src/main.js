@@ -73,7 +73,8 @@ async function initGraph() {
                 },
                 number: {
                     density: { enable: true, width: 1000 },
-                    value: 80
+                    value: 80,
+                    max: 80
                 },
                 opacity: {
                     value: { min: 0.6, max: 0.9 }
@@ -348,3 +349,46 @@ transitionObserver.observe(document.querySelector('.snap-point'));
         }
     }, { passive: true });
 })();
+
+/* ══════════════════════════════════════════════════════════════════
+   SMART SCALING (ZOOM ADAPTATIF)
+   Sur les petits écrans (< 1024 px), on positionne scale-wrapper en
+   absolu au centre du conteneur sticky, aux dimensions de référence
+   (iPhone 13 Pro : 390 × 844), puis on le réduit uniformément pour
+   qu'il tienne pile dans le viewport réel — sans toucher à
+   --app-height ni au mécanisme de scroll-snap.
+══════════════════════════════════════════════════════════════════ */
+function applySmartScale() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scaleWrapper = document.getElementById('scale-wrapper');
+    if (!scaleWrapper) return;
+
+    // --app-height reste toujours égal à la vraie hauteur du viewport
+    document.documentElement.style.setProperty('--app-height', `${vh}px`);
+
+    if (vw < 1024) {
+        // Viewport de référence : le plus petit où le layout est parfait sans scale
+        const REF_W = 390;
+        const REF_H = 844;
+
+        // Scale uniforme contraint par les deux axes, +10 % de zoom de référence
+        const scale = Math.min(vw / REF_W, vh / REF_H) * 1.1;
+
+        // On centre la boîte de référence dans le viewport, puis on scale depuis
+        // son centre : le contenu visuel remplit exactement le viewport
+        scaleWrapper.style.position        = 'absolute';
+        scaleWrapper.style.width           = `${REF_W}px`;
+        scaleWrapper.style.height          = `${REF_H}px`;
+        scaleWrapper.style.left            = `${(vw - REF_W) / 2}px`;
+        scaleWrapper.style.top             = `${(vh - REF_H) / 2}px`;
+        scaleWrapper.style.transformOrigin = 'center center';
+        scaleWrapper.style.transform       = `scale(${scale})`;
+    } else {
+        scaleWrapper.style.cssText = '';
+        document.documentElement.style.setProperty('--app-height', '100dvh');
+    }
+}
+
+window.addEventListener('resize', applySmartScale);
+applySmartScale();
