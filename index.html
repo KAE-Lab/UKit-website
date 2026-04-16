@@ -38,7 +38,7 @@
          Barre fixe avec logo + bouton télécharger, masquée sur mobile.
     ══════════════════════════════════════════════════════════════════ -->
     <header
-        class="hidden md:block fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 shadow-sm">
+        class="hidden lg:block fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 shadow-sm">
         <nav class="container mx-auto px-6 h-20 flex justify-between items-center">
             <img src="/logo.png" alt="UKit" class="h-12 transition-transform duration-300 cursor-pointer">
             <button onclick="handleDownload()"
@@ -53,7 +53,7 @@
          Barre fixe allégée avec logo, bouton info et bouton télécharger.
     ══════════════════════════════════════════════════════════════════ -->
     <div
-        class="md:hidden fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 px-6 py-3 flex justify-between items-center shadow-sm">
+        class="lg:hidden fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 px-6 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-1">
             <img src="/logo.png" alt="UKit" onclick="scrollToTop()"
                 class="h-8 transition-transform active:scale-95 cursor-pointer">
@@ -146,13 +146,13 @@
                         <div id="hero-text"
                             class="col-start-1 row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left transition-opacity duration-700 opacity-100 z-20">
                             <h1
-                                class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">
+                                class="text-4xl lg:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">
                                 Le kit de survie pour <br>
                                 <span
                                     class="bg-gradient-to-r from-primary-blue to-primary-purple text-transparent bg-clip-text">l'étudiant
                                     bordelais.</span>
                             </h1>
-                            <p class="hidden md:block text-lg md:text-xl text-slate-600 leading-relaxed max-w-xl">
+                            <p class="hidden lg:block text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl">
                                 Consultez votre emploi du temps, accédez à l'ENT et plus encore en une seule application
                                 fluide et open-source.
                             </p>
@@ -265,7 +265,7 @@
 
                     <!-- Maquette téléphone avec vidéos superposées -->
                     <div
-                        class="relative shrink-0 w-full max-w-[240px] lg:max-w-[300px] translate-y-25 md:translate-y-0">
+                        class="relative shrink-0 w-full max-w-[240px] lg:max-w-[300px] translate-y-25 lg:translate-y-0">
                         <div
                             class="relative w-full bg-slate-900 p-2 lg:p-2.25 shadow-2xl rounded-[2.5rem] lg:rounded-[3rem]">
 
@@ -333,7 +333,7 @@
     <div id="qr-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQrModal()"></div>
         <div
-            class="relative bg-white border border-slate-200 rounded-3xl p-8 md:p-10 flex flex-col items-center gap-6 max-w-sm w-full shadow-2xl">
+            class="relative bg-white border border-slate-200 rounded-3xl p-8 lg:p-10 flex flex-col items-center gap-6 max-w-sm w-full shadow-2xl">
             <div class="flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-blue" fill="none"
                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -355,9 +355,9 @@
          Barre fixe en bas, masquée sur mobile.
     ══════════════════════════════════════════════════════════════════ -->
     <footer
-        class="hidden md:block fixed bottom-0 left-0 w-full z-50 border-t border-white/20 bg-white/40 backdrop-blur-xs shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
+        class="hidden lg:block fixed bottom-0 left-0 w-full z-50 border-t border-white/20 bg-white/40 backdrop-blur-xs shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
         <div
-            class="container mx-auto px-6 py-6 md:py-0 md:h-20 flex flex-col md:flex-row justify-between items-center gap-4">
+            class="container mx-auto px-6 py-6 lg:py-0 lg:h-20 flex flex-col lg:flex-row justify-between items-center gap-4">
             <p class="text-slate-500 text-sm">
                 Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank"
                     class="text-slate-600 hover:text-primary-blue transition-colors font-medium">KAE Lab</a> &bull; Fork
