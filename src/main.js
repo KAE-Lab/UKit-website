@@ -362,31 +362,52 @@ function applySmartScale() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const scaleWrapper = document.getElementById('scale-wrapper');
+    const featuresGrid = document.getElementById('features-grid');
+    
     if (!scaleWrapper) return;
 
-    // --app-height reste toujours égal à la vraie hauteur du viewport
     document.documentElement.style.setProperty('--app-height', `${vh}px`);
 
     if (vw < 1024) {
-        // Viewport de référence : le plus petit où le layout est parfait sans scale
         const REF_W = 390;
         const REF_H = 844;
-
-        // Scale uniforme contraint par les deux axes, +10 % de zoom de référence
         const scale = Math.min(vw / REF_W, vh / REF_H) * 1.1;
 
-        // On centre la boîte de référence dans le viewport, puis on scale depuis
-        // son centre : le contenu visuel remplit exactement le viewport
-        scaleWrapper.style.position        = 'absolute';
-        scaleWrapper.style.width           = `${REF_W}px`;
-        scaleWrapper.style.height          = `${REF_H}px`;
-        scaleWrapper.style.left            = `${(vw - REF_W) / 2}px`;
-        scaleWrapper.style.top             = `${(vh - REF_H) / 2}px`;
+        scaleWrapper.style.position = 'relative';
+        scaleWrapper.style.width = `${REF_W}px`;
+        scaleWrapper.style.height = `${REF_H}px`;
+        scaleWrapper.style.left = 'auto';
+        scaleWrapper.style.top = 'auto';
         scaleWrapper.style.transformOrigin = 'center center';
-        scaleWrapper.style.transform       = `scale(${scale})`;
+        scaleWrapper.style.transform = `scale(${scale})`;
+        scaleWrapper.style.overflow = 'visible';
+
+        if (featuresGrid) {
+            const trueW = vw / scale; 
+            
+            const marginOffset = (REF_W - trueW) / 2 - 24;
+            const paddingOffset = (trueW - REF_W) / 2 + 24;
+            
+            featuresGrid.style.width = `${trueW}px`;
+            
+            featuresGrid.style.marginLeft = `${marginOffset}px`;
+            featuresGrid.style.marginRight = `${marginOffset}px`; 
+            
+            featuresGrid.style.paddingLeft = `${paddingOffset}px`;
+            featuresGrid.style.paddingRight = `${paddingOffset}px`;
+        }
+        
     } else {
         scaleWrapper.style.cssText = '';
         document.documentElement.style.setProperty('--app-height', '100dvh');
+        
+        if (featuresGrid) {
+            featuresGrid.style.width = '';
+            featuresGrid.style.marginLeft = '';
+            featuresGrid.style.marginRight = '';
+            featuresGrid.style.paddingLeft = '';
+            featuresGrid.style.paddingRight = '';
+        }
     }
 }
 
