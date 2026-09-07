@@ -1,0 +1,25 @@
+# Lint et build a chaque poussee et chaque Pull Request. Le deploiement n'est pas ici : l'hebergeur
+# est branche sur `main` (README.md), ce workflow verifie seulement que ce qui part construit.
+name: Vérifier
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    name: Lint et build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
