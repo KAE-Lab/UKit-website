@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prêter un accès pour adapter ton campus — UKit</title>
+    <meta name="description"
+        content="Ce qu'on te demande, ce qu'on en fait et ce qu'on ne fera jamais, si tu prêtes un accès à ton portail universitaire pour que UKit s'adapte à ton campus.">
+
+    <!-- Open Graph (partage de lien : iMessage, WhatsApp, Discord, Slack…) -->
+    <meta property="og:type"        content="article">
+    <meta property="og:title"       content="Prêter un accès pour adapter ton campus — UKit">
+    <meta property="og:description" content="Ce qu'on te demande, ce qu'on en fait et ce qu'on ne fera jamais.">
+    <meta property="og:url"         content="%VITE_SITE_URL%/engagement.html">
+    <meta property="og:image"       content="%VITE_SITE_URL%/opengraph-image.png">
+
+    <link rel="icon" type="image/png" href="/icon.png">
+    <script type="module" src="/src/fond.js"></script>
+</head>
+
+<body
+    class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-primary-blue selection:text-white overflow-x-hidden relative">
+
+    <!-- Particules en arrière-plan (même config que index.html) -->
+    <div id="tsparticles" class="fixed inset-0 z-[-1] w-full h-full pointer-events-none"
+        style="-webkit-mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%); mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%);">
+    </div>
+
+    <!-- HEADER (identique à index.html) -->
+    <header
+        class="hidden md:block fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 shadow-sm">
+        <nav class="container mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="/"><img src="/logo.png" alt="UKit"
+                    class="h-12 transition-transform duration-300 cursor-pointer hover:scale-105"></a>
+        </nav>
+    </header>
+
+    <div
+        class="md:hidden fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 px-6 py-3 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-1">
+            <a href="/"><img src="/logo.png" alt="UKit" class="h-8 cursor-pointer active:scale-95"></a>
+        </div>
+    </div>
+
+    <!-- CONTENU PRINCIPAL : une colonne lisible, dans son propre conteneur de defilement (style.css) -->
+    <div class="page-defilante">
+    <main class="min-h-screen px-6 pt-28 pb-16 md:pt-36 md:pb-36">
+        <article class="mx-auto max-w-2xl flex flex-col gap-10">
+
+            <header class="flex flex-col gap-4">
+                <p class="text-sm font-semibold uppercase tracking-wide text-primary-purple">Adapter un campus</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+                    Prêter un accès, pour que UKit parle aussi à ton campus
+                </h1>
+                <p class="text-lg text-slate-500 leading-relaxed">
+                    UKit lit le portail de ton université pour te montrer ton dossier, ta formation, tes messages.
+                    Pour que ça marche chez toi, quelqu'un doit avoir vu ce portail avec un vrai compte — le tien,
+                    prêté le temps qu'il faut. Voilà exactement ce que ça veut dire, avant que tu décides.
+                </p>
+            </header>
+
+            <section class="rounded-3xl bg-white/60 backdrop-blur-xs border border-white/60 shadow-sm p-6 md:p-8 flex flex-col gap-8">
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Ce qu'on te demande</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Les identifiants du portail de ton université : l'identifiant et le mot de passe que tu tapes
+                        pour entrer sur ton ENT. Rien d'autre — ni ta carte, ni ton mail, ni tes notes en particulier.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Ce qu'on en fait</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Rejouer, depuis un ordinateur, les parcours de lecture que l'application fera plus tard depuis ton
+                        téléphone : ouvrir le portail, lire la page du dossier, celle de la formation, la messagerie.
+                        C'est ce qui permet d'écrire les fichiers d'instructions de ton établissement, puis de vérifier
+                        qu'ils lisent juste. Ces fichiers ne contiennent jamais d'identifiant : ils décrivent où lire,
+                        et chaque étudiant y entre avec son propre compte, depuis son propre appareil.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Combien de temps</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Pendant l'adaptation, et <strong>ensuite</strong>. Un portail change sans prévenir, et quand ça
+                        arrive, il faut un compte de ton campus pour corriger — et pour vérifier qu'un ajout ne casse
+                        rien. On préfère te le dire que de promettre deux semaines et t'écrire dans six mois. Tu peux
+                        reprendre l'accès à tout moment, c'est le point suivant.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Ce qu'on ne fera jamais</h2>
+                    <ul class="text-slate-600 leading-relaxed list-disc pl-5 flex flex-col gap-1">
+                        <li>Écrire quoi que ce soit sur ton compte : pas un message envoyé, pas un formulaire rempli, pas un réglage changé.</li>
+                        <li>Garder tes identifiants ailleurs que dans un fichier local, hors de tout dépôt, sur un seul poste.</li>
+                        <li>Les transmettre à qui que ce soit, ni les utiliser pour autre chose que lire les pages dont l'application a besoin.</li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Le mot de passe est à ton choix</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Tu peux le changer avant de nous le donner, nous donner celui-là, et le rechanger après. Ou ne
+                        rien changer du tout. On te le propose, on ne te l'impose pas.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">Changer ton mot de passe révoque tout</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        À tout moment, sans prévenir et sans rien demander à personne. C'est la seule clé, et elle est
+                        dans ta main. Si tu le fais, on ne t'en voudra pas — on te recontactera peut-être, si tu as
+                        laissé un moyen de le faire.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl font-bold">La surveillance quotidienne ne l'utilise pas</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Chaque matin, des sondes vérifient que les portails répondent — <strong>sans aucun
+                        identifiant</strong>. Ton accès ne sert qu'à ce qui demande d'être connecté : écrire et
+                        vérifier, puis corriger le jour où quelque chose bouge. Le reste du temps, il dort.
+                    </p>
+                </div>
+
+            </section>
+
+            <section class="flex flex-col gap-4">
+                <h2 class="text-2xl font-extrabold tracking-tight">Comment faire</h2>
+                <ol class="text-slate-600 leading-relaxed list-decimal pl-5 flex flex-col gap-2">
+                    <li>Ouvre le <a href="https://forms.gle/c8vpwBu1QpowkAKC8" target="_blank" rel="noopener" class="text-primary-blue font-medium hover:underline">formulaire</a> et choisis « Demander un campus ».</li>
+                    <li>Coche la case « Oui, j'ai lu la page d'engagement et on peut me contacter ».</li>
+                    <li>Laisse une adresse e-mail. Elle ne sert qu'à te répondre, et tu peux nous demander de l'effacer quand tu veux.</li>
+                </ol>
+                <p class="text-slate-500 leading-relaxed">
+                    On te répond, on convient ensemble du moment, et tu nous donnes l'accès par le canal que tu
+                    préfères — jamais dans le formulaire lui-même.
+                </p>
+            </section>
+
+            <footer class="text-sm text-slate-500 flex flex-col gap-1">
+                <p>Dernière mise à jour : 7 septembre 2026.</p>
+                <p>
+                    Cette page est versionnée dans le
+                    <a href="https://github.com/KAE-Lab/UKit-website/blob/main/engagement.html" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary-blue font-medium">dépôt du site</a>,
+                    et ce que l'application fait de tes données est dans la
+                    <a href="https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary-blue font-medium">politique de confidentialité</a>.
+                    La méthode, côté équipe :
+                    <a href="https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md" target="_blank" rel="noopener" class="text-slate-600 hover:text-primary-blue font-medium">adapter un nouveau campus</a>.
+                </p>
+            </footer>
+
+        </article>
+    </main>
+    </div>
+
+    <!-- FOOTER (identique à index.html) -->
+    <footer
+        class="hidden md:block fixed bottom-0 left-0 w-full z-50 border-t border-white/20 bg-white/40 backdrop-blur-xs shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
+        <div
+            class="container mx-auto px-6 py-6 md:py-0 md:h-20 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-sm">
+                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank"
+                    class="text-slate-600 hover:text-primary-blue transition-colors font-medium">KAE Lab</a> &bull; Fork
+                de <a href="https://github.com/kb-dev/UKit" target="_blank"
+                    class="text-slate-600 hover:text-primary-blue transition-colors font-medium">kb-dev</a>.
+            </p>
+            <div class="flex items-center gap-4">
+                <span class="text-slate-500 text-sm">Sous licence Apache 2.0</span>
+                <a href="https://github.com/KAE-Lab/UKit" target="_blank"
+                    class="text-slate-600 hover:text-slate-900 transition flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 text-sm font-medium">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

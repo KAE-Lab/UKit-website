@@ -59,6 +59,18 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+/* ── Page de lecture ─────────────────────────────────────────────── */
+/* html et body ne defilent pas (ci-dessus) : une page qui n'a pas la
+   structure de l'accueil a besoin de son propre conteneur, sans
+   l'accroche scroll-snap qui n'a de sens que pour le hero. */
+.page-defilante {
+    height: var(--app-height);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+}
+
 /* ── Section hero (zone scrollable avec sticky interne) ─────────── */
 #scrolly-container {
     height: 110vh;

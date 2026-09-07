@@ -1,16 +1,19 @@
+import { fileURLToPath } from 'node:url'
+
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
-import tailwincss from '@tailwindcss/vite'
-import { resolve } from 'path'
+
+// Un site statique de trois pages : chacune est une entree, sinon Vite ne construit que l'accueil.
+const page = (nom) => fileURLToPath(new URL(`./${nom}.html`, import.meta.url))
 
 export default defineConfig({
-    plugins: [
-        tailwincss(),
-    ],
+    plugins: [tailwindcss()],
     build: {
         rollupOptions: {
             input: {
-                main:     resolve(__dirname, 'index.html'),
-                download: resolve(__dirname, 'download.html'),
+                main: page('index'),
+                download: page('download'),
+                engagement: page('engagement'),
             },
         },
     },
