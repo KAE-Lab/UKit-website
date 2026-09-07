@@ -60,9 +60,12 @@ une adresse, pas un secret.
 
 ## Déploiement
 
-**Un push sur `main` publie le site.** L'hébergeur est branché sur la branche ; rien dans le dépôt
-ne le nomme, et c'est à renseigner ici le jour où quelqu'un d'autre que le propriétaire doit s'en
-occuper. Avant de pousser : `npm run lint` et `npm run build` verts, et la page relue dans le
+**Un push sur `main` publie le site**, par **Cloudflare Pages** branché sur ce dépôt : commande
+`npm run build`, dossier `dist`, Node lu dans `.nvmrc`. La branche de production se règle dans le
+projet Pages (*Settings → Builds & deployments*) : c'est elle qu'il a fallu repasser de `master` à
+`main` le 2026-09-07, après le renommage — sans ça, Cloudflare garde le dernier déploiement en
+silence. Les pages se servent aussi sans leur extension (`/engagement` et `/engagement.html` sont la
+même page). Avant de pousser : `npm run lint` et `npm run build` verts, et la page relue dans le
 navigateur — la définition de « terminé » est dans [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Ce qui n'est pas ici
