@@ -9,7 +9,8 @@ un push sur `main` le publie — les entrées sont datées.
 ### Ajouté
 
 - **Les mentions légales** (`/mentions-legales.html`) et **la page Confidentialité**
-  (`/confidentialite.html`), 2026-11-16 : l'éditeur, l'hébergeur, les licences et les marques ; ce que le site fait de tes
+  (`/confidentialite.html`), 2026-11-16 : l'association KAE Lab comme éditeur (RNA, SIREN, siège), le
+  directeur de la publication, l'hébergeur, les licences et les marques ; ce que le site fait de tes
   données, et le renvoi vers la politique de l'application.
 - **Une page introuvable** (`/404.html`), 2026-11-16 : sans elle, Cloudflare Pages rendait l'accueil à
   toute adresse inconnue.
