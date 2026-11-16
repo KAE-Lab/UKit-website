@@ -22,13 +22,6 @@
     <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/polices/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
-    <!-- La construction de l'ouverture se décide avant le premier rendu, pour ne pas montrer l'état
-         final puis le défaire ; sans script, ou en mouvement réduit, la page s'affiche construite. -->
-    <script>
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.documentElement.classList.add('en-construction')
-        }
-    </script>
     <script type="module" src="/src/main.js"></script>
 </head>
 
@@ -40,11 +33,10 @@
             <a class="cap marque" href="/">UKit</a>
             <span class="trait"></span>
             <nav class="sommaire cap" aria-label="Sommaire">
-                <a href="#kit">Le kit</a>
+                <a href="#etape-planning">Le kit</a>
+                <a href="#mesures">En chiffres</a>
                 <a href="#histoire">L'histoire</a>
             </nav>
-            <span class="m mesure-ecran decor" data-mesure-ecran aria-hidden="true"></span>
-            <button class="m calque" type="button" data-calque aria-pressed="true">traces <b>65 %</b></button>
             <a class="cap appel" href="/download.html">Télécharger
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">
@@ -55,211 +47,10 @@
         </header>
 
         <main>
-            <!-- ══ A · L'OUVERTURE ════════════════════════════════════════════
-                 Le logo se construit (traces, contour, verre), puis Fig. 01 s'extrude depuis son U.
-                 La figure est un instrument : le pointeur règle son écho, les cotes suivent. -->
-            <section class="ouverture" id="ouverture" data-section="A · ouverture" aria-labelledby="slogan">
-                <div class="ouverture-logo">
-                    <div class="plan-logo" data-plan-logo>
-                        <svg viewBox="-10 -75 870 460" aria-hidden="true">
-                            <defs>
-                                <linearGradient id="degrade-ukit" gradientUnits="userSpaceOnUse" x1="10.26" y1="3.95"
-                                    x2="845.43" y2="325.71">
-                                    <stop offset="0.32" stop-color="#007AFF" />
-                                    <stop offset="0.78" stop-color="#5E5CE6" />
-                                </linearGradient>
-                            </defs>
-                            <!-- Les traces de construction du logo, mesurées sur son dessin. -->
-                            <g class="construction" fill="none" stroke="rgba(244,244,247,.42)">
-                                <line class="c-1" x1="-3000" y1="0.7" x2="3000" y2="0.7" stroke="rgba(244,244,247,.22)"
-                                    stroke-dasharray="3 5" />
-                                <line class="c-1" x1="-3000" y1="342.5" x2="3000" y2="342.5" stroke="rgba(244,244,247,.22)"
-                                    stroke-dasharray="3 5" />
-                                <line class="c-2" data-trace="regle" x1="0" y1="-31.6" x2="850" y2="-31.6" stroke="rgba(244,244,247,.3)" />
-                                <rect class="c-3" data-trace="regle" x="310.7" y="-35.6" width="8" height="8" fill="#007AFF" stroke="none" />
-                                <rect class="c-3" data-trace="regle" x="751.9" y="-35.6" width="8" height="8" fill="#5E5CE6" stroke="none" />
-                                <circle class="c-2" data-trace="cercle" cx="162.3" cy="225.4" r="117.1" stroke-dasharray="3 5" />
-                                <path class="c-3" data-trace="cercle" d="M156.3 225.4h12M162.3 219.4v12" />
-                                <line class="c-3" data-trace="cercle" x1="162.3" y1="225.4" x2="245.1" y2="308.2"
-                                    stroke="rgba(244,244,247,.3)" />
-                                <line class="c-2" data-trace="point" x1="563" y1="26.1" x2="618" y2="26.1" stroke="rgba(244,244,247,.55)" />
-                                <path class="c-3" data-trace="point" d="M586.7 26.1h8M590.7 22.1v8" />
-                                <path class="c-3" data-trace="angle" d="M449.3 128.3 A41.5 41.5 0 0 1 449.4 200.2"
-                                    stroke="rgba(244,244,247,.5)" />
-                                <line class="c-4" data-trace="cote" x1="0" y1="371.6" x2="850" y2="371.6" />
-                                <line class="c-4" data-trace="cote" x1="0" y1="364.6" x2="0" y2="378.6" />
-                                <line class="c-4" data-trace="cote" x1="850" y1="364.6" x2="850" y2="378.6" />
-                                <g class="c-vise" data-trace="futs" stroke="rgba(244,244,247,.85)">
-                                    <path d="M341 236h47M341 230v12M388 230v12" />
-                                    <path d="M569.3 236h42.6M569.3 230v12M611.9 230v12" />
-                                </g>
-                            </g>
-                            <!-- Le logo en verre : le contour se trace, puis le dégradé le remplit à 42 %. -->
-                            <path class="verre" data-trace="verre" pathLength="1" fill="url(#degrade-ukit)" stroke="url(#degrade-ukit)"
-                                transform="translate(0.5 0.5)" data-verre
-                                d="M78.192 0.180L91.160 0.180A1.200 1.200 0 0 1 92.360 1.380L92.360 224.900A69.470 69.470 0 0 0 161.830 294.370A69.470 69.470 0 0 0 231.300 224.900L231.300 5.780A5.600 5.600 0 0 1 236.900 0.180L273.050 0.180A5.600 5.600 0 0 1 278.650 5.780L278.650 224.800A117.090 117.090 0 0 1 161.560 341.890A117.090 117.090 0 0 1 44.470 224.800L44.470 57.842A2.300 2.300 0 0 0 42.942 55.676L1.868 41.050A2.300 2.300 0 0 1 0.340 38.883L0.340 27.854A1.500 1.500 0 0 1 1.345 26.438L74.894 0.740A10.000 10.000 0 0 1 78.192 0.180ZM340.370 5.780A5.600 5.600 0 0 1 345.970 0.180L382.200 0.180A5.600 5.600 0 0 1 387.800 5.780L387.800 127.330A4.000 4.000 0 0 0 395.250 129.353L468.224 4.924A9.600 9.600 0 0 1 476.505 0.180L515.647 0.180A3.800 3.800 0 0 1 518.941 5.874L432.520 156.166A15.200 15.200 0 0 0 432.525 171.329L529.000 338.832A2.100 2.100 0 0 1 527.180 341.980L475.768 341.980A7.800 7.800 0 0 1 468.865 337.811L394.398 196.212A3.500 3.500 0 0 0 387.800 197.841L387.800 336.380A5.600 5.600 0 0 1 382.200 341.980L345.970 341.980A5.600 5.600 0 0 1 340.370 336.380ZM568.840 88.900A3.300 3.300 0 0 1 572.140 85.600L608.100 85.600A3.300 3.300 0 0 1 611.400 88.900L611.400 338.790A3.300 3.300 0 0 1 608.100 342.090L572.140 342.090A3.300 3.300 0 0 1 568.840 338.790ZM564.660 25.640A25.510 25.510 0 1 1 615.680 25.640A25.510 25.510 0 1 1 564.660 25.640ZM689.240 17.320L725.280 17.320A3.300 3.300 0 0 1 728.580 20.620L728.580 79.600A6.000 6.000 0 0 0 734.580 85.600L801.970 85.600A3.700 3.700 0 0 1 805.670 89.300L805.670 115.900A3.700 3.700 0 0 1 801.970 119.600L734.580 119.600A6.000 6.000 0 0 0 728.580 125.600L728.580 239.934C728.580 276.715 757.022 300.709 787.979 300.709C805.415 300.709 814.615 292.924 827.423 287.454A2.000 2.000 0 0 1 829.852 288.210L848.940 317.954A2.000 2.000 0 0 1 848.246 320.772C829.770 331.336 810.486 341.939 780.359 341.939C730.978 341.939 685.940 302.932 685.940 246.287L685.940 125.600A6.000 6.000 0 0 0 679.940 119.600L655.340 119.600A3.700 3.700 0 0 1 651.640 115.900L651.640 89.300A3.700 3.700 0 0 1 655.340 85.600L679.940 85.600A6.000 6.000 0 0 0 685.940 79.600L685.940 20.620A3.300 3.300 0 0 1 689.240 17.320Z" />
-                        </svg>
-                        <span class="m etiquette-plan decor" data-trace="regle" style="--px:0;--py:-62">dégradé · 21°</span>
-                        <span class="m etiquette-plan decor" data-trace="regle" style="--px:314.7;--py:-62">#007aff · 32 %</span>
-                        <span class="m etiquette-plan decor" data-trace="regle" style="--px:755.9;--py:-62">#5e5ce6 · 78 %</span>
-                        <span class="m etiquette-plan decor" data-trace="cercle" style="--px:252;--py:300">r 117</span>
-                        <span class="m etiquette-plan decor" data-trace="point" style="--px:626;--py:14">ø 51</span>
-                        <span class="m etiquette-plan decor" data-trace="angle" style="--px:478;--py:156">120°</span>
-                        <span class="m etiquette-plan etiquette-cote" data-trace="cote" style="--px:425;--py:365">ukit.svg · 850 × 343</span>
-                    </div>
-                </div>
-
-                <div class="ouverture-texte">
-                    <h1 id="slogan" class="slogan deux-tons">Le <b>kit de survie</b><br>pour l’<b>étudiant bordelais</b>.
-                    </h1>
-                    <p class="m fiche decor" data-fiche aria-hidden="true">geist 560 · 66 / 72</p>
-
-                    <div class="ouverture-appel">
-                        <div class="magasins">
-                            <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
-                                <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
-                                    height="40">
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
-                                rel="noopener">
-                                <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
-                                    height="40">
-                            </a>
-                        </div>
-                        <p class="m">gratuit · sans compte · <b>open source</b></p>
-                    </div>
-                </div>
-
-                <!-- La nomenclature du logo : ses vraies mesures (docs/identite.md). Viser une ligne allume
-                     sa trace sur le dessin. -->
-                <aside class="nomenclature" aria-label="Les mesures du logo">
-                    <p class="m"><b>fiche</b> · ukit.svg</p>
-                    <dl>
-                        <div tabindex="0" data-vise="cote"><dt class="m">lettrage</dt><dd>dessiné, 850 × 343</dd></div>
-                        <div tabindex="0" data-vise="cercle"><dt class="m">bol du U</dt><dd>r 117,1 et 69,5</dd></div>
-                        <div tabindex="0" data-vise="futs"><dt class="m">fûts</dt><dd>47,5 · 42,6 pour i et t</dd></div>
-                        <div tabindex="0" data-vise="angle"><dt class="m">K</dt><dd>120° entre bras et jambe</dd></div>
-                        <div tabindex="0" data-vise="point"><dt class="m">point du i</dt><dd>ø 51</dd></div>
-                        <div tabindex="0" data-vise="regle"><dt class="m">dégradé</dt><dd>axe à 21°, de 32 % à 78 %</dd></div>
-                        <div tabindex="0" data-vise="verre"><dt class="m">verre</dt><dd>rempli à 42 %, arête 1,6 px</dd></div>
-                    </dl>
-                </aside>
-
-                <!-- L'horizon de l'ouverture : le contenu du kit, une station par fiche. -->
-                <nav class="horizon horizon-kit" aria-label="Le contenu du kit">
-                    <a class="station" href="#etape-planning">
-                        <span class="icone" aria-hidden="true"><!-- lucide calendar-days, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M8 2v4" />
-                                <path d="M16 2v4" />
-                                <rect width="18" height="18" x="3" y="4" rx="2" />
-                                <path d="M3 10h18" />
-                                <path d="M8 14h.01" />
-                                <path d="M12 14h.01" />
-                                <path d="M16 14h.01" />
-                            </svg>
-                        </span>
-                        <span class="m etiquette"><span class="n1">02</span>emploi du temps</span>
-                    </a>
-                    <a class="station" href="#etape-bibliotheques">
-                        <span class="icone" aria-hidden="true"><!-- lucide library-big, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="8" height="18" x="3" y="3" rx="1" />
-                                <path d="M7 3v18" />
-                                <path
-                                    d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z" />
-                            </svg>
-                        </span>
-                        <span class="m etiquette"><span class="n1">03</span>bibliothèques</span>
-                    </a>
-                    <a class="station" href="#etape-restos">
-                        <span class="icone" aria-hidden="true"><!-- lucide utensils, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                                <path d="M7 2v20" />
-                                <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
-                            </svg>
-                        </span>
-                        <span class="m etiquette"><span class="n2">04</span>restos u</span>
-                    </a>
-                    <a class="station" href="#etape-salles">
-                        <span class="icone" aria-hidden="true"><!-- lucide door-open, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M13 4h3a2 2 0 0 1 2 2v14" />
-                                <path d="M2 20h3" />
-                                <path d="M13 20h9" />
-                                <path d="M10 12v.01" />
-                                <path
-                                    d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z" />
-                            </svg>
-                        </span>
-                        <span class="m etiquette"><span class="n3">05</span>salles libres</span>
-                    </a>
-                    <a class="station" href="#etape-scolarite">
-                        <span class="icone" aria-hidden="true"><!-- lucide graduation-cap, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
-                                <path d="M22 10v6" />
-                                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
-                            </svg>
-                        </span>
-                        <span class="m etiquette"><span class="n3">06</span>scolarité</span>
-                    </a>
-                </nav>
-            </section>
-
-            <!-- ══ B · FIG. 01 : le U du logo en écho, construit par le défilement ═════
-                 Une copie de plus à chaque pas de défilement, jusqu'à quarante ; le pointeur
-                 règle le décalage, les cotes suivent. -->
-            <section class="fig-scene" id="fig-01" data-section="B · le U" data-echo-scene
-                aria-labelledby="titre-fig">
-                <div class="fig-plateau">
-                    <header class="fig-texte">
-                        <p class="m"><b>B · fig. 01</b> · le U, en écho</p>
-                        <h2 id="titre-fig" class="question deux-tons"><b>Tout vient du logo</b> : son U, répété
-                            quarante fois, du bleu à l'indigo.</h2>
-                        <dl class="specs mesures-echo" data-lecture-echo>
-                            <div><dt class="m">copies</dt><dd class="m"><b data-echo-copies>40</b> / 40</dd></div>
-                            <div><dt class="m">décalage</dt><dd class="m"><b data-echo-decalage>(5,0 ; 3,2)</b> par copie</dd></div>
-                            <div><dt class="m">angle</dt><dd class="m"><b data-echo-angle>32,6°</b></dd></div>
-                            <div><dt class="m">trait</dt><dd class="m"><b>1,2 px</b> · opacité 1 → 0,1</dd></div>
-                            <div><dt class="m">teinte</dt><dd class="m"><b>#007aff → #5e5ce6</b></dd></div>
-                        </dl>
-                    </header>
-                    <figure class="ouverture-fig" data-echo>
-                        <figcaption class="cap legende">Fig. 01 · <b>Le U</b></figcaption>
-                        <svg class="echo" viewBox="-4 -4 550 603" role="img"
-                            aria-label="Le U du logo, répété quarante fois en écho, du bleu à l'indigo">
-                            <g class="echo-traces decor" fill="none" stroke="rgba(244,244,247,.42)">
-                                <line data-arete="0" stroke-dasharray="3 5" />
-                                <line data-arete="1" stroke-dasharray="3 5" />
-                                <line data-horizontale stroke="rgba(244,244,247,.3)" />
-                                <path data-arc />
-                                <text data-angle-texte class="m" fill="#A0A0AC" stroke="none" font-size="15"></text>
-                            </g>
-                            <g data-copies></g>
-                            <g class="echo-traces decor">
-                                <circle data-noeud r="3.5" fill="#0B0B12" stroke="rgba(244,244,247,.85)" />
-                            </g>
-                        </svg>
-                    </figure>
-                </div>
-            </section>
-
-            <!-- ══ C · LE KIT : une figure épinglée, cinq fiches qui défilent ═════ -->
-            <section class="kit" id="kit" data-section="C · le kit" aria-labelledby="titre-kit">
-                <header class="entete-section">
-                    <p class="m"><b>C · le kit</b> · 4 onglets · 5 fiches</p>
-                    <h2 id="titre-kit" class="question deux-tons"><b>Emploi du temps</b>, <b>restos U</b>,
-                        <b>bibliothèques</b>, <b>salles libres</b> et <b>compte universitaire</b>, au même endroit.</h2>
-                </header>
-
+            <!-- ══ L'APPLICATION : un téléphone épinglé, l'ouverture puis cinq fiches qui défilent ═════
+                 Sur ordinateur, l'écran reste en place à gauche et change avec la fiche lue ; ses
+                 annotations pointent les vrais éléments de la capture. -->
+            <section class="kit" id="kit" aria-labelledby="slogan">
                 <div class="kit-corps">
                     <!-- La scène, sur ordinateur : l'écran de la fiche active, épinglé, et ses annotations. -->
                     <div class="scene" data-scene aria-hidden="true">
@@ -271,8 +62,44 @@
                     </div>
 
                     <ol class="etapes" data-etapes>
-                        <li class="etape" id="etape-planning" data-legende="Fig. 02 · Planning" data-image="/captures/planning.webp" data-alt="L&#x27;onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l&#x27;heure qui annonce le prochain cours">
-                            <p class="m"><b>fig. 02</b> · planning</p>
+                        <li class="etape etape-ouverture" id="ouverture" data-legende="Fig. 01 · Planning"
+                            data-image="/captures/planning.webp"
+                            data-alt="L'onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l'heure qui annonce le prochain cours">
+                            <img class="marque-verre" src="/epure/logo-verre.svg" width="850" height="343" alt="UKit">
+                            <h1 id="slogan" class="slogan deux-tons">Le <b>kit de survie</b> pour l’<b>étudiant
+                                    bordelais</b>.</h1>
+                            <p class="sous-titre deux-tons"><b>Emploi du temps</b>, <b>restos U</b>,
+                                <b>bibliothèques</b>, <b>salles libres</b> et <b>compte universitaire</b>, au même
+                                endroit.</p>
+                            <div class="ouverture-appel">
+                                <div class="magasins">
+                                    <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                                        <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
+                                            height="40">
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
+                                        rel="noopener">
+                                        <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
+                                            height="40">
+                                    </a>
+                                </div>
+                                <p class="m">gratuit · sans compte · <b>open source</b></p>
+                            </div>
+                            <figure class="etape-figure">
+                                <div class="ecran-cadre">
+                                    <div class="ecran"><img src="/captures/planning.webp" width="720" height="1527"
+                                            alt="L'onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l'heure qui annonce le prochain cours">
+                                    </div>
+                                </div>
+                            </figure>
+                            <ol class="m notes" data-notes>
+                                <li data-x="320" data-y="1442">ta pause · 3 h 10</li>
+                                <li data-x="552" data-y="1641">ta salle · A9.b / 103</li>
+                                <li data-x="1037" data-y="1952">ton prochain cours · dans 44 min</li>
+                            </ol>
+                        </li>
+                        <li class="etape" id="etape-planning" data-legende="Fig. 01 · Planning" data-image="/captures/planning.webp" data-alt="L&#x27;onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l&#x27;heure qui annonce le prochain cours">
+                            <p class="m"><b>fig. 01</b> · planning</p>
                             <h3 class="deux-tons"><b>Ta journée</b>, cours par cours.</h3>
                             <dl class="specs">
                                 <div><dt class="m">vue</dt><dd>jour ou semaine</dd></div>
@@ -289,16 +116,16 @@
                                 </div>
                             </figure>
                             <ol class="m notes" data-notes>
-                                <li data-x="540" data-y="391">jour · lun. 16 nov.</li>
-                                <li data-x="158" data-y="645">cours passé · estompé</li>
-                                <li data-x="47" data-y="1442">pause · 3 h 10</li>
-                                <li data-x="251" data-y="1641">salle · A9.b / 103</li>
-                                <li data-x="430" data-y="1703">enseignant · caviardé pour ce site</li>
-                                <li data-x="110" data-y="1952">maintenant · prochain cours dans 44 min</li>
+                                <li data-x="1037" data-y="238">vue · jour ou semaine</li>
+                                <li data-x="1037" data-y="760">cours passé · estompé</li>
+                                <li data-x="320" data-y="1442">pause · 3 h 10</li>
+                                <li data-x="552" data-y="1641">salle · A9.b / 103</li>
+                                <li data-x="585" data-y="1703">enseignant · caviardé pour ce site</li>
+                                <li data-x="1037" data-y="1952">maintenant · prochain cours dans 44 min</li>
                             </ol>
                         </li>
-                        <li class="etape" id="etape-bibliotheques" data-legende="Fig. 03 · Bibliothèques" data-image="/captures/bibliotheques.webp" data-alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée jusqu&#x27;au lundi suivant">
-                            <p class="m"><b>fig. 03</b> · bibliothèques</p>
+                        <li class="etape" id="etape-bibliotheques" data-legende="Fig. 02 · Bibliothèques" data-image="/captures/bibliotheques.webp" data-alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée jusqu&#x27;au lundi suivant">
+                            <p class="m"><b>fig. 02</b> · bibliothèques</p>
                             <h3 class="deux-tons"><b>L'affluence des BU</b>, avant d'y aller.</h3>
                             <dl class="specs">
                                 <div><dt class="m">affluence</dt><dd>en temps réel</dd></div>
@@ -315,15 +142,15 @@
                                 </div>
                             </figure>
                             <ol class="m notes" data-notes>
-                                <li data-x="948" data-y="628">favori</li>
-                                <li data-x="90" data-y="702">ville · Pessac</li>
-                                <li data-x="500" data-y="765">ouverte · affluence 35 %</li>
-                                <li data-x="300" data-y="1583">fermée · rouvre lun. 23/11 à 09:00</li>
-                                <li data-x="200" data-y="2161">recherche · bibliothèque ou ville</li>
+                                <li data-x="977" data-y="628">favori</li>
+                                <li data-x="240" data-y="702">ville · Pessac</li>
+                                <li data-x="1016" data-y="763">ouverte · affluence 35 %</li>
+                                <li data-x="728" data-y="1583">fermée · rouvre lun. 23/11 à 09:00</li>
+                                <li data-x="1000" data-y="2161">recherche · bibliothèque ou ville</li>
                             </ol>
                         </li>
-                        <li class="etape" id="etape-restos" data-legende="Fig. 04 · Restos U" data-image="/captures/resto.webp" data-alt="Le menu du midi d&#x27;une cafétéria du CROUS : entrées, plats et desserts, puis ses horaires et son plan">
-                            <p class="m"><b>fig. 04</b> · restos u</p>
+                        <li class="etape" id="etape-restos" data-legende="Fig. 03 · Restos U" data-image="/captures/resto.webp" data-alt="Le menu du midi d&#x27;une cafétéria du CROUS : entrées, plats et desserts, puis ses horaires et son plan">
+                            <p class="m"><b>fig. 03</b> · restos u</p>
                             <h3 class="deux-tons"><b>Le menu du jour</b>, avant de faire la queue.</h3>
                             <dl class="specs">
                                 <div><dt class="m">menus</dt><dd>le midi, du lundi au vendredi</dd></div>
@@ -339,15 +166,15 @@
                                 </div>
                             </figure>
                             <ol class="m notes" data-notes>
-                                <li data-x="105" data-y="285">jour · lun. 16</li>
-                                <li data-x="98" data-y="482">service · midi</li>
-                                <li data-x="200" data-y="918">menu · entrées, plats, desserts</li>
-                                <li data-x="127" data-y="1793">horaires · self 11h30-13h30</li>
-                                <li data-x="540" data-y="2190">s'y rendre · carte OpenStreetMap</li>
+                                <li data-x="905" data-y="285">semaine · du lundi au vendredi</li>
+                                <li data-x="158" data-y="482">service · midi</li>
+                                <li data-x="385" data-y="918">menu · entrées, plats, desserts</li>
+                                <li data-x="995" data-y="1793">horaires · self 11h30-13h30</li>
+                                <li data-x="296" data-y="2072">s'y rendre · carte OpenStreetMap</li>
                             </ol>
                         </li>
-                        <li class="etape" id="etape-salles" data-legende="Fig. 05 · Salles libres" data-image="/captures/salles.webp" data-alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune disponible jusqu&#x27;à 22 h">
-                            <p class="m"><b>fig. 05</b> · salles libres</p>
+                        <li class="etape" id="etape-salles" data-legende="Fig. 04 · Salles libres" data-image="/captures/salles.webp" data-alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune disponible jusqu&#x27;à 22 h">
+                            <p class="m"><b>fig. 04</b> · salles libres</p>
                             <h3 class="deux-tons"><b>Une salle libre</b>, heure par heure.</h3>
                             <dl class="specs">
                                 <div><dt class="m">créneau</dt><dd>heure par heure</dd></div>
@@ -363,14 +190,13 @@
                                 </div>
                             </figure>
                             <ol class="m notes" data-notes>
-                                <li data-x="535" data-y="286">heure · 17 h</li>
-                                <li data-x="238" data-y="482">9 salles libres</li>
-                                <li data-x="100" data-y="891">par étage</li>
-                                <li data-x="971" data-y="1026">libre · 5 h, jusqu'à 22:00</li>
+                                <li data-x="434" data-y="482">9 salles libres à 17 h</li>
+                                <li data-x="170" data-y="891">par étage</li>
+                                <li data-x="995" data-y="1026">libre · 5 h, jusqu'à 22:00</li>
                             </ol>
                         </li>
-                        <li class="etape" id="etape-scolarite" data-legende="Fig. 06 · Scolarité">
-                            <p class="m"><b>fig. 06</b> · scolarité</p>
+                        <li class="etape" id="etape-scolarite" data-legende="Fig. 05 · Scolarité">
+                            <p class="m"><b>fig. 05</b> · scolarité</p>
                             <h3 class="deux-tons"><b>Ton dossier</b>, tes services et <b>tes documents</b>.</h3>
                             <dl class="specs">
                                 <div><dt class="m">dossier</dt><dd>formation, numéro étudiant</dd></div>
@@ -391,10 +217,10 @@
                 </div>
             </section>
 
-            <!-- ══ D · LES MESURES : quatre chiffres vrais ════════════════════════ -->
-            <section class="section mesures" id="mesures" data-section="D · mesures" aria-labelledby="titre-mesures">
+            <!-- ══ LES MESURES : quatre chiffres vrais ════════════════════════ -->
+            <section class="section mesures" id="mesures" aria-labelledby="titre-mesures">
                 <header class="entete-section">
-                    <p class="m"><b>D · mesures</b> · relevées à la rentrée 2026</p>
+                    <p class="m"><b>en chiffres</b> · à la rentrée 2026</p>
                     <h2 id="titre-mesures" class="question deux-tons">Ce que UKit <b>compte</b>, et ce qu'il <b>ne
                             compte pas</b>.</h2>
                 </header>
@@ -463,23 +289,23 @@
                 </div>
             </section>
 
-            <!-- ══ E · L'HISTOIRE : la frise à l'échelle vraie, et le détail de 2026 ═══ -->
-            <section class="section histoire" id="histoire" data-section="E · histoire"
+            <!-- ══ L'HISTOIRE : la frise à l'échelle vraie, et le détail de 2026 ═══ -->
+            <section class="section histoire" id="histoire"
                 aria-labelledby="titre-histoire">
                 <div class="histoire-plateau">
                     <header class="entete-section">
-                        <p class="m"><b>E · histoire</b> · à l'échelle : une graduation, un an</p>
+                        <p class="m"><b>l'histoire</b> · à l'échelle : une graduation, un an</p>
                         <h2 id="titre-histoire" class="question deux-tons"><b>Depuis 2012</b>, de promo en promo.</h2>
                     </header>
                     <div class="frise" data-frise></div>
                 </div>
             </section>
 
-            <!-- ══ F · LE CARTOUCHE : ce que tout plan porte en bas à droite ═══════ -->
-            <section class="section cartouche-section" id="telecharger" data-section="F · cartouche"
+            <!-- ══ LE CARTOUCHE : ce que tout plan porte en bas à droite ═══════ -->
+            <section class="section cartouche-section" id="telecharger"
                 aria-labelledby="titre-telecharger">
                 <header class="entete-section">
-                    <p class="m"><b>F · cartouche</b> · télécharger</p>
+                    <p class="m"><b>télécharger</b> · ios · android</p>
                     <h2 id="titre-telecharger" class="slogan deux-tons"><b>Gratuit</b>, sans compte,<br><b>open
                             source</b>.</h2>
                 </header>
@@ -513,10 +339,6 @@
                             <dt class="m">éditeur</dt>
                             <dd><a href="https://github.com/KAE-Lab" rel="noopener">KAE Lab</a></dd>
                         </div>
-                        <div>
-                            <dt class="m">révision du site</dt>
-                            <dd class="m"><b>%VITE_REVISION%</b></dd>
-                        </div>
                     </dl>
                     <div class="cartouche-telecharger">
                         <div class="magasins">
@@ -536,7 +358,6 @@
                             <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
                         </div>
                     </div>
-                    <p class="cap cartouche-feuille">feuille <b>01 / 01</b></p>
                 </div>
             </section>
         </main>
@@ -555,9 +376,6 @@
                 </nav>
             </div>
         </footer>
-
-        <!-- La règle du plan : l'axe vertical de la page, gradué, avec ses sections. -->
-        <div class="regle decor" data-regle aria-hidden="true"></div>
     </div>
 </body>
 

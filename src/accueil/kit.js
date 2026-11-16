@@ -4,7 +4,7 @@
  * capture, 1080 x 2290) : elles pointent ce qui est vraiment a l'ecran.
  *
  * Sur ordinateur, une scene epinglee montre l'ecran de la fiche lue ; ses annotations se tracent a
- * gauche, en lignes de rappel coudees. Sur telephone, chaque fiche porte son ecran, des reperes
+ * droite, en lignes de rappel coudees. La premiere fiche est l'ouverture de la page. Sur telephone, chaque fiche porte son ecran, des reperes
  * numerotes et leur liste.
  */
 
@@ -38,15 +38,19 @@ function poserReperes(etape) {
 }
 
 /**
- * Les etiquettes se rangent en colonne, a intervalles reguliers sur la hauteur de l'ecran, dans l'ordre
- * de leurs ancres : les lignes de rappel arrivent en biais sur l'element, sans barrer le texte qu'elles
- * longeraient a l'horizontale.
+ * Chaque etiquette se pose a la hauteur de son ancre, prise au bout d'une ligne de texte : la ligne de
+ * rappel court a l'horizontale dans la partie vide de la rangee. Deux ancres trop proches s'ecartent,
+ * et leur rappel prend un leger biais.
  */
-function repartir(positions, haut, bas) {
-    const ordre = positions.map((y, i) => ({ y, i })).sort((a, b) => a.y - b.y)
+function etager(positions, ecart, haut, bas) {
+    const triees = positions.map((y, i) => ({ y, i })).sort((a, b) => a.y - b.y)
+    for (let k = 1; k < triees.length; k += 1) {
+        triees[k].y = Math.max(triees[k].y, triees[k - 1].y + ecart)
+    }
+    const depassement = triees.length ? triees[triees.length - 1].y - bas : 0
+    if (depassement > 0) triees.forEach((t) => { t.y = Math.max(haut, t.y - depassement) })
     const resultat = []
-    const pas = ordre.length > 1 ? (bas - haut) / (ordre.length - 1) : 0
-    ordre.forEach((o, k) => { resultat[o.i] = ordre.length > 1 ? haut + k * pas : o.y })
+    triees.forEach((t) => { resultat[t.i] = t.y })
     return resultat
 }
 
@@ -96,11 +100,13 @@ function installerScene(etapes) {
         const cadre = ecran.getBoundingClientRect()
         const echelle = cadre.width / LARGEUR
         const gauche = cadre.left - boite.left
+        const droite = cadre.right - boite.left
         const hautEcran = cadre.top - boite.top
         const ancres = notes.map((n) => ({ x: gauche + n.x * echelle, y: hautEcran + n.y * echelle }))
-        const ys = repartir(ancres.map((a) => a.y), hautEcran + cadre.height * 0.06, hautEcran + cadre.height * 0.94)
-        const bord = gauche - 22
-        const fin = gauche - 64
+        const ys = etager(ancres.map((a) => a.y), 28, hautEcran, hautEcran + cadre.height)
+        // Les etiquettes vivent a droite de l'ecran, dans la marge que le telephone laisse a la scene.
+        const bord = droite + 22
+        const fin = droite + 64
         notes.forEach((note, i) => {
             const a = ancres[i]
             const ligne = document.createElementNS(SVG, 'polyline')
@@ -117,7 +123,7 @@ function installerScene(etapes) {
             }
             const etiquette = document.createElement('span')
             etiquette.className = 'm annotation-etiquette'
-            etiquette.style.left = `${fin - 10}px`
+            etiquette.style.left = `${fin + 10}px`
             etiquette.style.top = `${ys[i]}px`
             etiquette.textContent = note.texte
             if (animer) {

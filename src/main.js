@@ -1,31 +1,22 @@
 /**
- * L'accueil : les instruments communs a toutes les pages, puis les quatre moments de la page --
- * l'ouverture qui se construit, Fig. 01 que le defilement extrude, le kit et ses annotations, la frise
- * a l'echelle.
+ * L'accueil : le kit (le telephone epingle et ses fiches), la frise de l'histoire, et le sommaire de la
+ * tete qui marque la section lue.
  */
 
-import { installerInstruments } from './instruments.js'
-import { installerOuverture } from './accueil/ouverture.js'
-import { installerEcho } from './accueil/echo.js'
 import { installerKit } from './accueil/kit.js'
 import { installerHistoire } from './accueil/histoire.js'
 
-installerInstruments()
-installerOuverture()
-installerEcho()
 installerKit()
 installerHistoire()
 
-// La fiche typographique du slogan dit la taille rendue a l'ecran, pas celle de la slide temoin.
-const slogan = document.getElementById('slogan')
-const fiche = document.querySelector('[data-fiche]')
-function majFiche() {
-    if (!slogan || !fiche) return
-    const style = getComputedStyle(slogan)
-    const corps = Math.round(parseFloat(style.fontSize))
-    const interligne = Math.round(parseFloat(style.lineHeight))
-    if (Number.isNaN(corps) || Number.isNaN(interligne)) return
-    fiche.textContent = `geist ${style.fontWeight} · ${corps} / ${interligne}`
-}
-majFiche()
-window.addEventListener('resize', majFiche)
+const liens = [...document.querySelectorAll('.sommaire a[href^="#"]')]
+const parCible = new Map(liens.map((lien) => [lien.getAttribute('href').slice(1), lien]))
+const observateur = new IntersectionObserver((entrees) => {
+    entrees.forEach((entree) => {
+        parCible.get(entree.target.id)?.setAttribute('aria-current', String(entree.isIntersecting))
+    })
+}, { rootMargin: '-40% 0px -55% 0px' })
+parCible.forEach((_, id) => {
+    const cible = document.getElementById(id)
+    if (cible) observateur.observe(cible)
+})

@@ -31,8 +31,8 @@ Une page n'est terminée que lorsque tout ceci est vrai :
 
 ## Principes de code
 
-- Du JavaScript sans framework, en modules ES. Une page secondaire charge `src/page.js` (les
-  instruments de la tête), l'accueil `src/main.js` ; sans script, le contenu reste lisible, seuls la
+- Du JavaScript sans framework, en modules ES, et seulement là où il sert : les pages secondaires
+  n'en ont pas, l'accueil charge `src/main.js` ; sans script, le contenu reste lisible, seuls la
   frise et les annotations du kit manquent.
 - Une valeur affichée comme une mesure est une vraie mesure, relue à l'exécution ou relevée à la
   source : jamais une décoration chiffrée.

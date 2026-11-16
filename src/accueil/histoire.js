@@ -6,7 +6,10 @@
  * tard (archives du web) et s'affichent a l'annee.
  */
 
-import { nombre } from '../instruments.js'
+/** Un nombre a la francaise, l'espace fine (que Geist n'a pas) remplacee par une insecable. */
+function nombre(valeur) {
+    return new Intl.NumberFormat('fr-FR').format(valeur).replace(/\u202f/g, '\u00a0')
+}
 
 const EVENEMENTS = [
     { date: '2012-09-12', affichee: '2012', texte: '«\u00a0Emplois du temps de Bordeaux\u00a0I\u00a0», le site d’un étudiant' },
