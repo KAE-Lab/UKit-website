@@ -16,7 +16,7 @@ dit, en moins de mots.
 
 | Page | Adresse | Ce qu'elle fait |
 |---|---|---|
-| L'accueil | `/` | vendre l'application : l'ouverture (titre, bouton, un téléphone et deux cartes de l'appli), une section par onglet (Planning, Campus, Scolarité) et ses fonctions, les atouts, les établissements, les stores |
+| L'accueil | `/` | la fiche produit de l'application : l'ouverture (titre, bouton, un téléphone et deux cartes de l'appli), un module par onglet (Planning, Campus, Scolarité) avec ses points forts et sa fiche, la fiche technique, les stores |
 | Télécharger | `/download.html` | rediriger vers le store du téléphone qui l'ouvre ; sur un ordinateur, montrer les deux badges et le QR code |
 | Engagement | `/engagement.html` | ce qu'on demande, ce qu'on en fait et ce qu'on ne fera jamais, quand quelqu'un prête un accès à son portail pour que UKit s'adapte à son campus ([docs/adaptation-campus.md](https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md), côté équipe) |
 | Mentions légales | `/mentions-legales.html` | l'éditeur (l'association KAE Lab), le directeur de la publication, l'hébergeur, les licences et les marques (loi n° 2004-575, art. 1-1) |
@@ -61,12 +61,17 @@ sortent deux cartes de l'onglet Campus.
 - **Les valeurs viennent du thème sombre de l'application**
   ([`palettes.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/palettes.ts),
   [`tokens.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/tokens.ts)) : fond
-  `#0B0B12`, carte `#15151E`, textes `#FFFFFF` / `#BCBCCB` / `#8A8A98`, accent `#6381F8` à
-  `#5974DF`, rayon de 16, et les couleurs de ses sections pour les familles de fonctions.
-- **Les listes de fonctions sont des groupes des Réglages** : une rangée par fonction, l'icône
-  blanche dans un carré de la couleur de sa famille, un filet indenté sous le libellé.
-- **Les icônes sont celles de l'application** : Lucide, tirées de son paquet
-  (`lucide-react-native` 1.61.0), au trait de 1,75.
+  `#0B0B12`, carte `#15151E`, textes `#FFFFFF` / `#BCBCCB` / `#8A8A98`, filet `#2A2A37`, accent
+  `#6381F8` à `#5974DF`, rayon de 16. Chaque module prend la teinte de l'en-tête de son onglet
+  (`fondDOnglet`), en lueur derrière son titre.
+- **Une hiérarchie de fiche produit** : le nom du module en grand titre, comme un onglet de
+  l'application ; une phrase factuelle ; trois points forts en valeur lisible d'abord ; puis une
+  fiche clé / valeur pour le détail, et une fiche technique générale en fin de page.
+- **Les icônes sont celles de l'application, et comme elle les emploie** : Lucide, tirées de son
+  paquet (`lucide-react-native` 1.61.0), au trait de 1,75, neutres. Pas de carré de couleur : la
+  deuxième passe de 7-J l'a retiré de l'application, jugé « prototype ».
+- **Le ton est impersonnel**, celui d'une fiche produit : ni tutoiement, ni formule publicitaire.
+  La page d'engagement, qui s'adresse à un volontaire et que le formulaire cite, garde le sien.
 - **La police est celle du système**, comme dans l'application : aucune police à télécharger.
 - **Les cartes de l'ouverture** sont écrites en HTML avec les données d'exemple de l'application
   ([`exemples.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/features/Onboarding/components/exemples.ts)).

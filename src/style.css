@@ -16,6 +16,7 @@
     --texte: #FFFFFF;
     --texte-2: #BCBCCB;
     --texte-3: #8A8A98;
+    --bordure: #2A2A37;
     --accent: #6381F8;
     --accent-profond: #5974DF;
     --cyan: #64D2FF;
@@ -449,314 +450,318 @@ button:focus-visible {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   LES ONGLETS : une section par onglet de l'application
+   LES MODULES : un par onglet de l'application, en fiche produit
+   Chaque module prend la teinte de l'en-tête de son onglet dans
+   l'application (palettes.ts, fondDOnglet), du haut vers rien.
 ══════════════════════════════════════════════════════════════════ */
 
-.onglet {
+.module {
+    position: relative;
+    padding-top: 96px;
+}
+
+/* Une lueur derrière le titre du module, sans bord : la teinte naît et meurt dans le fond. */
+.module::before {
+    content: "";
+    position: absolute;
+    inset: -80px 0 auto;
+    height: 760px;
+    background: radial-gradient(ellipse 70% 50% at 50% 42%, var(--teinte-haut), var(--teinte-bas) 45%, rgba(11, 11, 18, 0) 75%);
+    opacity: .8;
+    pointer-events: none;
+}
+
+.module > * {
+    position: relative;
+}
+
+.module-planning {
+    --teinte-haut: #001B4D;
+    --teinte-bas: rgba(2, 22, 77, .45);
+}
+
+.module-campus {
+    --teinte-haut: #03174E;
+    --teinte-bas: rgba(17, 18, 77, .45);
+}
+
+.module-scolarite {
+    --teinte-haut: #12134E;
+    --teinte-bas: rgba(27, 14, 75, .45);
+}
+
+.module-grille {
     display: grid;
     gap: 40px;
-    padding-top: 88px;
 }
 
-.sur-titre {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.sur-titre svg {
-    width: 18px;
-    height: 18px;
-}
-
-.titre-section {
-    margin-top: 12px;
-    font-size: clamp(32px, 5.4vw, 48px);
+/* Le nom du module, comme le grand titre d'un onglet de l'application. */
+.titre-module {
+    font-size: clamp(38px, 6.4vw, 56px);
     font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -.03em;
+    line-height: 1.04;
+    letter-spacing: -.032em;
 }
 
-.onglet .chapeau {
-    margin-top: 16px;
+.module .chapeau,
+.cloture .chapeau {
+    margin-top: 14px;
     max-width: 34em;
     color: var(--texte-2);
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1.5;
 }
 
-.onglet-media {
+.module-media {
     display: grid;
     place-items: center;
 }
 
-.onglet-media .telephone {
+.module-media .telephone {
     max-width: 290px;
 }
 
-/* Les couleurs des familles : celles des sections de l'application (palettes.ts). */
-.bleu { background: #0A84FF; }
-.vert { background: #30D158; }
-.orange { background: #FF9F0A; }
-.cyan { background: #32ADE6; }
-.violet { background: #5E5CE6; }
-.accent { background: var(--accent); }
-.bleu-texte { color: #4BA3FF; }
-.vert-texte { color: #30D158; }
-.orange-texte { color: #FF9F0A; }
-.cyan-texte { color: #64D2FF; }
-.violet-texte { color: #8B8AF0; }
-.indigo-texte { color: var(--accent); }
-
-/* Un groupe encadré, comme ceux des Réglages : une rangée par fonction, l'icône blanche dans un
-   carré de la couleur de sa famille, un filet indenté sous le libellé. */
-.groupe {
+/* Les points forts : trois valeurs à lire d'abord, comme les widgets de l'application. */
+.points-forts {
     list-style: none;
-    margin-top: 24px;
-    background: var(--carte);
-    border: 1px solid var(--contour);
-    border-radius: var(--rayon);
-    overflow: hidden;
-}
-
-.groupe li {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 56px;
-    padding: 10px 16px;
-}
-
-.groupe li + li::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 60px;
-    right: 0;
-    height: 1px;
-    background: var(--contour);
-}
-
-.tuile {
-    flex-shrink: 0;
     display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    color: #FFFFFF;
-}
-
-.tuile svg {
-    width: 18px;
-    height: 18px;
-}
-
-.tuile.grande {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-}
-
-.tuile.grande svg {
-    width: 28px;
-    height: 28px;
-}
-
-.libelle {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-}
-
-.libelle strong {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.libelle span {
-    color: var(--texte-3);
-    font-size: 14px;
-}
-
-/* Le Campus : trois colonnes, un écran et ses fonctions chacune. */
-.onglet-campus {
-    gap: 8px;
-}
-
-.colonnes {
-    display: grid;
-    gap: 48px;
+    gap: 12px;
     margin-top: 32px;
 }
 
-.colonne .telephone {
+.points-forts li {
+    display: grid;
+    align-content: start;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 14px;
+    align-items: center;
+    padding: 18px 20px;
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: var(--rayon);
+}
+
+.points-forts svg {
+    grid-row: span 2;
+    width: 24px;
+    height: 24px;
+    color: var(--texte-2);
+}
+
+.points-forts strong {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+}
+
+.points-forts span {
+    color: var(--texte-3);
+    font-size: 15px;
+    line-height: 1.35;
+}
+
+/* La fiche : une clé, une valeur, un filet. */
+.fiche {
+    margin-top: 28px;
+    border-bottom: 1px solid var(--bordure);
+}
+
+.fiche > div {
+    display: grid;
+    align-items: baseline;
+    grid-template-columns: minmax(110px, 9.5em) 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--bordure);
+}
+
+.fiche dt {
+    color: var(--texte-3);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.fiche dd {
+    font-size: 16px;
+    line-height: 1.45;
+}
+
+/* Le Campus : trois sous-modules, un écran et sa fiche chacun. */
+.sous-modules {
+    display: grid;
+    gap: 56px;
+    margin-top: 48px;
+}
+
+.sous-module .telephone {
     max-width: 250px;
     margin-inline: auto;
 }
 
-.colonne .sur-titre {
+.sous-module h3 {
     margin-top: 28px;
-}
-
-.colonne .groupe {
-    margin-top: 12px;
-}
-
-/* La Scolarité : la promesse sur les identifiants, en carte. */
-.carte-securite {
-    max-width: 400px;
-    padding: 28px;
-    box-shadow: none;
-    background:
-        radial-gradient(120% 80% at 0% 0%, rgba(94, 92, 230, .18), rgba(94, 92, 230, 0)),
-        var(--carte);
-}
-
-.carte-securite .carte-titre {
-    margin-top: 20px;
     font-size: 22px;
     font-weight: 700;
-    line-height: 1.25;
     letter-spacing: -.016em;
 }
 
-.carte-securite p:not(.carte-titre) {
-    margin-top: 10px;
+.sous-module .accroche {
+    margin-top: 4px;
     color: var(--texte-2);
     font-size: 16px;
 }
 
-.carte-securite a {
-    display: inline-block;
-    margin-top: 16px;
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
+.fiche-courte {
+    margin-top: 18px;
 }
 
-.carte-securite a:hover {
-    text-decoration: underline;
+.fiche-courte > div {
+    grid-template-columns: 7.5em 1fr;
+    padding: 11px 0;
 }
 
-@media (min-width: 960px) {
-    .onglet {
-        grid-template-columns: 5fr 7fr;
-        align-items: center;
-        gap: 64px;
-        padding-top: 140px;
-    }
-
-    .onglet-scolarite {
-        grid-template-columns: 7fr 5fr;
-    }
-
-    .onglet-campus {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    .onglet-texte .groupe {
-        max-width: 520px;
-    }
-
-    .colonnes {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-        margin-top: 56px;
-    }
-
-    .grille-atouts {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .liste-etablissements {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (min-width: 1280px) {
-    .flottante {
-        scale: 1;
-    }
-
-    .flottante-1 {
-        left: -64px;
-    }
-
-    .flottante-2 {
-        right: -48px;
-    }
-}
-
-/* ── Et aussi : six atouts en cartes ──────────────────────────────── */
-
-.atouts,
-.etablissements {
-    padding-top: 112px;
-}
-
-.grille-atouts {
-    list-style: none;
+/* La Scolarité : le bloc « En un coup d'œil » de l'onglet, avec ses libellés réels. */
+.coup-d-oeil {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
-    gap: 12px;
-    margin-top: 32px;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
 }
 
-.atout {
+.widget {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    box-shadow: none;
+    gap: 18px;
     padding: 20px;
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: 22px;
 }
 
-.atout .tuile {
-    margin-bottom: 12px;
-}
-
-.atout strong {
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.atout span:not(.tuile) {
-    color: var(--texte-3);
-    font-size: 15px;
-}
-
-/* ── Les établissements ─────────────────────────────────────────── */
-
-.liste-etablissements {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
-    gap: 14px;
-    margin-top: 32px;
-}
-
-.liste-etablissements .carte {
-    display: flex;
+.widget-large {
+    grid-column: span 2;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
-    box-shadow: none;
-    font-size: 16px;
-    font-weight: 600;
+}
+
+.widget-icone {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--gris-fond);
+    color: var(--texte);
+}
+
+.widget-icone svg {
+    width: 24px;
+    height: 24px;
+}
+
+.widget-texte {
+    display: flex;
+    flex-direction: column;
     line-height: 1.3;
 }
 
-.liste-etablissements svg {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--accent);
+.widget-texte strong {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.016em;
 }
 
-/* ── La fin de l'accueil : les stores ─────────────────────────────── */
+.widget-texte span {
+    color: var(--texte-2);
+    font-size: 15px;
+}
+
+.widget-suite {
+    margin-left: auto;
+    color: var(--texte-3);
+}
+
+.widget-suite svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Sur un téléphone, une ligne de fiche s'empile : l'intitulé au-dessus de sa valeur. */
+@media (max-width: 639px) {
+    .fiche > div,
+    .fiche.fiche-courte > div,
+    .fiche.fiche-technique > div {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .fiche dt {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 640px) {
+    .points-forts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .points-forts li {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        align-items: start;
+        row-gap: 6px;
+    }
+
+    .points-forts svg {
+        grid-row: auto;
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 960px) {
+    .module {
+        padding-top: 140px;
+    }
+
+    .module-grille {
+        grid-template-columns: 5fr 7fr;
+        align-items: center;
+        gap: 72px;
+    }
+
+    .module-grille.inverse {
+        grid-template-columns: 7fr 5fr;
+    }
+
+    .sous-modules {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 64px;
+    }
+}
+
+/* ── La fiche technique et la fin de l'accueil ─────────────────────── */
+
+.caracteristiques {
+    padding-top: 128px;
+}
+
+.fiche-technique {
+    max-width: 860px;
+    margin-top: 32px;
+}
+
+.fiche-technique > div {
+    grid-template-columns: minmax(130px, 13em) 1fr;
+    padding: 16px 0;
+}
+
+.fiche-technique dd {
+    font-size: 17px;
+}
 
 .cloture {
     padding-top: 112px;
@@ -765,6 +770,7 @@ button:focus-visible {
 .cloture .magasins {
     margin-top: 28px;
 }
+
 
 .magasins {
     display: flex;

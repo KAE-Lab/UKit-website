@@ -25,14 +25,15 @@ un push sur `main` le publie — les entrées sont datées.
 
 ### Modifié
 
-- **Le site prend le style de l'application**, 2026-11-16 : le vocabulaire du premier écran de son
+- **Le site prend le style de l'application**, 2026-11-17 : le vocabulaire du premier écran de son
   accueil (fond sombre et sa lueur, vraies cartes de l'appli, titre en deux tons, bouton plein) dans
-  une composition propre au site, avec les couleurs du thème sombre, les icônes et la police de
-  l'application. L'accueil vend l'appli onglet par onglet : le Planning, le Campus (restos U,
-  bibliothèques, salles libres), la Scolarité, puis les atouts, les quatre établissements et les
+  une composition propre au site, avec les couleurs du thème sombre, les icônes Lucide neutres et la
+  police de l'application. L'accueil devient une fiche produit, au ton impersonnel : un module par
+  onglet (Planning, Campus, Scolarité), chacun avec sa teinte d'onglet, ses points forts et sa fiche
+  clé / valeur, puis la fiche technique (prix, plateformes, langues, établissements, code) et les
   stores, sur cinq captures de l'application 6.3 en thème sombre. Les pages de lecture prennent la
   même forme. L'image Open Graph est refaite ; le badge App Store est la version française
-  officielle ; le texte tutoie partout, comme l'application.
+  officielle.
 
 - **Le fond est extrait dans `src/fond.js`** (feuille de style et particules) : une page secondaire
   ne charge plus `main.js`, qui attend les éléments de l'accueil et échouait sur la page de
