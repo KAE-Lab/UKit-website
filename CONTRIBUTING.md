@@ -17,7 +17,8 @@ Une page n'est terminée que lorsque tout ceci est vrai :
 
 1. **Relue dans un navigateur, sur mobile et sur bureau**, depuis `npm run preview` — pas seulement
    dans l'éditeur. Le header et le footer sont ceux des autres pages.
-2. **Aucune erreur dans la console du navigateur**, et aucune requête vers un autre domaine.
+2. **Aucune erreur dans la console du navigateur**, et aucune requête vers un autre domaine : la
+   page Confidentialité promet qu'une visite n'en contacte aucun.
 3. **Aucun lien mort**, et aucun lien vers un dépôt qui n'est pas `KAE-Lab/UKit` — le site en a
    porté vers un fork pendant des mois sans que rien ne le signale.
 4. **Les balises Open Graph** sont présentes (`og:title`, `og:description`, `og:url`, `og:image`),

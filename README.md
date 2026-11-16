@@ -4,8 +4,8 @@
 
 <p align="center"><strong>Le site de UKit — <a href="https://ukit-bordeaux.fr">ukit-bordeaux.fr</a></strong></p>
 
-> La vitrine de l'application, sa page de téléchargement, et la page d'engagement du chantier campus.
-> L'application elle-même vit dans [KAE-Lab/UKit](https://github.com/KAE-Lab/UKit).
+> La vitrine de l'application, sa page de téléchargement, la page d'engagement du chantier campus,
+> et les pages légales. L'application elle-même vit dans [KAE-Lab/UKit](https://github.com/KAE-Lab/UKit).
 
 ## Ce que le site est
 
@@ -18,6 +18,8 @@ cookie ni de mesure d'audience. Ce qu'il dit de l'application est ce que le
 | L'accueil | `/` | présenter l'application : l'ouverture de l'Épure (le logo en verre, Fig. 01, trois faits), quatre captures, le téléchargement |
 | Télécharger | `/download.html` | rediriger vers le store du téléphone qui l'ouvre ; sur un ordinateur, montrer les deux badges et le QR code |
 | Engagement | `/engagement.html` | ce qu'on demande, ce qu'on en fait et ce qu'on ne fera jamais, quand quelqu'un prête un accès à son portail pour que UKit s'adapte à son campus ([docs/adaptation-campus.md](https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md), côté équipe) |
+| Mentions légales | `/mentions-legales.html` | l'éditeur, l'hébergeur, les licences du code, des polices et des icônes, les marques des stores (loi n° 2004-575, art. 1-1) |
+| Confidentialité | `/confidentialite.html` | ce que le site fait de tes données (rien qu'il garde), l'hébergeur, les liens sortants ; renvoie à `PRIVACY.md` pour l'application |
 | Page introuvable | `/404.html` | servie par Cloudflare Pages pour toute adresse inconnue |
 
 La page d'engagement est **citée par le formulaire de retours** de l'application : son adresse ne
@@ -29,6 +31,8 @@ change pas sans changer le formulaire.
 index.html             l'accueil
 download.html          la page de téléchargement
 engagement.html        la page d'engagement du chantier campus
+mentions-legales.html  les mentions légales
+confidentialite.html   la confidentialité du site
 404.html               la page introuvable
 src/
   style.css            l'Épure : polices, tokens, cadre, planche, horizon, pages de lecture — chaque page la charge
@@ -37,7 +41,7 @@ public/
   epure/               le logo en verre et Fig. 01, copiés du kit de l'application
   captures/            quatre captures de l'application 6.3, thème sombre, banc Android (1080 × 2400 réduites à 720)
   polices/             Geist et Geist Mono en woff2, réduites au latin
-  licences/            les licences des polices (OFL) et des icônes (ISC)
+  licences/            les licences des polices (OFL) et des icônes (ISC), liées depuis les mentions légales
   …                    icône, logo PNG du README, badges des stores, QR code, image Open Graph
 vite.config.js         une entrée par page
 eslint.config.js       les règles recommandées, et c'est tout
@@ -94,7 +98,8 @@ navigateur — la définition de « terminé » est dans [CONTRIBUTING.md](CONTR
 ## Ce qui n'est pas ici
 
 - **La politique de confidentialité de l'application** reste dans son dépôt :
-  [PRIVACY.md](https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md).
+  [PRIVACY.md](https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md). La page Confidentialité du site
+  y renvoie plutôt que de la recopier.
 - **Un thème clair** : l'Épure n'en a pas encore.
 
 ## Licence

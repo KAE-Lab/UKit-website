@@ -16,6 +16,8 @@ export default defineConfig({
                 main: page('index'),
                 download: page('download'),
                 engagement: page('engagement'),
+                mentionsLegales: page('mentions-legales'),
+                confidentialite: page('confidentialite'),
                 introuvable: page('404'),
             },
         },
