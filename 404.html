@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" href="/icon.png">
     <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
+    <script type="module" src="/src/page.js"></script>
 </head>
 
 <body>
@@ -18,6 +19,12 @@
         <header class="cadre tete">
             <a class="cap marque" href="/">UKit</a>
             <span class="trait"></span>
+            <nav class="sommaire cap" aria-label="Sommaire">
+                <a href="/#kit">Le kit</a>
+                <a href="/#histoire">L'histoire</a>
+            </nav>
+            <span class="m mesure-ecran decor" data-mesure-ecran aria-hidden="true"></span>
+            <button class="m calque" type="button" data-calque aria-pressed="true">traces <b>65 %</b></button>
             <a class="cap appel" href="/download.html">Télécharger
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">
@@ -27,10 +34,18 @@
             </a>
         </header>
 
-        <main class="section seule">
+        <main class="section seule" data-section="A · introuvable">
             <p class="m"><b>404</b> · page introuvable</p>
             <h1 class="slogan deux-tons">Cette page <b>n'existe pas</b>,<br>ou <b>plus</b>.</h1>
             <p class="m retour"><a href="/">retour à l'accueil</a></p>
+            <div class="tremie" aria-hidden="true">
+                <svg viewBox="0 0 400 240" preserveAspectRatio="none">
+                    <rect x="0.5" y="0.5" width="399" height="239" fill="none" stroke="rgba(244,244,247,.42)"
+                        stroke-dasharray="3 5" vector-effect="non-scaling-stroke" />
+                    <path d="M0 0L400 240M400 0L0 240" stroke="rgba(244,244,247,.3)" vector-effect="non-scaling-stroke" />
+                </svg>
+                <p class="m">trémie · rien n'est construit ici</p>
+            </div>
         </main>
 
         <footer class="pied">
@@ -46,6 +61,8 @@
                 </nav>
             </div>
         </footer>
+
+        <div class="regle decor" data-regle aria-hidden="true"></div>
     </div>
 </body>
 

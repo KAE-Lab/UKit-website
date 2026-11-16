@@ -4,9 +4,9 @@
    L'ÉPURE, l'identité de UKit, portée au site
    Ses règles et ses mesures sont dans le dépôt de l'application :
    https://github.com/KAE-Lab/UKit/blob/main/docs/identite.md
-   Sur ordinateur, l'ouverture de l'accueil reprend la grille de la slide
-   témoin (1920 × 1080, marges de 56) mise à l'échelle par l'unité --u ;
-   sur téléphone, les mêmes éléments se recomposent en colonne.
+   Sur ordinateur, les mesures suivent l'unité --u : un pixel d'une surface
+   de 1920, la largeur des slides témoins, mis à l'échelle de l'écran ; sur
+   téléphone, les éléments se recomposent en colonne.
 ══════════════════════════════════════════════════════════════════ */
 
 @font-face {
@@ -173,6 +173,8 @@ button:focus-visible {
 
 /* ══════════════════════════════════════════════════════════════════
    LE CADRE : la tête et le pied, au même endroit sur toutes les pages
+   La tête reste en haut de l'écran ; elle porte les instruments du plan :
+   les mesures de la fenêtre, et le calque des traces qu'on peut éteindre.
 ══════════════════════════════════════════════════════════════════ */
 
 .cadre {
@@ -184,28 +186,75 @@ button:focus-visible {
 
 .cadre .trait {
     flex: 1;
+    min-width: 24px;
     height: 1px;
     background: var(--filet);
 }
 
 .tete {
-    padding-top: 20px;
-    height: 44px;
-    box-sizing: content-box;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 56px;
+    background: var(--color-papier);
+}
+
+.tete a {
+    color: var(--color-encre);
 }
 
 .tete .marque {
-    color: var(--color-encre);
     padding-block: 8px;
 }
 
-/* Le seul appel de la tête : télécharger. */
+.tete .sommaire,
+.tete .mesure-ecran,
+.tete .calque {
+    display: none;
+}
+
+.tete .sommaire {
+    gap: 28px;
+}
+
+.tete .sommaire a {
+    color: var(--color-gris);
+    padding-block: 8px;
+    transition: color .2s ease;
+}
+
+.tete .sommaire a:hover,
+.tete .sommaire a[aria-current="true"] {
+    color: var(--color-encre);
+}
+
+.tete .mesure-ecran {
+    white-space: nowrap;
+    min-width: 17ch;
+    text-align: right;
+}
+
+/* Le calque des traces : un interrupteur, comme dans un logiciel de dessin. */
+.tete .calque {
+    background: none;
+    border: 1px solid var(--filet);
+    border-radius: 4px;
+    padding: 6px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color .2s ease;
+}
+
+.tete .calque:hover {
+    border-color: var(--trait);
+}
+
 .tete .appel {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--color-encre);
     padding-block: 8px;
+    white-space: nowrap;
 }
 
 .tete .appel svg {
@@ -219,14 +268,21 @@ button:focus-visible {
 }
 
 @media (min-width: 1024px) {
-    /* Le filet de tête en y 68, comme sur la slide : 56 de marge, une rangée de 24. */
     .cadre {
-        gap: calc(24 * var(--u));
+        gap: calc(28 * var(--u));
     }
 
     .tete {
-        padding-top: calc(56 * var(--u));
-        height: calc(24 * var(--u));
+        height: max(64px, calc(88 * var(--u)));
+    }
+
+    .tete .sommaire {
+        display: flex;
+    }
+
+    .tete .mesure-ecran,
+    .tete .calque {
+        display: block;
     }
 
     .tete .appel svg {
@@ -296,7 +352,7 @@ button:focus-visible {
 
 @media (min-width: 1024px) {
     .pied {
-        padding-top: calc(160 * var(--u));
+        padding-top: calc(200 * var(--u));
         padding-bottom: calc(56 * var(--u));
     }
 
@@ -310,321 +366,99 @@ button:focus-visible {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   L'OUVERTURE DE L'ACCUEIL : le logo en verre, Fig. 01, le slogan
-   Sur ordinateur, chaque élément .a se place en coordonnées de la slide
-   (--x, --y), le haut de la planche étant en y 80, sous le filet de tête.
+   LA RÈGLE : l'axe vertical de la page, gradué dans la marge de droite
+   Une graduation tous les 100 px de page, une cote tous les 500 ; les
+   sections y sont repérées par leur lettre, à leur vraie hauteur.
 ══════════════════════════════════════════════════════════════════ */
 
-.planche {
-    padding: 40px var(--marge) 0;
+.site {
+    position: relative;
 }
 
-.planche .logo {
-    display: block;
-    width: 100%;
-    max-width: 560px;
-    height: auto;
-}
-
-.planche .cote {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 560px;
-    margin-top: 12px;
-}
-
-.planche .cote::before,
-.planche .cote::after {
-    content: "";
-    flex: 1;
-    height: 9px;
-    border-left: 1px solid var(--trait);
-    background: linear-gradient(var(--trait), var(--trait)) center / 100% 1px no-repeat;
-}
-
-.planche .cote::after {
-    border-left: 0;
-    border-right: 1px solid var(--trait);
-}
-
-.slogan {
-    margin-top: 40px;
-    font-size: clamp(34px, 9.6vw, 60px);
-    font-weight: 560;
-    letter-spacing: -.038em;
-    line-height: 1.09;
-}
-
-.planche .contenu {
-    margin-top: 20px;
-    line-height: 1.7;
-}
-
-.planche .magasins {
-    margin-top: 28px;
-}
-
-.planche .legende-fig {
-    margin-top: 72px;
-}
-
-.planche .fig {
-    display: block;
-    width: 100%;
-    max-width: 440px;
-    height: auto;
-    margin-top: 20px;
-}
-
-/* Les traces fines de l'ouverture n'existent que sur la planche d'ordinateur. */
-.planche .traces,
-.planche .ordi {
+.regle {
     display: none;
 }
 
 @media (min-width: 1024px) {
-    .planche {
-        position: relative;
-        padding: 0;
-        height: calc(690 * var(--u));
-    }
-
-    .planche .a {
-        position: absolute;
-        left: calc(var(--x) * var(--u));
-        top: calc((var(--y) - 80) * var(--u));
-        margin: 0;
-    }
-
-    .planche .logo {
-        width: calc(860 * var(--u));
-        max-width: none;
-    }
-
-    .planche .fig {
-        height: calc(560 * var(--u));
-        width: auto;
-        max-width: none;
-    }
-
-    .slogan {
-        font-size: calc(66 * var(--u));
-        line-height: calc(72 * var(--u));
-    }
-
-    .planche .traces {
+    .regle {
         display: block;
         position: absolute;
-        left: 0;
-        top: calc(-12 * var(--u));
-        width: 100%;
-        height: calc(702 * var(--u));
-        overflow: visible;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: var(--marge);
         pointer-events: none;
-    }
-
-    .planche .ordi {
-        display: block;
-        white-space: nowrap;
-    }
-
-    .planche .tel {
-        display: none;
-    }
-
-    /* Une étiquette posée sur un trait le coupe, plutôt que de le croiser : fond plein, et le
-       retrait du décor porté par la couleur, pas par l'opacité qui laisserait voir le trait. */
-    .planche .sur-trait {
-        background: var(--color-papier);
-        padding-inline: calc(12 * var(--u));
-        color: rgba(160, 160, 172, .65);
-    }
-
-    .planche .centre {
-        transform: translateX(-50%);
-    }
-
-    .planche .cote {
-        display: block;
-        max-width: none;
-    }
-
-    .planche .cote::before,
-    .planche .cote::after {
-        content: none;
-    }
-
-    .planche .contenu {
-        white-space: nowrap;
-    }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   L'HORIZON ET SES STATIONS
-   Sur ordinateur, un filet d'une marge à l'autre, trois colonnes, une
-   station par colonne ; sur téléphone, le même filet devient vertical.
-══════════════════════════════════════════════════════════════════ */
-
-.horizon {
-    position: relative;
-    margin: 56px var(--marge) 0;
-    display: grid;
-    gap: 36px;
-}
-
-.horizon::before {
-    content: "";
-    position: absolute;
-    left: 19px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--filet);
-}
-
-.station {
-    position: relative;
-    padding-left: 56px;
-    min-height: 38px;
-}
-
-.station .icone {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid rgba(244, 244, 247, .5);
-    background: var(--color-papier);
-    display: grid;
-    place-items: center;
-    box-sizing: border-box;
-}
-
-.station .icone svg {
-    width: 20px;
-    height: 20px;
-}
-
-.station .etiquette {
-    padding-top: 11px;
-}
-
-.station .etiquette span {
-    margin-right: 1.2em;
-}
-
-.fait {
-    margin-top: 14px;
-    font-size: 21px;
-    font-weight: 480;
-    line-height: 1.33;
-    letter-spacing: -.006em;
-}
-
-.station .donnee {
-    margin-top: 10px;
-}
-
-.n1 { color: var(--color-bleu); }
-.n2 { color: var(--color-bleu-indigo); }
-.n3 { color: var(--color-indigo); }
-
-@media (min-width: 1024px) {
-    .horizon {
-        margin-top: 0;
-        border-top: 1px solid var(--filet);
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--gouttiere);
-        padding-bottom: calc(56 * var(--u));
-    }
-
-    /* Le bout droit de l'horizon : une croix. */
-    .horizon::before {
-        left: auto;
-        right: calc(-9 * var(--u));
-        top: calc(-9 * var(--u) - .5px);
-        bottom: auto;
-        width: calc(18 * var(--u));
-        height: calc(18 * var(--u));
         background:
-            linear-gradient(var(--trait), var(--trait)) center / 100% 1px no-repeat,
-            linear-gradient(var(--trait), var(--trait)) center / 1px 100% no-repeat;
+            repeating-linear-gradient(to bottom, var(--trait) 0 1px, transparent 1px 500px) right top / 14px 100% no-repeat,
+            repeating-linear-gradient(to bottom, var(--pointille) 0 1px, transparent 1px 100px) right top / 7px 100% no-repeat;
     }
 
-    /* La grille se laisse deviner : une colonne, un pointillé 3 / 5, de 26 au-dessus du filet. */
-    .horizon::after {
-        content: "";
+    .regle .graduation {
+        position: absolute;
+        right: 18px;
+        transform: translateY(-50%);
+        font-size: 10px;
+    }
+
+    .regle .repere {
         position: absolute;
         right: 0;
-        top: calc(-26 * var(--u));
-        bottom: 0;
-        width: 1px;
-        background: repeating-linear-gradient(to bottom, var(--pointille) 0 3px, transparent 3px 8px);
-        opacity: .65;
-    }
-
-    .station {
-        padding-left: 0;
-        padding-top: calc(28 * var(--u));
-        min-height: 0;
-    }
-
-    .station::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: calc(-26 * var(--u));
-        bottom: calc(-56 * var(--u));
-        width: 1px;
-        background: repeating-linear-gradient(to bottom, var(--pointille) 0 3px, transparent 3px 8px);
-        opacity: .65;
-    }
-
-    .station .icone {
-        top: 0;
+        width: 22px;
+        height: 22px;
         transform: translateY(-50%);
-        width: calc(38 * var(--u));
-        height: calc(38 * var(--u));
-        min-width: 26px;
-        min-height: 26px;
-        z-index: 1;
-    }
-
-    .station .icone svg {
-        width: max(14px, calc(20 * var(--u)));
-        height: max(14px, calc(20 * var(--u)));
-    }
-
-    .station .etiquette {
-        padding-top: 0;
-        white-space: nowrap;
-    }
-
-    .fait {
-        margin-top: calc(26 * var(--u));
-        font-size: max(17px, calc(30 * var(--u)));
-        line-height: 1.333;
-    }
-
-    .station .donnee {
-        margin-top: calc(14 * var(--u));
-        white-space: nowrap;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--trait);
+        background: var(--color-papier);
+        font-size: 10px;
+        color: var(--color-encre);
     }
 }
 
+/* Les traces de construction du logo : du décor, rendu en retrait comme les autres. */
+.construction {
+    opacity: .65;
+}
+
+/* Une ancre ne se cache pas sous la tête collée en haut de l'écran. */
+[data-section],
+.etape {
+    scroll-margin-top: 96px;
+}
+
+/* Le calque éteint : les traces décoratives disparaissent, le contenu reste. */
+.decor,
+.construction,
+.echo-traces,
+.annotations,
+.frise .trace {
+    transition: opacity .35s ease;
+}
+
+.sans-traces .decor,
+.sans-traces .construction,
+.sans-traces .echo-traces,
+.sans-traces .frise .trace {
+    opacity: 0 !important;
+}
+
 /* ══════════════════════════════════════════════════════════════════
-   LES SECTIONS DE L'ACCUEIL : le kit, le téléchargement
+   LES TITRES DES SECTIONS
 ══════════════════════════════════════════════════════════════════ */
 
 .section {
-    padding: 96px var(--marge) 0;
+    padding: 112px var(--marge) 0;
 }
 
-.section .entete {
+.entete-section {
     max-width: 1100px;
+}
+
+.slogan {
+    font-size: clamp(34px, 9.6vw, 60px);
+    font-weight: 560;
+    letter-spacing: -.038em;
+    line-height: 1.09;
 }
 
 .question {
@@ -641,115 +475,1010 @@ button:focus-visible {
 
 @media (min-width: 1024px) {
     .section {
-        padding-top: calc(200 * var(--u));
+        padding-top: calc(240 * var(--u));
     }
 
-    .section .entete {
+    .entete-section {
         max-width: calc(1250 * var(--u));
+    }
+
+    .slogan {
+        font-size: calc(72 * var(--u));
+        line-height: calc(78 * var(--u));
     }
 
     .question {
         margin-top: calc(24 * var(--u));
-        font-size: calc(48 * var(--u));
-        line-height: calc(57 * var(--u));
+        font-size: calc(52 * var(--u));
+        line-height: calc(60 * var(--u));
     }
 }
 
-/* Les figures du kit : des captures de l'application, chacune avec sa légende et sa cote. */
-.figures {
+/* ══════════════════════════════════════════════════════════════════
+   A · L'OUVERTURE
+   Le logo se construit, Fig. 01 s'extrude ; tout part de l'état final,
+   et la séquence ne joue que si main.js pose .en-construction.
+══════════════════════════════════════════════════════════════════ */
+
+.ouverture {
+    padding: 28px var(--marge) 0;
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(72vw, 300px);
-    gap: var(--gouttiere);
-    margin: 48px calc(-1 * var(--marge)) 0;
-    padding: 0 var(--marge) 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--marge);
-    scrollbar-width: none;
+    gap: 40px;
 }
 
-.figures::-webkit-scrollbar {
+.plan-logo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 870 / 460;
+}
+
+.plan-logo svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.verre {
+    fill-opacity: .42;
+    stroke-width: var(--epaisseur-verre, 1.7);
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+}
+
+.etiquette-plan {
+    position: absolute;
+    left: calc((var(--px) + 10) / 870 * 100%);
+    top: calc((var(--py) + 75) / 460 * 100%);
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.etiquette-cote {
+    transform: translateX(-50%);
+    padding-inline: 10px;
+    background: var(--color-papier);
+    color: rgba(160, 160, 172, .65);
+}
+
+/* Sur un téléphone, seules la cote et la construction restent : les étiquettes ne tiendraient pas. */
+@media (max-width: 1023px) {
+    .etiquette-plan.decor {
+        display: none;
+    }
+}
+
+.ouverture .slogan {
+    margin-top: 36px;
+}
+
+.ouverture .fiche {
+    margin-top: 10px;
+}
+
+.ouverture-appel {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+}
+
+.ouverture-fig {
+    margin: 0;
+    max-width: 480px;
+}
+
+.ouverture-fig .echo {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    overflow: visible;
+    touch-action: pan-y;
+    cursor: crosshair;
+}
+
+.lecture-echo {
+    margin-top: 14px;
+    line-height: 1.6;
+}
+
+.horizon-kit {
     display: none;
 }
 
-.figure {
-    scroll-snap-align: start;
-    min-width: 0;
+.nomenclature {
+    display: none;
 }
 
-.figure .ecran {
+@media (min-width: 1024px) {
+    .ouverture {
+        min-height: calc(100svh - max(64px, calc(88 * var(--u))));
+        padding-top: calc(40 * var(--u));
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: 1fr auto auto;
+        column-gap: var(--gouttiere);
+        row-gap: calc(44 * var(--u));
+    }
+
+    .ouverture-logo {
+        grid-column: 1 / span 9;
+        align-self: end;
+        max-width: calc((100svh - 480px) * 870 / 460);
+    }
+
+    /* La nomenclature : le tableau des mesures du logo, contre son bord droit. */
+    .nomenclature {
+        display: block;
+        grid-column: 10 / span 3;
+        grid-row: 1;
+        align-self: end;
+        padding-bottom: calc(40 * var(--u));
+    }
+
+    .nomenclature dl {
+        margin-top: calc(18 * var(--u));
+        border-top: 1px solid var(--filet);
+    }
+
+    .nomenclature dl > div {
+        display: grid;
+        grid-template-columns: 9ch 1fr;
+        gap: 12px;
+        padding: calc(10 * var(--u)) 0;
+        border-bottom: 1px solid var(--filet);
+        cursor: crosshair;
+        outline: none;
+        transition: background-color .2s ease;
+    }
+
+    .nomenclature dl > div:hover,
+    .nomenclature dl > div:focus-visible {
+        background: rgba(244, 244, 247, .04);
+    }
+
+    .nomenclature dt {
+        padding-top: .2em;
+    }
+
+    .nomenclature dd {
+        font-size: max(14px, calc(17 * var(--u)));
+        line-height: 1.35;
+    }
+
+    .ouverture-texte {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "slogan appel" "fiche appel";
+        align-items: end;
+        column-gap: var(--gouttiere);
+    }
+
+    .ouverture .slogan {
+        grid-area: slogan;
+        margin-top: 0;
+    }
+
+    .ouverture .fiche {
+        grid-area: fiche;
+    }
+
+    .ouverture-appel {
+        grid-area: appel;
+        margin-top: 0;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: calc(16 * var(--u));
+    }
+
+    /* L'horizon de l'ouverture : cinq stations, une par fiche du kit, sur le filet du bas. */
+    .horizon-kit {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: var(--gouttiere);
+        position: relative;
+        border-top: 1px solid var(--filet);
+        padding-bottom: calc(40 * var(--u));
+    }
+
+    .horizon-kit .station {
+        position: relative;
+        padding-top: calc(34 * var(--u));
+        color: var(--color-gris);
+    }
+
+    .horizon-kit .station .icone {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateY(-50%);
+        transition: border-color .2s ease;
+    }
+
+    .horizon-kit .station:hover .icone {
+        border-color: var(--color-encre);
+    }
+
+    .horizon-kit .station:hover .etiquette {
+        color: var(--color-encre);
+    }
+}
+
+/* Viser une ligne de la nomenclature : sa trace s'allume, les autres s'effacent. */
+.c-vise {
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.construction > *,
+.etiquette-plan,
+.verre {
+    transition: opacity .25s ease, stroke .25s ease, fill-opacity .25s ease;
+}
+
+.en-visee .construction > *:not(.vise),
+.en-visee .etiquette-plan:not(.vise) {
+    opacity: .18;
+}
+
+.en-visee .construction > .c-vise:not(.vise) {
+    opacity: 0;
+}
+
+.en-visee .construction .vise {
+    opacity: 1;
+    stroke: var(--color-encre);
+}
+
+.en-visee .etiquette-plan.vise {
+    color: var(--color-encre);
+    opacity: 1;
+}
+
+.en-visee .construction {
+    opacity: 1;
+}
+
+.verre.vise {
+    fill-opacity: .7;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   B · FIG. 01 : le plateau où le défilement construit l'écho
+══════════════════════════════════════════════════════════════════ */
+
+.fig-scene {
+    padding: 112px var(--marge) 0;
+}
+
+.fig-texte .specs {
+    margin-top: 28px;
+}
+
+.mesures-echo dd b {
+    color: var(--color-encre);
+    font-weight: 500;
+}
+
+.fig-scene .ouverture-fig {
+    margin-top: 40px;
+}
+
+@media (min-width: 1024px) {
+    .fig-scene {
+        padding: 0;
+        height: 260svh;
+    }
+
+    .fig-plateau {
+        position: sticky;
+        top: max(64px, calc(88 * var(--u)));
+        height: calc(100svh - max(64px, calc(88 * var(--u))));
+        padding-inline: var(--marge);
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: var(--gouttiere);
+        align-items: center;
+    }
+
+    .fig-texte {
+        grid-column: 1 / span 4;
+    }
+
+    .fig-texte .specs {
+        margin-top: calc(40 * var(--u));
+    }
+
+    .fig-scene .ouverture-fig {
+        grid-column: 6 / span 7;
+        margin-top: 0;
+        width: 100%;
+        height: calc(100% - calc(96 * var(--u)));
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .fig-scene .echo {
+        width: 100%;
+        height: 100%;
+        margin-top: calc(24 * var(--u));
+    }
+}
+
+/* La séquence de construction : les traces, le contour, le verre, puis le reste. */
+@keyframes apparait {
+    from { opacity: 0; }
+}
+
+@keyframes trace {
+    from { stroke-dashoffset: 1; }
+}
+
+@keyframes remplit {
+    from { fill-opacity: 0; }
+}
+
+@keyframes monte {
+    from { opacity: 0; transform: translateY(14px); }
+}
+
+.en-construction .construction > * {
+    animation: apparait .7s ease both;
+}
+
+.en-construction .construction .c-1 { animation-delay: 0s; }
+.en-construction .construction .c-2 { animation-delay: .25s; }
+.en-construction .construction .c-3 { animation-delay: .5s; }
+.en-construction .construction .c-4 { animation-delay: 2.1s; }
+
+.en-construction .verre {
+    animation:
+        trace 1.5s cubic-bezier(.65, 0, .35, 1) .35s both,
+        remplit .9s ease 1.65s both;
+}
+
+.en-construction .etiquette-plan {
+    animation: apparait .5s ease 2.2s both;
+}
+
+.en-construction .ouverture .slogan,
+.en-construction .ouverture .fiche {
+    animation: monte .7s cubic-bezier(.16, 1, .3, 1) 1.9s both;
+}
+
+.en-construction .ouverture-appel {
+    animation: monte .7s cubic-bezier(.16, 1, .3, 1) 2.1s both;
+}
+
+.en-construction .nomenclature {
+    animation: apparait .8s ease 2.4s both;
+}
+
+.en-construction .horizon-kit {
+    animation: apparait .8s ease 2.7s both;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LES STATIONS : une icône dans un cercle posé sur un filet
+══════════════════════════════════════════════════════════════════ */
+
+.station .icone {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(244, 244, 247, .5);
+    background: var(--color-papier);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+}
+
+.station .icone svg {
+    width: 20px;
+    height: 20px;
+}
+
+.station .etiquette span {
+    margin-right: 1.2em;
+}
+
+.n1 { color: var(--color-bleu); }
+.n2 { color: var(--color-bleu-indigo); }
+.n3 { color: var(--color-indigo); }
+
+.fait {
+    font-size: 21px;
+    font-weight: 480;
+    line-height: 1.33;
+    letter-spacing: -.006em;
+}
+
+@media (min-width: 1024px) {
+    .station .icone {
+        width: max(30px, calc(38 * var(--u)));
+        height: max(30px, calc(38 * var(--u)));
+    }
+
+    .station .icone svg {
+        width: max(15px, calc(20 * var(--u)));
+        height: max(15px, calc(20 * var(--u)));
+    }
+
+    .fait {
+        font-size: max(17px, calc(28 * var(--u)));
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   B · LE KIT
+   Sur ordinateur : la scène est épinglée à gauche, l'écran de la fiche
+   active à droite de ses annotations ; les fiches défilent à droite.
+   Sur téléphone : chaque fiche porte son écran, ses repères numérotés
+   et leur liste.
+══════════════════════════════════════════════════════════════════ */
+
+.kit {
+    padding: 112px var(--marge) 0;
+}
+
+.scene {
+    display: none;
+}
+
+.etapes {
+    list-style: none;
+    margin-top: 56px;
+    display: grid;
+    gap: 96px;
+}
+
+.etape .entete-etape {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.etape h3 {
+    margin-top: 14px;
+    font-size: clamp(26px, 7vw, 36px);
+    font-weight: 470;
+    line-height: 1.15;
+    letter-spacing: -.03em;
+}
+
+.etape h3 b {
+    font-weight: 600;
+}
+
+/* La fiche technique : une clé en chasse fixe, une valeur, un filet. */
+.specs {
+    margin-top: 28px;
+    border-top: 1px solid var(--filet);
+}
+
+.specs > div {
+    display: grid;
+    grid-template-columns: 11ch 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--filet);
+}
+
+.specs dt {
+    padding-top: .3em;
+}
+
+.specs dd {
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--color-encre);
+}
+
+.etape-figure {
+    margin-top: 28px;
+    max-width: 340px;
+}
+
+/* L'écran : la capture dans un cadre au trait, et ses repères par-dessus. */
+.ecran-cadre {
     position: relative;
-    margin-top: 16px;
-    border-radius: 22px;
+}
+
+.ecran {
+    position: relative;
+    border-radius: 24px;
     overflow: hidden;
     outline: 1px solid var(--filet);
-    outline-offset: 6px;
+    outline-offset: 7px;
     background: #000;
-    aspect-ratio: 1080 / 2400;
+    aspect-ratio: 1080 / 2290;
 }
 
-.figure .ecran img {
+.ecran img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.figure .cote-ecran {
-    margin-top: 18px;
+/* Une figure non reproduite : le cadre vide, barré, comme une trémie sur un plan. */
+.ecran.vide {
+    background: transparent;
+    outline-style: dashed;
 }
 
-.figure .fait {
-    margin-top: 16px;
+.ecran.vide svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.figure .donnee {
-    margin-top: 10px;
+.ecran.vide p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    text-align: center;
+    padding: 10px;
+    background: var(--color-papier);
     line-height: 1.6;
 }
 
+.reperes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.repere-ecran {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid var(--color-encre);
+    background: var(--color-papier);
+}
+
+.repere-ecran span {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 1px 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.2;
+    color: var(--color-papier);
+    background: var(--color-encre);
+    border-radius: 2px;
+}
+
+.notes {
+    margin-top: 22px;
+    list-style: none;
+    display: grid;
+    gap: 6px;
+    counter-reset: note;
+}
+
+.notes li {
+    counter-increment: note;
+    display: grid;
+    grid-template-columns: 2.4ch 1fr;
+    gap: 8px;
+}
+
+.notes li::before {
+    content: counter(note);
+    color: var(--color-encre);
+}
+
 @media (min-width: 1024px) {
-    .figures {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(4, 1fr);
-        margin: calc(80 * var(--u)) 0 0;
-        padding: 0;
+    .kit {
+        padding-top: calc(240 * var(--u));
+    }
+
+    .kit-corps {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: var(--gouttiere);
+        margin-top: calc(40 * var(--u));
+    }
+
+    .scene {
+        display: block;
+        grid-column: 1 / span 6;
+        position: sticky;
+        top: max(64px, calc(88 * var(--u)));
+        height: calc(100svh - max(64px, calc(88 * var(--u))));
+    }
+
+    .scene-interieur {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: min(46%, calc((100svh - max(64px, calc(88 * var(--u))) - 170px) * 1080 / 2290));
+    }
+
+    .scene-legende {
+        margin-bottom: 18px;
+    }
+
+    .scene-cote {
+        margin-top: 20px;
+    }
+
+    .scene .ecran img {
+        position: absolute;
+        inset: 0;
+        transition: opacity .45s ease;
+    }
+
+    .scene .ecran img:not(.active) {
+        opacity: 0;
+    }
+
+    .scene .annotations {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         overflow: visible;
+        pointer-events: none;
     }
 
-    .figure .ecran {
-        margin-top: calc(24 * var(--u));
-        width: 78%;
-        border-radius: calc(36 * var(--u));
-        outline-offset: calc(8 * var(--u));
+    .scene .annotation-etiquette {
+        position: absolute;
+        transform: translate(-100%, -50%);
+        white-space: nowrap;
+        text-align: right;
+        transition: opacity .3s ease;
     }
 
-    .figure .cote-ecran {
+    .etapes {
+        grid-column: 8 / span 5;
+        margin-top: 0;
+        gap: 0;
+    }
+
+    .etape {
+        min-height: calc(100svh - max(64px, calc(88 * var(--u))));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-block: calc(40 * var(--u));
+        transition: opacity .4s ease;
+    }
+
+    .etape:not(.active) {
+        opacity: .32;
+    }
+
+    .etape-figure,
+    .etape .notes {
+        display: none;
+    }
+
+    .etape h3 {
+        margin-top: calc(20 * var(--u));
+        font-size: calc(46 * var(--u));
+        line-height: calc(54 * var(--u));
+    }
+
+    .specs {
+        margin-top: calc(40 * var(--u));
+    }
+
+    .specs dd {
+        font-size: max(16px, calc(21 * var(--u)));
+    }
+}
+
+/* Les traits des annotations : une ligne de rappel, coudée, et un nœud sur l'élément. */
+.annotations line,
+.annotations polyline {
+    stroke: rgba(244, 244, 247, .55);
+    stroke-width: 1;
+    fill: none;
+}
+
+.annotations circle {
+    fill: var(--color-papier);
+    stroke: var(--color-encre);
+    stroke-width: 1;
+}
+
+.annotations .trace-en-cours {
+    stroke-dasharray: var(--longueur);
+    stroke-dashoffset: var(--longueur);
+    animation: rappel .6s cubic-bezier(.65, 0, .35, 1) forwards;
+}
+
+@keyframes rappel {
+    to { stroke-dashoffset: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   C · LES MESURES : l'horizon, et un chiffre énorme par station
+══════════════════════════════════════════════════════════════════ */
+
+.horizon-mesures {
+    position: relative;
+    margin-top: 56px;
+    display: grid;
+    gap: 48px;
+}
+
+.horizon-mesures::before {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--filet);
+}
+
+.horizon-mesures .station {
+    position: relative;
+    padding-left: 56px;
+}
+
+.horizon-mesures .station .icone {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.horizon-mesures .etiquette {
+    padding-top: 11px;
+}
+
+.chiffre {
+    margin-top: 10px;
+    font-size: clamp(72px, 22vw, 120px);
+    font-weight: 600;
+    line-height: .95;
+    letter-spacing: -.045em;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-encre);
+}
+
+.chiffre .plus {
+    color: var(--color-estompe);
+}
+
+.horizon-mesures .fait {
+    margin-top: 12px;
+}
+
+.horizon-mesures .donnee {
+    margin-top: 10px;
+}
+
+.horizon-mesures .donnee a {
+    color: var(--color-encre);
+    text-decoration: underline;
+    text-decoration-color: var(--trait);
+    text-underline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+    .horizon-mesures {
+        margin-top: calc(120 * var(--u));
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--gouttiere);
+        border-top: 1px solid var(--filet);
+    }
+
+    .horizon-mesures::before {
+        left: auto;
+        right: calc(-9 * var(--u));
+        top: calc(-9 * var(--u) - .5px);
+        bottom: auto;
+        width: calc(18 * var(--u));
+        height: calc(18 * var(--u));
+        background:
+            linear-gradient(var(--trait), var(--trait)) center / 100% 1px no-repeat,
+            linear-gradient(var(--trait), var(--trait)) center / 1px 100% no-repeat;
+    }
+
+    .horizon-mesures .station {
+        padding-left: 0;
+        padding-top: calc(32 * var(--u));
+    }
+
+    .horizon-mesures .station::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: calc(-26 * var(--u));
+        bottom: 0;
+        width: 1px;
+        background: repeating-linear-gradient(to bottom, var(--pointille) 0 3px, transparent 3px 8px);
+        opacity: .65;
+    }
+
+    .horizon-mesures .station .icone {
+        transform: translateY(-50%);
+    }
+
+    .horizon-mesures .etiquette {
+        padding-top: 0;
+    }
+
+    .chiffre {
         margin-top: calc(28 * var(--u));
+        font-size: calc(200 * var(--u));
     }
 
-    .figure .fait {
-        margin-top: calc(26 * var(--u));
-        font-size: max(17px, calc(26 * var(--u)));
-    }
-
-    .figure .donnee {
-        margin-top: calc(14 * var(--u));
+    .horizon-mesures .fait {
+        margin-top: calc(24 * var(--u));
+        max-width: 16em;
     }
 }
 
-/* Le téléchargement : un titre, les badges des stores, et le QR code sur ordinateur. */
-.telecharger .slogan {
-    margin-top: 16px;
+/* ══════════════════════════════════════════════════════════════════
+   D · L'HISTOIRE : la frise à l'échelle vraie (dessinée par histoire.js)
+══════════════════════════════════════════════════════════════════ */
+
+.frise {
+    position: relative;
+    margin-top: 56px;
 }
 
-.telecharger .rangee {
+.frise svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+.frise .axe {
+    stroke: var(--color-encre);
+    stroke-width: 1;
+}
+
+.frise .trace {
+    stroke: rgba(244, 244, 247, .42);
+    fill: none;
+}
+
+.frise .graduation-texte {
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.frise .evenement {
+    position: absolute;
+    width: max-content;
+    max-width: 15em;
+    transition: opacity .4s ease, transform .4s ease;
+}
+
+.frise .evenement .date {
+    display: block;
+}
+
+.frise .evenement .quoi {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1.35;
+    color: var(--color-encre);
+}
+
+.frise .evenement.a-venir {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+.frise .detail-titre {
+    position: absolute;
+    white-space: nowrap;
+}
+
+.frise .noeud {
+    fill: var(--color-papier);
+    stroke: var(--color-encre);
+}
+
+.frise .graduation-v {
+    transform: none;
+}
+
+.frise .aujourdhui {
+    position: absolute;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+    /* Sur ordinateur, la frise est épinglée : le défilement la trace sans qu'elle bouge. */
+    .histoire {
+        height: 230svh;
+    }
+
+    .histoire-plateau {
+        position: sticky;
+        top: max(64px, calc(88 * var(--u)));
+        height: calc(100svh - max(64px, calc(88 * var(--u))));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .frise {
+        margin-top: calc(72 * var(--u));
+    }
+
+    .frise .evenement .quoi {
+        font-size: max(14px, calc(18 * var(--u)));
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   E · LE CARTOUCHE : le bloc-titre du plan, et le téléchargement
+══════════════════════════════════════════════════════════════════ */
+
+.cartouche {
+    position: relative;
+    margin-top: 48px;
+    border: 1px solid var(--trait);
+    display: grid;
+}
+
+.cartouche-table > div {
+    display: grid;
+    grid-template-columns: 13ch 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--filet);
+}
+
+.cartouche-table dt {
+    padding-top: .25em;
+}
+
+.cartouche-table dd {
+    font-size: 16px;
+    line-height: 1.45;
+}
+
+.cartouche-table a {
+    color: var(--color-encre);
+    text-decoration: underline;
+    text-decoration-color: var(--trait);
+    text-underline-offset: 3px;
+}
+
+.cartouche-telecharger {
+    padding: 24px 16px 56px;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    gap: 32px 56px;
-    margin-top: 40px;
+    gap: 28px 40px;
+}
+
+.cartouche-feuille {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    color: var(--color-gris);
+}
+
+.cartouche-feuille b {
+    color: var(--color-encre);
+    font-weight: 600;
 }
 
 .magasins {
@@ -778,9 +1507,37 @@ button:focus-visible {
 }
 
 @media (min-width: 1024px) {
-    .telecharger .rangee {
-        margin-top: calc(56 * var(--u));
-        gap: calc(56 * var(--u));
+    .cartouche {
+        margin-top: calc(80 * var(--u));
+        grid-template-columns: 7fr 5fr;
+    }
+
+    .cartouche-table {
+        border-right: 1px solid var(--trait);
+    }
+
+    .cartouche-table > div {
+        padding: calc(18 * var(--u)) calc(24 * var(--u));
+    }
+
+    .cartouche-table > div:last-child {
+        border-bottom: 0;
+    }
+
+    .cartouche-table dd {
+        font-size: max(16px, calc(21 * var(--u)));
+    }
+
+    .cartouche-telecharger {
+        padding: calc(32 * var(--u)) calc(32 * var(--u)) calc(80 * var(--u));
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .cartouche-feuille {
+        right: calc(24 * var(--u));
+        bottom: calc(20 * var(--u));
     }
 
     .magasins img {
@@ -794,13 +1551,34 @@ button:focus-visible {
     }
 
     .qr img {
-        width: max(112px, calc(132 * var(--u)));
+        width: max(112px, calc(140 * var(--u)));
         height: auto;
         background: var(--color-encre);
         padding: 6px;
         border-radius: 4px;
     }
 }
+
+/* La page de téléchargement reprend la rangée des badges et du QR code. */
+.telecharger .slogan {
+    margin-top: 16px;
+}
+
+.telecharger .rangee {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 32px 56px;
+    margin-top: 40px;
+}
+
+@media (min-width: 1024px) {
+    .telecharger .rangee {
+        margin-top: calc(56 * var(--u));
+        gap: calc(56 * var(--u));
+    }
+}
+
 
 /* ══════════════════════════════════════════════════════════════════
    LES PAGES DE LECTURE : engagement, mentions légales, confidentialité
@@ -1025,6 +1803,37 @@ button:focus-visible {
 }
 
 /* Les traces restent d'un pixel, et leurs pointillés de 3 / 5, à toutes les tailles d'écran. */
-.traces * {
+.construction *,
+.echo-traces *,
+.frise svg * {
     vector-effect: non-scaling-stroke;
+}
+
+/* La page introuvable : une trémie, l'ouverture laissée vide sur un plan, barrée de ses diagonales. */
+.tremie {
+    position: relative;
+    margin-top: 56px;
+    max-width: 520px;
+    aspect-ratio: 400 / 240;
+}
+
+.tremie svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tremie p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 6px 10px;
+    background: var(--color-papier);
+    white-space: nowrap;
+}
+
+.cartouche-section.seule .cartouche {
+    max-width: 1100px;
 }

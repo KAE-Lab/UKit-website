@@ -31,8 +31,11 @@ Une page n'est terminée que lorsque tout ceci est vrai :
 
 ## Principes de code
 
-- Du JavaScript sans framework, en modules ES, et seulement là où il sert : les pages se chargent sans
-  script, l'accueil ajoute `src/main.js`.
+- Du JavaScript sans framework, en modules ES. Une page secondaire charge `src/page.js` (les
+  instruments de la tête), l'accueil `src/main.js` ; sans script, le contenu reste lisible, seuls la
+  frise et les annotations du kit manquent.
+- Une valeur affichée comme une mesure est une vraie mesure, relue à l'exécution ou relevée à la
+  source : jamais une décoration chiffrée.
 - Une fonction qui touche un élément du DOM vérifie qu'il existe : la même feuille de script peut
   vivre sur plusieurs pages.
 - Des commentaires sobres, orientés « pourquoi ». Aucun emoji dans le code, les commentaires ou

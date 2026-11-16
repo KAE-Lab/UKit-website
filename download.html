@@ -31,6 +31,7 @@
     <link rel="icon" type="image/png" href="/icon.png">
     <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
+    <script type="module" src="/src/page.js"></script>
 </head>
 
 <body>
@@ -38,6 +39,12 @@
         <header class="cadre tete">
             <a class="cap marque" href="/">UKit</a>
             <span class="trait"></span>
+            <nav class="sommaire cap" aria-label="Sommaire">
+                <a href="/#kit">Le kit</a>
+                <a href="/#histoire">L'histoire</a>
+            </nav>
+            <span class="m mesure-ecran decor" data-mesure-ecran aria-hidden="true"></span>
+            <button class="m calque" type="button" data-calque aria-pressed="true">traces <b>65 %</b></button>
             <a class="cap appel" href="/download.html" aria-current="page">Télécharger
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">
@@ -47,24 +54,66 @@
             </a>
         </header>
 
-        <main class="section telecharger seule">
-            <p class="m"><b>télécharger</b> · ios · android</p>
-            <h1 class="slogan deux-tons"><b>UKit</b> se télécharge<br>sur ton <b>téléphone</b>.</h1>
-            <div class="rangee">
-                <div class="magasins">
-                    <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
-                        <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127" height="40">
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
-                        <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
-                    </a>
+        <main class="section cartouche-section seule" data-section="A · télécharger">
+            <header class="entete-section">
+                <p class="m"><b>télécharger</b> · ios · android</p>
+                <h1 class="slogan deux-tons"><b>UKit</b> se télécharge<br>sur ton <b>téléphone</b>.</h1>
+            </header>
+                <div class="cartouche">
+                    <dl class="cartouche-table">
+                        <div>
+                            <dt class="m">projet</dt>
+                            <dd>UKit</dd>
+                        </div>
+                        <div>
+                            <dt class="m">objet</dt>
+                            <dd>le kit de survie pour l'étudiant bordelais</dd>
+                        </div>
+                        <div>
+                            <dt class="m">plateformes</dt>
+                            <dd>iOS · Android</dd>
+                        </div>
+                        <div>
+                            <dt class="m">prix</dt>
+                            <dd>gratuit</dd>
+                        </div>
+                        <div>
+                            <dt class="m">compte</dt>
+                            <dd>aucun</dd>
+                        </div>
+                        <div>
+                            <dt class="m">licence</dt>
+                            <dd><a href="https://github.com/KAE-Lab/UKit" rel="noopener">Apache 2.0</a></dd>
+                        </div>
+                        <div>
+                            <dt class="m">éditeur</dt>
+                            <dd><a href="https://github.com/KAE-Lab" rel="noopener">KAE Lab</a></dd>
+                        </div>
+                        <div>
+                            <dt class="m">révision du site</dt>
+                            <dd class="m"><b>%VITE_REVISION%</b></dd>
+                        </div>
+                    </dl>
+                    <div class="cartouche-telecharger">
+                        <div class="magasins">
+                            <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                                <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
+                                    height="40">
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
+                                rel="noopener">
+                                <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
+                                    height="40">
+                            </a>
+                        </div>
+                        <div class="qr">
+                            <img src="/qrcode.png" width="1184" height="1184" 
+                                alt="QR code de téléchargement de UKit">
+                            <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
+                        </div>
+                    </div>
+                    <p class="cap cartouche-feuille">feuille <b>01 / 01</b></p>
                 </div>
-                <div class="qr">
-                    <img src="/qrcode.png" width="1184" height="1184"
-                        alt="QR code de téléchargement de UKit">
-                    <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
-                </div>
-            </div>
         </main>
 
         <footer class="pied">
@@ -80,6 +129,8 @@
                 </nav>
             </div>
         </footer>
+
+        <div class="regle decor" data-regle aria-hidden="true"></div>
     </div>
 </body>
 

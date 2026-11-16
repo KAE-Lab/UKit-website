@@ -24,6 +24,12 @@ un push sur `main` le publie — les entrées sont datées.
 
 ### Modifié
 
+- **L'accueil devient un plan qu'on parcourt**, 2026-11-16 : le logo se construit au chargement à
+  côté de sa nomenclature, qui allume ses traces ; Fig. 01 a sa scène, où le défilement l'extrude et
+  le pointeur règle son écho ; le kit est une fiche technique épinglée, cinq captures annotées sur
+  leurs vrais éléments (Planning en vue jour) ; les mesures en chiffres ; l'histoire en frise à
+  l'échelle avec le détail de 2026 ; le téléchargement dans un cartouche. La tête porte les mesures
+  de la fenêtre et un calque des traces qu'on éteint ; une règle gradue la page.
 - **Le site passe à l'Épure**, 2026-11-16 : l'identité des slides de Disrupt Campus, en sombre, Geist
   et Geist Mono auto-hébergées. L'accueil reprend la slide 1 à l'échelle de l'écran ; quatre captures
   de l'application 6.3 en thème sombre remplacent les vidéos de l'ancienne interface ; l'image Open

@@ -20,6 +20,7 @@
     <link rel="icon" type="image/png" href="/icon.png">
     <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
+    <script type="module" src="/src/page.js"></script>
 </head>
 
 <body>
@@ -27,6 +28,12 @@
         <header class="cadre tete">
             <a class="cap marque" href="/">UKit</a>
             <span class="trait"></span>
+            <nav class="sommaire cap" aria-label="Sommaire">
+                <a href="/#kit">Le kit</a>
+                <a href="/#histoire">L'histoire</a>
+            </nav>
+            <span class="m mesure-ecran decor" data-mesure-ecran aria-hidden="true"></span>
+            <button class="m calque" type="button" data-calque aria-pressed="true">traces <b>65 %</b></button>
             <a class="cap appel" href="/download.html">Télécharger
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                     stroke-linejoin="round" aria-hidden="true">
@@ -179,6 +186,8 @@
                 </nav>
             </div>
         </footer>
+
+        <div class="regle decor" data-regle aria-hidden="true"></div>
     </div>
 </body>
 
