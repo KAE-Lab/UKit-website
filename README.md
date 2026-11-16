@@ -16,7 +16,7 @@ dit, en moins de mots.
 
 | Page | Adresse | Ce qu'elle fait |
 |---|---|---|
-| L'accueil | `/` | présenter l'application : « Ton campus, en une seule app. », le bouton de téléchargement, trois cartes de l'appli en pile, puis quatre captures et les stores |
+| L'accueil | `/` | vendre l'application : l'ouverture (titre, bouton, un téléphone et deux cartes de l'appli), une section par onglet (Planning, Campus, Scolarité) et ses fonctions, les atouts, les établissements, les stores |
 | Télécharger | `/download.html` | rediriger vers le store du téléphone qui l'ouvre ; sur un ordinateur, montrer les deux badges et le QR code |
 | Engagement | `/engagement.html` | ce qu'on demande, ce qu'on en fait et ce qu'on ne fera jamais, quand quelqu'un prête un accès à son portail pour que UKit s'adapte à son campus ([docs/adaptation-campus.md](https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md), côté équipe) |
 | Mentions légales | `/mentions-legales.html` | l'éditeur (l'association KAE Lab), le directeur de la publication, l'hébergeur, les licences et les marques (loi n° 2004-575, art. 1-1) |
@@ -38,8 +38,8 @@ confidentialite.html   la confidentialité du site
 src/
   style.css            toute la mise en forme, chaque page la charge
 public/
-  captures/            quatre captures de l'application 6.3, thème sombre, banc Android (1080 × 2290 sans barre d'état, réduites à 720)
-  licences/            la licence des icônes (ISC), liée depuis les mentions légales
+  captures/            cinq captures de l'application 6.3, thème sombre, banc Android (1080 × 2290 sans barre d'état, réduites à 720)
+  licences/            la licence des icônes Lucide (ISC), liée depuis les mentions légales
   …                    logo, icône, logo PNG historique, badges des stores, QR code, image Open Graph
 vite.config.js         une entrée par page
 eslint.config.js       les règles recommandées, et c'est tout
@@ -51,22 +51,28 @@ le justifient pas.
 
 ## Le style : celui de l'application
 
-Le site reprend le **premier écran de l'accueil de l'application**
+Le site parle la langue de l'application sans recopier un de ses écrans. Il part du **premier écran de
+son accueil**
 ([`VitrineDAccueil.tsx`](https://github.com/KAE-Lab/UKit/blob/main/src/features/Onboarding/components/VitrineDAccueil.tsx)) :
-le fond sombre et sa lueur aux couleurs de l'accent, le logo en haut à gauche, trois vraies cartes de
-l'appli (un cours, un restaurant, une bibliothèque) en pile inclinée qui monte puis respire, « Ton
-campus, en une seule app. » en deux tons, le slogan, et le bouton plein.
+le fond sombre et sa lueur aux couleurs de l'accent, de vraies cartes de l'appli, le titre en deux
+tons, le bouton plein. Mais la composition est la sienne : un téléphone légèrement tourné, d'où
+sortent deux cartes de l'onglet Campus.
 
 - **Les valeurs viennent du thème sombre de l'application**
   ([`palettes.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/palettes.ts),
   [`tokens.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/tokens.ts)) : fond
   `#0B0B12`, carte `#15151E`, textes `#FFFFFF` / `#BCBCCB` / `#8A8A98`, accent `#6381F8` à
-  `#5974DF`, rayon de 16. Le site n'ajoute pas de couleur.
+  `#5974DF`, rayon de 16, et les couleurs de ses sections pour les familles de fonctions.
+- **Les listes de fonctions sont des groupes des Réglages** : une rangée par fonction, l'icône
+  blanche dans un carré de la couleur de sa famille, un filet indenté sous le libellé.
+- **Les icônes sont celles de l'application** : Lucide, tirées de son paquet
+  (`lucide-react-native` 1.61.0), au trait de 1,75.
 - **La police est celle du système**, comme dans l'application : aucune police à télécharger.
 - **Les cartes de l'ouverture** sont écrites en HTML avec les données d'exemple de l'application
   ([`exemples.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/features/Onboarding/components/exemples.ts)).
-- **Sombre seulement**, comme l'écran d'accueil qu'il reprend. Le mouvement respecte
-  `prefers-reduced-motion`.
+- **Chaque fonction annoncée existe** dans l'application 6.3 : elle se vérifie dans sa documentation
+  (`docs/features/`) et son CHANGELOG avant d'entrer sur le site.
+- **Sombre seulement.** Le mouvement respecte `prefers-reduced-motion`.
 
 **Les captures se refont sur le banc Android** de l'application (`tools/appareil/banc.sh`, AVD `ukit`,
 thème sombre), barre d'état rognée. Rien de personnel : ni compte universitaire connecté, ni visage

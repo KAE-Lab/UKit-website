@@ -52,7 +52,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Le halo et la pile inclinée débordent exprès de leur colonne : la page, elle, ne défile pas de côté. */
+/* Le halo et les cartes flottantes débordent exprès de leur colonne : la page, elle, ne défile pas de côté. */
 main {
     flex: 1 0 auto;
     overflow-x: clip;
@@ -153,14 +153,20 @@ button:focus-visible {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   L'OUVERTURE : la pile de cartes de l'application, sur sa lueur
+   L'OUVERTURE : le téléphone, et deux cartes de l'application qui en sortent
+   Le vocabulaire de l'écran d'accueil de l'application (la lueur, les vraies
+   cartes, le titre en deux tons, le bouton plein) dans sa propre composition.
 ══════════════════════════════════════════════════════════════════ */
 
 .ouverture {
     display: grid;
-    gap: 8px;
-    padding-top: 8px;
-    padding-bottom: 56px;
+    gap: 16px;
+    padding-top: 28px;
+    padding-bottom: 40px;
+}
+
+.ouverture .titre {
+    font-size: clamp(30px, 8.4vw, 58px);
 }
 
 .ouverture .appel {
@@ -171,61 +177,103 @@ button:focus-visible {
     width: 100%;
 }
 
+.insecable {
+    white-space: nowrap;
+}
+
 .scene {
     position: relative;
-    padding: 40px 0 8px;
     display: grid;
     place-items: center;
+    padding: 24px 0 8px;
 }
 
 /* La lueur : les deux couleurs de l'accent, du centre vers rien. */
 .lueur {
     position: absolute;
-    inset: -20% -40%;
+    inset: -10% -40%;
     background: radial-gradient(closest-side, rgba(99, 129, 248, .34), rgba(89, 116, 223, .11) 45%, rgba(89, 116, 223, 0));
     pointer-events: none;
 }
 
-/* Les cartes s'empilent en colonne, décalées comme sur l'écran d'accueil : aucune n'en cache une autre. */
-.pile {
+.composition {
     position: relative;
-    width: min(100%, 420px);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    transform: perspective(1000px) rotateX(16deg) rotateZ(-5deg) scale(.86);
-    animation: respire 3.6s ease-in-out 1s infinite alternate;
+    width: min(100%, 340px);
+    display: grid;
+    justify-items: center;
 }
 
-@keyframes respire {
-    to {
-        transform: perspective(1000px) translateY(-8px) rotateX(12deg) rotateZ(-3.5deg) scale(.86);
+/* Le téléphone : la capture dans un boîtier sombre, légèrement tourné vers le texte. */
+.telephone {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    padding: 7px;
+    border-radius: 40px;
+    background: #050509;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 80px rgba(0, 0, 0, .55);
+}
+
+.telephone .ecran {
+    border-radius: 33px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 1080 / 2290;
+}
+
+.telephone .ecran img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.telephone-ouverture {
+    width: 230px;
+    transform: perspective(1200px) rotateY(-14deg) rotateX(4deg);
+    animation: apparait .8s ease both;
+}
+
+/* Les cartes flottent devant le téléphone, à cheval sur ses bords. */
+.flottante {
+    position: absolute;
+    width: max-content;
+    scale: .78;
+    animation: monte .7s cubic-bezier(.16, 1, .3, 1) both, flotte 4s ease-in-out infinite alternate;
+}
+
+/* Chaque carte s'ancre par son bord extérieur : réduite sur un téléphone, elle reste dans l'écran. */
+.flottante-1 {
+    top: 16%;
+    left: -12px;
+    transform-origin: left center;
+    transform: rotate(-4deg);
+    animation-delay: .25s, 1s;
+}
+
+.flottante-2 {
+    top: 58%;
+    right: -12px;
+    transform-origin: right center;
+    transform: rotate(3deg);
+    animation-delay: .4s, 1.6s;
+}
+
+@keyframes apparait {
+    from {
+        opacity: 0;
     }
-}
-
-.pile .carte {
-    position: relative;
-    animation: monte .6s cubic-bezier(.16, 1, .3, 1) both;
-}
-
-.pile .carte:nth-child(1) {
-    margin: 0 8px 0 -8px;
-}
-
-.pile .carte:nth-child(2) {
-    margin: 0 -24px 0 24px;
-    animation-delay: .14s;
-}
-
-.pile .carte:nth-child(3) {
-    margin: 0 -8px 0 8px;
-    animation-delay: .28s;
 }
 
 @keyframes monte {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        translate: 0 24px;
+    }
+}
+
+@keyframes flotte {
+    to {
+        translate: 0 -8px;
     }
 }
 
@@ -244,7 +292,7 @@ button:focus-visible {
         gap: 48px;
         min-height: calc(100svh - 120px);
         padding-top: 0;
-        padding-bottom: 72px;
+        padding-bottom: 56px;
     }
 
     .ouverture .appel .bouton {
@@ -256,24 +304,33 @@ button:focus-visible {
         padding: 0;
     }
 
-    .pile {
-        transform: perspective(1000px) rotateX(16deg) rotateZ(-5deg) scale(1);
-        animation-name: respire-grand;
+    .composition {
+        width: 380px;
     }
 
-    @keyframes respire-grand {
-        to {
-            transform: perspective(1000px) translateY(-8px) rotateX(12deg) rotateZ(-3.5deg) scale(1);
-        }
+    .telephone-ouverture {
+        width: 270px;
     }
+
+    .flottante {
+        scale: .86;
+    }
+
+
+    .flottante-1 {
+        left: -8px;
+    }
+
+    .flottante-2 {
+        right: -8px;
+    }
+
+    .ouverture .titre {
+        font-size: clamp(44px, 4.6vw, 58px);
+    }
+
 }
 
-/* Sur un téléphone, l'ordre de l'écran d'accueil : les cartes, puis le titre et le bouton. */
-@media (max-width: 959px) {
-    .ouverture .scene {
-        order: -1;
-    }
-}
 
 /* ── Les cartes : celles des onglets, à leurs mesures ─────────────── */
 
@@ -285,65 +342,13 @@ button:focus-visible {
     box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
 }
 
-.carte-cours {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 14px;
-    padding-left: 22px;
-    overflow: hidden;
-}
 
-.carte-cours::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--cyan);
-}
 
-.carte-cours .heures {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-variant-numeric: tabular-nums;
-}
 
-.carte-cours .debut {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -.02em;
-}
 
-.carte-cours .fin {
-    color: var(--texte-3);
-    font-size: 14px;
-}
 
-.carte-cours .entete {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
-}
 
-.carte .nom {
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -.012em;
-    line-height: 1.3;
-}
 
-.pastille {
-    flex-shrink: 0;
-    padding: 2px 10px;
-    border-radius: 999px;
-    background: rgba(100, 210, 255, .1);
-    color: var(--cyan);
-    font-size: 13px;
-    font-weight: 600;
-}
 
 .ligne {
     display: flex;
@@ -360,14 +365,7 @@ button:focus-visible {
     flex-shrink: 0;
 }
 
-.carte-cours .ligne {
-    color: var(--texte);
-    font-weight: 600;
-}
 
-.carte-cours .ligne svg {
-    color: var(--cyan);
-}
 
 .carte-lieu .entete {
     display: flex;
@@ -377,6 +375,7 @@ button:focus-visible {
 }
 
 .carte-lieu .nom {
+    white-space: nowrap;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -450,90 +449,321 @@ button:focus-visible {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   LES ÉCRANS : quatre captures de l'application, et une ligne chacune
+   LES ONGLETS : une section par onglet de l'application
 ══════════════════════════════════════════════════════════════════ */
 
-.ecrans {
-    padding-top: 40px;
-    padding-bottom: 24px;
+.onglet {
+    display: grid;
+    gap: 40px;
+    padding-top: 88px;
+}
+
+.sur-titre {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sur-titre svg {
+    width: 18px;
+    height: 18px;
 }
 
 .titre-section {
-    font-size: clamp(30px, 5vw, 44px);
+    margin-top: 12px;
+    font-size: clamp(32px, 5.4vw, 48px);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.08;
     letter-spacing: -.03em;
 }
 
-.galerie {
-    list-style: none;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(70vw, 260px);
-    gap: 20px;
-    margin: 32px calc(-1 * var(--marge)) 0;
-    padding: 0 var(--marge) 12px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--marge);
-    scrollbar-width: none;
-}
-
-.galerie::-webkit-scrollbar {
-    display: none;
-}
-
-.galerie li {
-    scroll-snap-align: start;
-}
-
-.galerie .ecran {
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid var(--contour);
-    background: #000;
-    aspect-ratio: 1080 / 2290;
-}
-
-.galerie .ecran img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.galerie h3 {
+.onglet .chapeau {
     margin-top: 16px;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: -.01em;
+    max-width: 34em;
+    color: var(--texte-2);
+    font-size: 18px;
+    line-height: 1.5;
 }
 
-.galerie p {
-    margin-top: 2px;
+.onglet-media {
+    display: grid;
+    place-items: center;
+}
+
+.onglet-media .telephone {
+    max-width: 290px;
+}
+
+/* Les couleurs des familles : celles des sections de l'application (palettes.ts). */
+.bleu { background: #0A84FF; }
+.vert { background: #30D158; }
+.orange { background: #FF9F0A; }
+.cyan { background: #32ADE6; }
+.violet { background: #5E5CE6; }
+.accent { background: var(--accent); }
+.bleu-texte { color: #4BA3FF; }
+.vert-texte { color: #30D158; }
+.orange-texte { color: #FF9F0A; }
+.cyan-texte { color: #64D2FF; }
+.violet-texte { color: #8B8AF0; }
+.indigo-texte { color: var(--accent); }
+
+/* Un groupe encadré, comme ceux des Réglages : une rangée par fonction, l'icône blanche dans un
+   carré de la couleur de sa famille, un filet indenté sous le libellé. */
+.groupe {
+    list-style: none;
+    margin-top: 24px;
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: var(--rayon);
+    overflow: hidden;
+}
+
+.groupe li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 56px;
+    padding: 10px 16px;
+}
+
+.groupe li + li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 60px;
+    right: 0;
+    height: 1px;
+    background: var(--contour);
+}
+
+.tuile {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    color: #FFFFFF;
+}
+
+.tuile svg {
+    width: 18px;
+    height: 18px;
+}
+
+.tuile.grande {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+}
+
+.tuile.grande svg {
+    width: 28px;
+    height: 28px;
+}
+
+.libelle {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.libelle strong {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.libelle span {
     color: var(--texte-3);
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 14px;
+}
+
+/* Le Campus : trois colonnes, un écran et ses fonctions chacune. */
+.onglet-campus {
+    gap: 8px;
+}
+
+.colonnes {
+    display: grid;
+    gap: 48px;
+    margin-top: 32px;
+}
+
+.colonne .telephone {
+    max-width: 250px;
+    margin-inline: auto;
+}
+
+.colonne .sur-titre {
+    margin-top: 28px;
+}
+
+.colonne .groupe {
+    margin-top: 12px;
+}
+
+/* La Scolarité : la promesse sur les identifiants, en carte. */
+.carte-securite {
+    max-width: 400px;
+    padding: 28px;
+    box-shadow: none;
+    background:
+        radial-gradient(120% 80% at 0% 0%, rgba(94, 92, 230, .18), rgba(94, 92, 230, 0)),
+        var(--carte);
+}
+
+.carte-securite .carte-titre {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.016em;
+}
+
+.carte-securite p:not(.carte-titre) {
+    margin-top: 10px;
+    color: var(--texte-2);
+    font-size: 16px;
+}
+
+.carte-securite a {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.carte-securite a:hover {
+    text-decoration: underline;
 }
 
 @media (min-width: 960px) {
-    .ecrans {
-        padding-top: 72px;
+    .onglet {
+        grid-template-columns: 5fr 7fr;
+        align-items: center;
+        gap: 64px;
+        padding-top: 140px;
     }
 
-    .galerie {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 28px;
-        margin: 48px 0 0;
-        padding: 0;
-        overflow: visible;
+    .onglet-scolarite {
+        grid-template-columns: 7fr 5fr;
     }
+
+    .onglet-campus {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .onglet-texte .groupe {
+        max-width: 520px;
+    }
+
+    .colonnes {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-top: 56px;
+    }
+
+    .grille-atouts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .liste-etablissements {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .flottante {
+        scale: 1;
+    }
+
+    .flottante-1 {
+        left: -64px;
+    }
+
+    .flottante-2 {
+        right: -48px;
+    }
+}
+
+/* ── Et aussi : six atouts en cartes ──────────────────────────────── */
+
+.atouts,
+.etablissements {
+    padding-top: 112px;
+}
+
+.grille-atouts {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.atout {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: none;
+    padding: 20px;
+}
+
+.atout .tuile {
+    margin-bottom: 12px;
+}
+
+.atout strong {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.atout span:not(.tuile) {
+    color: var(--texte-3);
+    font-size: 15px;
+}
+
+/* ── Les établissements ─────────────────────────────────────────── */
+
+.liste-etablissements {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 14px;
+    margin-top: 32px;
+}
+
+.liste-etablissements .carte {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.liste-etablissements svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
 }
 
 /* ── La fin de l'accueil : les stores ─────────────────────────────── */
 
 .cloture {
-    padding-top: 72px;
+    padding-top: 112px;
+}
+
+.cloture .magasins {
+    margin-top: 28px;
 }
 
 .magasins {
@@ -556,6 +786,7 @@ button:focus-visible {
     height: 48px;
     width: auto;
 }
+
 
 /* ══════════════════════════════════════════════════════════════════
    LE PIED : qui fait UKit, et les pages légales

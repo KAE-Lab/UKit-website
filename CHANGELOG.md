@@ -25,12 +25,14 @@ un push sur `main` le publie — les entrées sont datées.
 
 ### Modifié
 
-- **Le site prend le style de l'application**, 2026-11-16 : celui du premier écran de son accueil
-  (fond sombre et sa lueur, trois cartes de l'appli en pile, « Ton campus, en une seule app. », le
-  bouton plein), avec les couleurs du thème sombre et la police du système. L'accueil se réduit à
-  l'essentiel : l'ouverture, quatre captures de l'application 6.3 en thème sombre, les stores. Les
-  pages de lecture prennent la même forme. L'image Open Graph est refaite ; le badge App Store est la
-  version française officielle ; le texte tutoie partout, comme l'application.
+- **Le site prend le style de l'application**, 2026-11-16 : le vocabulaire du premier écran de son
+  accueil (fond sombre et sa lueur, vraies cartes de l'appli, titre en deux tons, bouton plein) dans
+  une composition propre au site, avec les couleurs du thème sombre, les icônes et la police de
+  l'application. L'accueil vend l'appli onglet par onglet : le Planning, le Campus (restos U,
+  bibliothèques, salles libres), la Scolarité, puis les atouts, les quatre établissements et les
+  stores, sur cinq captures de l'application 6.3 en thème sombre. Les pages de lecture prennent la
+  même forme. L'image Open Graph est refaite ; le badge App Store est la version française
+  officielle ; le texte tutoie partout, comme l'application.
 
 - **Le fond est extrait dans `src/fond.js`** (feuille de style et particules) : une page secondaire
   ne charge plus `main.js`, qui attend les éléments de l'accueil et échouait sur la page de
