@@ -6,123 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0B0B12">
     <title>Confidentialité — UKit</title>
-    <meta name="description"
-        content="Ce que ukit-bordeaux.fr et l'application UKit font de tes données : sur le site, rien n'est demandé ni conservé.">
-
+    <meta name="description" content="Ce que ukit-bordeaux.fr et l'application UKit font de tes données : sur le site, rien n'est demandé ni conservé.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Confidentialité — UKit">
-    <meta property="og:description" content="Ce que ukit-bordeaux.fr et l'application UKit font de tes données.">
+    <meta property="og:description" content="Ce que ukit-bordeaux.fr et l'application UKit font de tes données : sur le site, rien n'est demandé ni conservé.">
     <meta property="og:url" content="%VITE_SITE_URL%/confidentialite.html">
     <meta property="og:image" content="%VITE_SITE_URL%/opengraph-image.png">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/icon.png">
-    <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body>
-    <div class="site">
-        <header class="cadre tete">
-            <a class="cap marque" href="/">UKit</a>
-            <span class="trait"></span>
-            <nav class="sommaire cap" aria-label="Sommaire">
-                <a href="/#etape-planning">Le kit</a>
-                <a href="/#mesures">En chiffres</a>
-                <a href="/#histoire">L'histoire</a>
+    <header class="tete conteneur">
+        <a href="/" aria-label="UKit, accueil"><img class="logo" src="/logo-ukit.svg" width="850" height="343" alt="UKit"></a>
+    </header>
+
+    <main class="lecture conteneur">
+        <h1 class="titre">Confidentialité</h1>
+        <p class="chapeau">Le site ne demande rien et ne conserve rien. L'application a sa propre politique, plus détaillée, publiée avec son code.</p>
+
+        <section>
+            <h2>Ce site</h2>
+            <p>Il n'a ni compte, ni formulaire, ni cookie de publicité, et ne mesure pas son audience.
+            Polices, images et scripts sont servis par le site lui-même : une visite ne contacte
+            aucun autre domaine.</p>
+        </section>
+
+        <section>
+            <h2>L'hébergeur</h2>
+            <p>Comme pour toute page web, ton navigateur transmet à l'hébergeur du site, Cloudflare,
+            ton adresse IP et des informations techniques : la page demandée, ton navigateur.
+            Cloudflare les traite pour servir et protéger le site, selon sa <a
+            href="https://www.cloudflare.com/privacypolicy/" rel="noopener">politique de
+            confidentialité</a>. Nous n'en conservons rien.</p>
+        </section>
+
+        <section>
+            <h2>Les liens vers d'autres services</h2>
+            <p>Les boutons de téléchargement mènent à l'App Store et à Google Play, les liens vers le
+            code à GitHub, et la page d'engagement au formulaire de l'application, sur Google Forms.
+            En les suivant, tu quittes le site : ce sont leurs politiques qui s'appliquent.</p>
+        </section>
+
+        <section>
+            <h2>L'application</h2>
+            <p>UKit fonctionne sans compte UKit. Ce qu'elle lit, ce qu'elle garde sur ton téléphone et
+            le peu qu'elle envoie, chaque fois avec un interrupteur pour le couper, est décrit dans
+            sa <a href="https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md"
+            rel="noopener">politique de confidentialité</a>.</p>
+        </section>
+
+        <section>
+            <h2>Tes droits</h2>
+            <p>Pour une question, ou pour demander l'accès, la rectification ou l'effacement de ce qui te
+            concerne : <a href="mailto:contact@kaelab.dev">contact@kaelab.dev</a>. Tu peux aussi
+            adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes"
+            rel="noopener">CNIL</a>.</p>
+        </section>
+
+        <div class="note">
+            <p>Dernière mise à jour : 16 novembre 2026.</p>
+        </div>
+    </main>
+
+    <footer class="pied">
+        <div class="conteneur">
+            <p>UKit est développé par <a href="https://kaelab.dev" rel="noopener">KAE Lab</a>, association étudiante.</p>
+            <nav aria-label="Pages légales">
+                <a href="/mentions-legales.html">Mentions légales</a>
+                <a href="/confidentialite.html" aria-current="page">Confidentialité</a>
+                <a href="https://github.com/KAE-Lab/UKit" rel="noopener">Code source</a>
             </nav>
-            <a class="cap appel" href="/download.html">Télécharger
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 5v14" />
-                    <path d="m19 12-7 7-7-7" />
-                </svg>
-            </a>
-        </header>
-
-        <main class="lecture">
-            <article>
-                <header class="entete">
-                    <p class="m"><b>confidentialité</b> · le site et l'application</p>
-                    <h1 class="titre deux-tons">Ce que le site sait de toi : <b>rien qu'il garde</b>.</h1>
-                    <p class="chapeau">Le site ne demande rien et ne conserve rien. L'application a sa propre politique,
-                        plus détaillée, publiée avec son code.</p>
-                </header>
-
-                <div class="blocs">
-                    <section class="bloc">
-                        <h2>Ce site</h2>
-                        <div class="texte">
-                            <p>Il n'a ni compte, ni formulaire, ni cookie de publicité, et ne mesure pas son audience.
-                                Polices, images et scripts sont servis par le site lui-même : une visite ne contacte
-                                aucun autre domaine.</p>
-                        </div>
-                    </section>
-
-                    <section class="bloc">
-                        <h2>L'hébergeur</h2>
-                        <div class="texte">
-                            <p>Comme pour toute page web, ton navigateur transmet à l'hébergeur du site, Cloudflare,
-                                ton adresse IP et des informations techniques : la page demandée, ton navigateur.
-                                Cloudflare les traite pour servir et protéger le site, selon sa <a
-                                    href="https://www.cloudflare.com/privacypolicy/" rel="noopener">politique de
-                                    confidentialité</a>. Nous n'en conservons rien.</p>
-                        </div>
-                    </section>
-
-                    <section class="bloc">
-                        <h2>Les liens vers d'autres services</h2>
-                        <div class="texte">
-                            <p>Les boutons de téléchargement mènent à l'App Store et à Google Play, les liens vers le
-                                code à GitHub, et la page d'engagement au formulaire de l'application, sur Google Forms.
-                                En les suivant, tu quittes le site : ce sont leurs politiques qui s'appliquent.</p>
-                        </div>
-                    </section>
-
-                    <section class="bloc">
-                        <h2>L'application</h2>
-                        <div class="texte">
-                            <p>UKit fonctionne sans compte UKit. Ce qu'elle lit, ce qu'elle garde sur ton téléphone et
-                                le peu qu'elle envoie, chaque fois avec un interrupteur pour le couper, est décrit dans
-                                sa <a href="https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md"
-                                    rel="noopener">politique de confidentialité</a>.</p>
-                        </div>
-                    </section>
-
-                    <section class="bloc">
-                        <h2>Tes droits</h2>
-                        <div class="texte">
-                            <p>Pour une question, ou pour demander l'accès, la rectification ou l'effacement de ce qui te
-                                concerne : <a href="mailto:contact@kaelab.dev">contact@kaelab.dev</a>. Tu peux aussi
-                                adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes"
-                                    rel="noopener">CNIL</a>.</p>
-                        </div>
-                    </section>
-                </div>
-
-                <footer class="note m">
-                    <div>
-                        <p>Dernière mise à jour : 16 novembre 2026.</p>
-                    </div>
-                </footer>
-            </article>
-        </main>
-
-        <footer class="pied">
-            <p class="m projet">maintenu par <a href="https://github.com/KAE-Lab" rel="noopener">kae lab</a> · fork de
-                <a href="https://github.com/kb-dev/UKit" rel="noopener">kb-dev</a> · licence apache 2.0 · <a
-                    href="https://github.com/KAE-Lab/UKit" rel="noopener">code source</a></p>
-            <div class="cadre">
-                <span class="cap adresse">ukit-bordeaux.fr</span>
-                <span class="trait"></span>
-                <nav class="cap" aria-label="Pages légales">
-                    <a href="/mentions-legales.html">Mentions légales</a>
-                    <a href="/confidentialite.html" aria-current="page">Confidentialité</a>
-                </nav>
-            </div>
-        </footer>
-
-    </div>
+        </div>
+    </footer>
 </body>
 
 </html>

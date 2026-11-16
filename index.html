@@ -5,378 +5,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0B0B12">
-    <title>UKit, le kit de survie pour l'étudiant bordelais</title>
-    <meta name="description"
-        content="L'application gratuite et open source des étudiants bordelais : emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit.">
-
-    <!-- Open Graph (partage de lien : iMessage, WhatsApp, Discord, Slack…) -->
+    <title>UKit, ton campus en une seule app</title>
+    <meta name="description" content="L'application des étudiants bordelais : emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit. Gratuite, sans compte.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="UKit, le kit de survie pour l'étudiant bordelais">
-    <meta property="og:description"
-        content="Emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit.">
+    <meta property="og:title" content="UKit, ton campus en une seule app">
+    <meta property="og:description" content="L'application des étudiants bordelais : emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit. Gratuite, sans compte.">
     <meta property="og:url" content="%VITE_SITE_URL%/">
     <meta property="og:image" content="%VITE_SITE_URL%/opengraph-image.png">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/icon.png">
-    <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/polices/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
-    <script type="module" src="/src/main.js"></script>
 </head>
 
-<body class="accueil">
-    <div class="site">
+<body>
+    <header class="tete conteneur">
+        <a href="/" aria-label="UKit, accueil"><img class="logo" src="/logo-ukit.svg" width="850" height="343" alt="UKit"></a>
+    </header>
 
-        <!-- ══ LA TÊTE DU CADRE : la marque, le sommaire, et les mesures de l'écran ═══ -->
-        <header class="cadre tete">
-            <a class="cap marque" href="/">UKit</a>
-            <span class="trait"></span>
-            <nav class="sommaire cap" aria-label="Sommaire">
-                <a href="#etape-planning">Le kit</a>
-                <a href="#mesures">En chiffres</a>
-                <a href="#histoire">L'histoire</a>
-            </nav>
-            <a class="cap appel" href="/download.html">Télécharger
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 5v14" />
-                    <path d="m19 12-7 7-7-7" />
-                </svg>
-            </a>
-        </header>
-
-        <main>
-            <!-- ══ L'APPLICATION : un téléphone épinglé, l'ouverture puis cinq fiches qui défilent ═════
-                 Sur ordinateur, l'écran reste en place à gauche et change avec la fiche lue ; ses
-                 annotations pointent les vrais éléments de la capture. -->
-            <section class="kit" id="kit" aria-labelledby="slogan">
-                <div class="kit-corps">
-                    <!-- La scène, sur ordinateur : l'écran de la fiche active, épinglé, et ses annotations. -->
-                    <div class="scene" data-scene aria-hidden="true">
-                        <div class="scene-interieur">
-                            <p class="cap legende scene-legende" data-scene-legende></p>
-                            <div class="ecran-cadre" data-scene-ecran></div>
-                            <p class="m scene-cote decor" data-scene-cote></p>
-                        </div>
-                    </div>
-
-                    <ol class="etapes" data-etapes>
-                        <li class="etape etape-ouverture" id="ouverture" data-legende="Fig. 01 · Planning"
-                            data-image="/captures/planning.webp"
-                            data-alt="L'onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l'heure qui annonce le prochain cours">
-                            <img class="marque-verre" src="/epure/logo-verre.svg" width="850" height="343" alt="UKit">
-                            <h1 id="slogan" class="slogan deux-tons">Le <b>kit de survie</b> pour l’<b>étudiant
-                                    bordelais</b>.</h1>
-                            <p class="sous-titre deux-tons"><b>Emploi du temps</b>, <b>restos U</b>,
-                                <b>bibliothèques</b>, <b>salles libres</b> et <b>compte universitaire</b>, au même
-                                endroit.</p>
-                            <div class="ouverture-appel">
-                                <div class="magasins">
-                                    <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
-                                        <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
-                                            height="40">
-                                    </a>
-                                    <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
-                                        rel="noopener">
-                                        <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
-                                            height="40">
-                                    </a>
-                                </div>
-                                <p class="m">gratuit · sans compte · <b>open source</b></p>
-                            </div>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran"><img src="/captures/planning.webp" width="720" height="1527"
-                                            alt="L'onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l'heure qui annonce le prochain cours">
-                                    </div>
-                                </div>
-                            </figure>
-                            <ol class="m notes" data-notes>
-                                <li data-x="320" data-y="1442">ta pause · 3 h 10</li>
-                                <li data-x="552" data-y="1641">ta salle · A9.b / 103</li>
-                                <li data-x="1037" data-y="1952">ton prochain cours · dans 44 min</li>
-                            </ol>
-                        </li>
-                        <li class="etape" id="etape-planning" data-legende="Fig. 01 · Planning" data-image="/captures/planning.webp" data-alt="L&#x27;onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l&#x27;heure qui annonce le prochain cours">
-                            <p class="m"><b>fig. 01</b> · planning</p>
-                            <h3 class="deux-tons"><b>Ta journée</b>, cours par cours.</h3>
-                            <dl class="specs">
-                                <div><dt class="m">vue</dt><dd>jour ou semaine</dd></div>
-                                <div><dt class="m">groupes</dt><dd>un groupe, ou tous tes favoris</dd></div>
-                                <div><dt class="m">hors ligne</dt><dd>la dernière consultation, datée</dd></div>
-                                <div><dt class="m">rappels</dt><dd>avant tes cours</dd></div>
-                                <div><dt class="m">agenda</dt><dd>ajout au calendrier du téléphone</dd></div>
-                            </dl>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran"><img src="/captures/planning.webp" width="720" height="1527" loading="lazy"
-                                            alt="L&#x27;onglet Planning en vue jour : les cours du lundi, une pause de 3 h 10, et la ligne de l&#x27;heure qui annonce le prochain cours"></div>
-                                    <div class="reperes" data-reperes aria-hidden="true"></div>
-                                </div>
-                            </figure>
-                            <ol class="m notes" data-notes>
-                                <li data-x="1037" data-y="238">vue · jour ou semaine</li>
-                                <li data-x="1037" data-y="760">cours passé · estompé</li>
-                                <li data-x="320" data-y="1442">pause · 3 h 10</li>
-                                <li data-x="552" data-y="1641">salle · A9.b / 103</li>
-                                <li data-x="585" data-y="1703">enseignant · caviardé pour ce site</li>
-                                <li data-x="1037" data-y="1952">maintenant · prochain cours dans 44 min</li>
-                            </ol>
-                        </li>
-                        <li class="etape" id="etape-bibliotheques" data-legende="Fig. 02 · Bibliothèques" data-image="/captures/bibliotheques.webp" data-alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée jusqu&#x27;au lundi suivant">
-                            <p class="m"><b>fig. 02</b> · bibliothèques</p>
-                            <h3 class="deux-tons"><b>L'affluence des BU</b>, avant d'y aller.</h3>
-                            <dl class="specs">
-                                <div><dt class="m">affluence</dt><dd>en temps réel</dd></div>
-                                <div><dt class="m">horaires</dt><dd>ouverte, fermée, réouverture</dd></div>
-                                <div><dt class="m">tri</dt><dd>par distance</dd></div>
-                                <div><dt class="m">recherche</dt><dd>par bibliothèque ou par ville</dd></div>
-                                <div><dt class="m">favoris</dt><dd>d'une étoile</dd></div>
-                            </dl>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran"><img src="/captures/bibliotheques.webp" width="720" height="1527" loading="lazy"
-                                            alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée jusqu&#x27;au lundi suivant"></div>
-                                    <div class="reperes" data-reperes aria-hidden="true"></div>
-                                </div>
-                            </figure>
-                            <ol class="m notes" data-notes>
-                                <li data-x="977" data-y="628">favori</li>
-                                <li data-x="240" data-y="702">ville · Pessac</li>
-                                <li data-x="1016" data-y="763">ouverte · affluence 35 %</li>
-                                <li data-x="728" data-y="1583">fermée · rouvre lun. 23/11 à 09:00</li>
-                                <li data-x="1000" data-y="2161">recherche · bibliothèque ou ville</li>
-                            </ol>
-                        </li>
-                        <li class="etape" id="etape-restos" data-legende="Fig. 03 · Restos U" data-image="/captures/resto.webp" data-alt="Le menu du midi d&#x27;une cafétéria du CROUS : entrées, plats et desserts, puis ses horaires et son plan">
-                            <p class="m"><b>fig. 03</b> · restos u</p>
-                            <h3 class="deux-tons"><b>Le menu du jour</b>, avant de faire la queue.</h3>
-                            <dl class="specs">
-                                <div><dt class="m">menus</dt><dd>le midi, du lundi au vendredi</dd></div>
-                                <div><dt class="m">horaires</dt><dd>self, bar</dd></div>
-                                <div><dt class="m">plan</dt><dd>s'y rendre</dd></div>
-                                <div><dt class="m">source</dt><dd>les menus du CROUS, par Croustillant</dd></div>
-                            </dl>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran"><img src="/captures/resto.webp" width="720" height="1527" loading="lazy"
-                                            alt="Le menu du midi d&#x27;une cafétéria du CROUS : entrées, plats et desserts, puis ses horaires et son plan"></div>
-                                    <div class="reperes" data-reperes aria-hidden="true"></div>
-                                </div>
-                            </figure>
-                            <ol class="m notes" data-notes>
-                                <li data-x="905" data-y="285">semaine · du lundi au vendredi</li>
-                                <li data-x="158" data-y="482">service · midi</li>
-                                <li data-x="385" data-y="918">menu · entrées, plats, desserts</li>
-                                <li data-x="995" data-y="1793">horaires · self 11h30-13h30</li>
-                                <li data-x="296" data-y="2072">s'y rendre · carte OpenStreetMap</li>
-                            </ol>
-                        </li>
-                        <li class="etape" id="etape-salles" data-legende="Fig. 04 · Salles libres" data-image="/captures/salles.webp" data-alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune disponible jusqu&#x27;à 22 h">
-                            <p class="m"><b>fig. 04</b> · salles libres</p>
-                            <h3 class="deux-tons"><b>Une salle libre</b>, heure par heure.</h3>
-                            <dl class="specs">
-                                <div><dt class="m">créneau</dt><dd>heure par heure</dd></div>
-                                <div><dt class="m">classement</dt><dd>par étage</dd></div>
-                                <div><dt class="m">durée</dt><dd>jusqu'à quand elle reste libre</dd></div>
-                                <div><dt class="m">bâtiments</dt><dd>en accès libre</dd></div>
-                            </dl>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran"><img src="/captures/salles.webp" width="720" height="1527" loading="lazy"
-                                            alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune disponible jusqu&#x27;à 22 h"></div>
-                                    <div class="reperes" data-reperes aria-hidden="true"></div>
-                                </div>
-                            </figure>
-                            <ol class="m notes" data-notes>
-                                <li data-x="434" data-y="482">9 salles libres à 17 h</li>
-                                <li data-x="170" data-y="891">par étage</li>
-                                <li data-x="995" data-y="1026">libre · 5 h, jusqu'à 22:00</li>
-                            </ol>
-                        </li>
-                        <li class="etape" id="etape-scolarite" data-legende="Fig. 05 · Scolarité">
-                            <p class="m"><b>fig. 05</b> · scolarité</p>
-                            <h3 class="deux-tons"><b>Ton dossier</b>, tes services et <b>tes documents</b>.</h3>
-                            <dl class="specs">
-                                <div><dt class="m">dossier</dt><dd>formation, numéro étudiant</dd></div>
-                                <div><dt class="m">services</dt><dd>ENT, webmail, Moodle</dd></div>
-                                <div><dt class="m">documents</dt><dd>rangés sur ton téléphone, sans compte</dd></div>
-                                <div><dt class="m">connexion</dt><dd>identifiants chiffrés sur l'appareil</dd></div>
-                            </dl>
-                            <figure class="etape-figure">
-                                <div class="ecran-cadre">
-                                    <div class="ecran vide" data-vide>
-                                        <svg viewBox="0 0 1080 2290" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="0" x2="1080" y2="2290" stroke="rgba(244,244,247,.3)" vector-effect="non-scaling-stroke" /><line x1="1080" y1="0" x2="0" y2="2290" stroke="rgba(244,244,247,.3)" vector-effect="non-scaling-stroke" /></svg>
-                                        <p class="m">non reproduite :<br>elle affiche <b>ton dossier</b></p>
-                                    </div>
-                                </div>
-                            </figure>
-                        </li>
-                    </ol>
+    <main>
+        <section class="ouverture conteneur" aria-labelledby="titre">
+            <div class="texte">
+                <h1 id="titre" class="titre">Ton campus,<br><span class="suite">en une seule app.</span></h1>
+                <p class="slogan">Le kit de survie pour l’étudiant bordelais.</p>
+                <div class="appel">
+                    <a class="bouton" href="/download.html">Télécharger UKit</a>
+                    <p class="precision">Gratuit, sur iPhone et Android.</p>
                 </div>
-            </section>
-
-            <!-- ══ LES MESURES : quatre chiffres vrais ════════════════════════ -->
-            <section class="section mesures" id="mesures" aria-labelledby="titre-mesures">
-                <header class="entete-section">
-                    <p class="m"><b>en chiffres</b> · à la rentrée 2026</p>
-                    <h2 id="titre-mesures" class="question deux-tons">Ce que UKit <b>compte</b>, et ce qu'il <b>ne
-                            compte pas</b>.</h2>
-                </header>
-                <div class="horizon horizon-mesures">
-                    <div class="station">
-                        <span class="icone" aria-hidden="true"><!-- lucide users, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                        </span>
-                        <p class="m etiquette"><span class="n1">01</span>usage.etudiants</p>
-                        <p class="chiffre">2<span class="f"></span>000<span class="plus">+</span></p>
-                        <p class="fait deux-tons"><b>étudiants</b> l’utilisent déjà.</p>
-                        <p class="m donnee">ios · android</p>
-                    </div>
-                    <div class="station">
-                        <span class="icone" aria-hidden="true"><!-- lucide map-pin, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                                <circle cx="12" cy="10" r="3" />
-                            </svg>
-                        </span>
-                        <p class="m etiquette"><span class="n1">02</span>etablissements</p>
-                        <p class="chiffre">2</p>
-                        <p class="fait deux-tons"><b>établissements</b> : le Collège Sciences et Technologies, et
-                            Bordeaux INP.</p>
-                        <p class="m donnee">44.81° n · 0.60° o</p>
-                    </div>
-                    <div class="station">
-                        <span class="icone" aria-hidden="true"><!-- lucide key-round, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" />
-                                <circle cx="16.5" cy="7.5" r=".5" fill="#F4F4F7" />
-                            </svg>
-                        </span>
-                        <p class="m etiquette"><span class="n2">03</span>compte.ukit</p>
-                        <p class="chiffre">0</p>
-                        <p class="fait deux-tons"><b>compte</b> à créer : tes identifiants restent sur ton téléphone.</p>
-                        <p class="m donnee">trousseau du système</p>
-                    </div>
-                    <div class="station">
-                        <span class="icone" aria-hidden="true"><!-- lucide eye-off, ISC -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
-                                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
-                                <path
-                                    d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
-                                <path d="m2 2 20 20" />
-                            </svg>
-                        </span>
-                        <p class="m etiquette"><span class="n3">04</span>traceurs.tiers</p>
-                        <p class="chiffre">0</p>
-                        <p class="fait deux-tons"><b>traceur</b> tiers : des compteurs anonymes, que tu peux couper.</p>
-                        <p class="m donnee"><a href="/confidentialite.html">confidentialité</a></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ══ L'HISTOIRE : la frise à l'échelle vraie, et le détail de 2026 ═══ -->
-            <section class="section histoire" id="histoire"
-                aria-labelledby="titre-histoire">
-                <div class="histoire-plateau">
-                    <header class="entete-section">
-                        <p class="m"><b>l'histoire</b> · à l'échelle : une graduation, un an</p>
-                        <h2 id="titre-histoire" class="question deux-tons"><b>Depuis 2012</b>, de promo en promo.</h2>
-                    </header>
-                    <div class="frise" data-frise></div>
-                </div>
-            </section>
-
-            <!-- ══ LE CARTOUCHE : ce que tout plan porte en bas à droite ═══════ -->
-            <section class="section cartouche-section" id="telecharger"
-                aria-labelledby="titre-telecharger">
-                <header class="entete-section">
-                    <p class="m"><b>télécharger</b> · ios · android</p>
-                    <h2 id="titre-telecharger" class="slogan deux-tons"><b>Gratuit</b>, sans compte,<br><b>open
-                            source</b>.</h2>
-                </header>
-                <div class="cartouche">
-                    <dl class="cartouche-table">
-                        <div>
-                            <dt class="m">projet</dt>
-                            <dd>UKit</dd>
-                        </div>
-                        <div>
-                            <dt class="m">objet</dt>
-                            <dd>le kit de survie pour l'étudiant bordelais</dd>
-                        </div>
-                        <div>
-                            <dt class="m">plateformes</dt>
-                            <dd>iOS · Android</dd>
-                        </div>
-                        <div>
-                            <dt class="m">prix</dt>
-                            <dd>gratuit</dd>
-                        </div>
-                        <div>
-                            <dt class="m">compte</dt>
-                            <dd>aucun</dd>
-                        </div>
-                        <div>
-                            <dt class="m">licence</dt>
-                            <dd><a href="https://github.com/KAE-Lab/UKit" rel="noopener">Apache 2.0</a></dd>
-                        </div>
-                        <div>
-                            <dt class="m">éditeur</dt>
-                            <dd><a href="https://github.com/KAE-Lab" rel="noopener">KAE Lab</a></dd>
-                        </div>
-                    </dl>
-                    <div class="cartouche-telecharger">
-                        <div class="magasins">
-                            <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
-                                <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
-                                    height="40">
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
-                                rel="noopener">
-                                <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
-                                    height="40">
-                            </a>
-                        </div>
-                        <div class="qr">
-                            <img src="/qrcode.png" width="1184" height="1184" loading="lazy"
-                                alt="QR code de téléchargement de UKit">
-                            <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- ══ LE PIED DU CADRE ═══════════════════════════════════════════ -->
-        <footer class="pied">
-            <p class="m projet">maintenu par <a href="https://github.com/KAE-Lab" rel="noopener">kae lab</a> · fork de
-                <a href="https://github.com/kb-dev/UKit" rel="noopener">kb-dev</a> · licence apache 2.0 · <a
-                    href="https://github.com/KAE-Lab/UKit" rel="noopener">code source</a></p>
-            <div class="cadre">
-                <span class="cap adresse">ukit-bordeaux.fr</span>
-                <span class="trait"></span>
-                <nav class="cap" aria-label="Pages légales">
-                    <a href="/mentions-legales.html">Mentions légales</a>
-                    <a href="/confidentialite.html">Confidentialité</a>
-                </nav>
             </div>
-        </footer>
-    </div>
+            <div class="scene" aria-hidden="true">
+            <div class="lueur"></div>
+            <!-- Trois cartes de l'application, telles que l'écran d'accueil les montre : un cours, un
+                 restaurant, une bibliothèque. Les données sont celles des exemples de l'application. -->
+            <div class="pile">
+                <div class="carte carte-cours">
+                    <div class="heures"><span class="debut">11:00</span><span class="fin">12:20</span></div>
+                    <div>
+                        <div class="entete"><span class="nom">4TIN603U Compilation</span><span class="pastille">Cours</span></div>
+                        <p class="ligne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>A22/Amphithéâtre Charles DARWIN</p>
+                    </div>
+                </div>
+                <div class="carte carte-lieu">
+                    <div class="entete">
+                        <span class="nom">Resto U L'Amazone <svg viewBox="0 0 24 24" fill="#6381F8" stroke="#6381F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg></span>
+                        <span class="distance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg>640 m</span>
+                    </div>
+                    <p class="ligne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>Talence</p>
+                    <p class="ligne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h5" /><path d="M17.5 17.5 16 16.3V14" /><circle cx="16" cy="16" r="6" /></svg>11h45-13h45</p>
+                </div>
+                <div class="carte carte-lieu">
+                    <div class="entete">
+                        <span class="nom">BU ST Bordeaux-Talence <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg></span>
+                        <span class="distance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg>350 m</span>
+                    </div>
+                    <p class="ligne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>Talence</p>
+                    <div class="affluence">
+                        <span class="etat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14" /><path d="M2 20h3" /><path d="M13 20h9" /><path d="M10 12v.01" /><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z" /></svg>Ouverte</span>
+                        <span class="jauge"><span style="width: 62%"></span></span>
+                        <span class="taux">62%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <section class="ecrans conteneur" aria-labelledby="titre-ecrans">
+            <h2 id="titre-ecrans" class="titre-section">Tout ce qu’il te faut,<br><span class="suite">au même endroit.</span></h2>
+            <ul class="galerie">
+                <li>
+                    <div class="ecran"><img src="/captures/planning.webp" width="720" height="1527" loading="lazy"
+                            alt="L&#x27;onglet Planning : les cours de la journée, une pause de 3 h 10 et l&#x27;heure du prochain cours"></div>
+                    <h3>Planning</h3>
+                    <p>Ton emploi du temps, jour par jour, même hors ligne.</p>
+                </li>
+                <li>
+                    <div class="ecran"><img src="/captures/bibliotheques.webp" width="720" height="1527" loading="lazy"
+                            alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée"></div>
+                    <h3>Bibliothèques</h3>
+                    <p>L'affluence des BU, en temps réel.</p>
+                </li>
+                <li>
+                    <div class="ecran"><img src="/captures/resto.webp" width="720" height="1527" loading="lazy"
+                            alt="Le menu du midi d&#x27;une cafétéria du CROUS, avec ses horaires"></div>
+                    <h3>Restos U</h3>
+                    <p>Les menus de la semaine, et les horaires.</p>
+                </li>
+                <li>
+                    <div class="ecran"><img src="/captures/salles.webp" width="720" height="1527" loading="lazy"
+                            alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage"></div>
+                    <h3>Salles libres</h3>
+                    <p>Une salle libre, heure par heure.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="cloture conteneur" aria-labelledby="titre-fin">
+            <h2 id="titre-fin" class="titre-section">Gratuit, sans compte,<br><span class="suite">et open source.</span></h2>
+            <div class="magasins">
+                <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                    <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127" height="40">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
+                    <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pied">
+        <div class="conteneur">
+            <p>UKit est développé par <a href="https://kaelab.dev" rel="noopener">KAE Lab</a>, association étudiante.</p>
+            <nav aria-label="Pages légales">
+                <a href="/mentions-legales.html">Mentions légales</a>
+                <a href="/confidentialite.html">Confidentialité</a>
+                <a href="https://github.com/KAE-Lab/UKit" rel="noopener">Code source</a>
+            </nav>
+        </div>
+    </footer>
 </body>
 
 </html>

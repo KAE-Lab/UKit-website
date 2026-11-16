@@ -1,6 +1,5 @@
 import { fileURLToPath } from 'node:url'
 
-import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 // Un site statique de quelques pages : chacune est une entree, sinon Vite ne construit que l'accueil.
@@ -9,7 +8,6 @@ import { defineConfig } from 'vite'
 const page = (nom) => fileURLToPath(new URL(`./${nom}.html`, import.meta.url))
 
 export default defineConfig({
-    plugins: [tailwindcss()],
     build: {
         rollupOptions: {
             input: {

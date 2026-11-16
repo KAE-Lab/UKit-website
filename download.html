@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0B0B12">
     <title>Télécharger UKit</title>
-    <meta name="description"
-        content="Télécharge UKit, le kit de survie de l'étudiant bordelais, sur l'App Store ou sur Google Play.">
+    <meta name="description" content="Télécharge UKit sur l'App Store ou sur Google Play.">
 
     <!-- Redirection vers le store du téléphone, le plus haut possible : avant tout rendu. -->
     <script>
@@ -20,110 +19,49 @@
             }
         })();
     </script>
-
     <meta property="og:type" content="website">
     <meta property="og:title" content="Télécharger UKit">
-    <meta property="og:description" content="Le kit de survie de l'étudiant bordelais, sur iPhone et sur Android.">
+    <meta property="og:description" content="Télécharge UKit sur l'App Store ou sur Google Play.">
     <meta property="og:url" content="%VITE_SITE_URL%/download.html">
     <meta property="og:image" content="%VITE_SITE_URL%/opengraph-image.png">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/icon.png">
-    <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body>
-    <div class="site">
-        <header class="cadre tete">
-            <a class="cap marque" href="/">UKit</a>
-            <span class="trait"></span>
-            <nav class="sommaire cap" aria-label="Sommaire">
-                <a href="/#etape-planning">Le kit</a>
-                <a href="/#mesures">En chiffres</a>
-                <a href="/#histoire">L'histoire</a>
-            </nav>
-            <a class="cap appel" href="/download.html" aria-current="page">Télécharger
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 5v14" />
-                    <path d="m19 12-7 7-7-7" />
-                </svg>
-            </a>
-        </header>
+    <header class="tete conteneur">
+        <a href="/" aria-label="UKit, accueil"><img class="logo" src="/logo-ukit.svg" width="850" height="343" alt="UKit"></a>
+    </header>
 
-        <main class="section cartouche-section seule">
-            <header class="entete-section">
-                <p class="m"><b>télécharger</b> · ios · android</p>
-                <h1 class="slogan deux-tons"><b>UKit</b> se télécharge<br>sur ton <b>téléphone</b>.</h1>
-            </header>
-                <div class="cartouche">
-                    <dl class="cartouche-table">
-                        <div>
-                            <dt class="m">projet</dt>
-                            <dd>UKit</dd>
-                        </div>
-                        <div>
-                            <dt class="m">objet</dt>
-                            <dd>le kit de survie pour l'étudiant bordelais</dd>
-                        </div>
-                        <div>
-                            <dt class="m">plateformes</dt>
-                            <dd>iOS · Android</dd>
-                        </div>
-                        <div>
-                            <dt class="m">prix</dt>
-                            <dd>gratuit</dd>
-                        </div>
-                        <div>
-                            <dt class="m">compte</dt>
-                            <dd>aucun</dd>
-                        </div>
-                        <div>
-                            <dt class="m">licence</dt>
-                            <dd><a href="https://github.com/KAE-Lab/UKit" rel="noopener">Apache 2.0</a></dd>
-                        </div>
-                        <div>
-                            <dt class="m">éditeur</dt>
-                            <dd><a href="https://github.com/KAE-Lab" rel="noopener">KAE Lab</a></dd>
-                        </div>
-                    </dl>
-                    <div class="cartouche-telecharger">
-                        <div class="magasins">
-                            <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
-                                <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
-                                    height="40">
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois"
-                                rel="noopener">
-                                <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135"
-                                    height="40">
-                            </a>
-                        </div>
-                        <div class="qr">
-                            <img src="/qrcode.png" width="1184" height="1184" 
-                                alt="QR code de téléchargement de UKit">
-                            <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
-                        </div>
-                    </div>
-                </div>
-        </main>
-
-        <footer class="pied">
-            <p class="m projet">maintenu par <a href="https://github.com/KAE-Lab" rel="noopener">kae lab</a> · fork de
-                <a href="https://github.com/kb-dev/UKit" rel="noopener">kb-dev</a> · licence apache 2.0 · <a
-                    href="https://github.com/KAE-Lab/UKit" rel="noopener">code source</a></p>
-            <div class="cadre">
-                <span class="cap adresse">ukit-bordeaux.fr</span>
-                <span class="trait"></span>
-                <nav class="cap" aria-label="Pages légales">
-                    <a href="/mentions-legales.html">Mentions légales</a>
-                    <a href="/confidentialite.html">Confidentialité</a>
-                </nav>
+    <main class="seule conteneur">
+        <h1 class="titre">Télécharge UKit,<br><span class="suite">sur ton téléphone.</span></h1>
+        <p class="slogan">Gratuit, sur iPhone et Android.</p>
+        <div class="magasins">
+                <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                    <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127" height="40">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
+                    <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
+                </a>
             </div>
-        </footer>
+        <div class="qr">
+            <img src="/qrcode.png" width="1184" height="1184" alt="QR code de téléchargement de UKit">
+            <p>Depuis un ordinateur,<br>scanne ce code avec ton téléphone.</p>
+        </div>
+    </main>
 
-    </div>
+    <footer class="pied">
+        <div class="conteneur">
+            <p>UKit est développé par <a href="https://kaelab.dev" rel="noopener">KAE Lab</a>, association étudiante.</p>
+            <nav aria-label="Pages légales">
+                <a href="/mentions-legales.html">Mentions légales</a>
+                <a href="/confidentialite.html">Confidentialité</a>
+                <a href="https://github.com/KAE-Lab/UKit" rel="noopener">Code source</a>
+            </nav>
+        </div>
+    </footer>
 </body>
 
 </html>

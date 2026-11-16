@@ -23,19 +23,17 @@ Une page n'est terminée que lorsque tout ceci est vrai :
    porté vers un fork pendant des mois sans que rien ne le signale.
 4. **Les balises Open Graph** sont présentes (`og:title`, `og:description`, `og:url`, `og:image`),
    avec `%VITE_SITE_URL%` pour l'adresse.
-5. **Aucune valeur de style inventée** : les tokens et les composants de l'Épure dans
-   `src/style.css` (cadre, deux tons, `.m`, `.cap`, pages de lecture) suffisent ; une mesure nouvelle
-   vient de [docs/identite.md](https://github.com/KAE-Lab/UKit/blob/main/docs/identite.md).
+5. **Aucune valeur de style inventée** : les variables de `src/style.css` sont celles du thème
+   sombre de l'application ; une valeur nouvelle se prend dans
+   [`palettes.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/palettes.ts) ou
+   [`tokens.ts`](https://github.com/KAE-Lab/UKit/blob/main/src/shared/theme/tokens.ts).
 6. **Le README et le CHANGELOG sont à jour** dans le même commit — une page nouvelle a sa ligne
    dans le tableau des pages et dans la structure.
 
 ## Principes de code
 
-- Du JavaScript sans framework, en modules ES, et seulement là où il sert : les pages secondaires
-  n'en ont pas, l'accueil charge `src/main.js` ; sans script, le contenu reste lisible, seuls la
-  frise et les annotations du kit manquent.
-- Une valeur affichée comme une mesure est une vraie mesure, relue à l'exécution ou relevée à la
-  source : jamais une décoration chiffrée.
+- Pas de JavaScript, sauf la redirection de la page de téléchargement : le site est du HTML et du
+  CSS. Un script ajouté se justifie par un besoin que le CSS ne couvre pas.
 - Une fonction qui touche un élément du DOM vérifie qu'il existe : la même feuille de script peut
   vivre sur plusieurs pages.
 - Des commentaires sobres, orientés « pourquoi ». Aucun emoji dans le code, les commentaires ou

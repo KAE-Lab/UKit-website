@@ -1,1080 +1,546 @@
-@import "tailwindcss";
-
 /* ══════════════════════════════════════════════════════════════════
-   L'ÉPURE, l'identité de UKit, portée au site
-   Ses règles et ses mesures sont dans le dépôt de l'application :
-   https://github.com/KAE-Lab/UKit/blob/main/docs/identite.md
-   Le site présente l'application ; l'Épure en est l'appui : le sombre, Geist,
-   les deux tons, les annotations fines. Sur ordinateur, les mesures suivent
-   l'unité --u, un pixel d'une surface de 1920 mis à l'échelle de l'écran.
+   Le site de UKit, dans le style de l'application : celui de son premier
+   écran d'accueil (src/features/Onboarding/components/VitrineDAccueil.tsx).
+   Les valeurs sont celles du thème sombre de l'application
+   (src/shared/theme/palettes.ts et tokens.ts) : le site ne crée pas de
+   couleur, il reprend les siennes. La police est celle du système, comme
+   dans l'application.
 ══════════════════════════════════════════════════════════════════ */
-
-@font-face {
-    font-family: "Geist";
-    src: url("/polices/geist.woff2") format("woff2");
-    font-weight: 100 900;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Geist Mono";
-    src: url("/polices/geist-mono.woff2") format("woff2");
-    font-weight: 100 900;
-    font-display: swap;
-}
-
-/* ── Les tokens : la palette de l'Épure, contrastes mesurés sur le papier ── */
-@theme {
-    --color-papier: #0B0B12;
-    --color-encre: #F4F4F7;        /* 17,9:1 */
-    --color-gris: #A0A0AC;         /* 7,6:1 */
-    --color-estompe: #6E6E7B;      /* 3,9:1, les mots de liaison seulement */
-    --color-bleu: #007AFF;
-    --color-bleu-indigo: #456BF2;
-    --color-indigo: #5E5CE6;
-    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "Geist Mono", ui-monospace, monospace;
-}
 
 :root {
     color-scheme: dark;
-    --filet: rgba(244, 244, 247, .16);
-    --trait: rgba(244, 244, 247, .42);
-    --pointille: rgba(244, 244, 247, .22);
-    --marge: 16px;
-    --gouttiere: 16px;
+    --fond: #0B0B12;
+    --carte: #15151E;
+    --gris-fond: #22222E;
+    --contour: rgba(255, 255, 255, .07);
+    --texte: #FFFFFF;
+    --texte-2: #BCBCCB;
+    --texte-3: #8A8A98;
+    --accent: #6381F8;
+    --accent-profond: #5974DF;
+    --cyan: #64D2FF;
+    --orange: #FF9F0A;
+    --rayon: 16px;
+    --marge: 24px;
+    --police: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
 }
 
-@media (min-width: 640px) {
-    :root {
-        --marge: 24px;
-        --gouttiere: 24px;
-    }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-    background: var(--color-papier);
+    background: var(--fond);
     -webkit-text-size-adjust: 100%;
 }
 
 body {
-    background: var(--color-papier);
-    color: var(--color-encre);
-    font-family: var(--font-sans);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background: var(--fond);
+    color: var(--texte);
+    font-family: var(--police);
+    font-size: 17px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-kerning: normal;
 }
 
-::selection {
-    background: var(--color-bleu);
-    color: var(--color-encre);
+/* Le halo et la pile inclinée débordent exprès de leur colonne : la page, elle, ne défile pas de côté. */
+main {
+    flex: 1 0 auto;
+    overflow-x: clip;
+}
+
+img,
+svg {
+    display: block;
+}
+
+a {
+    color: inherit;
 }
 
 a:focus-visible,
 button:focus-visible {
-    outline: 1px solid var(--color-encre);
-    outline-offset: 4px;
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
 }
 
-/* L'unité de la grille : 1 px de la slide témoin. Le conteneur est la page entière,
-   pour que 1920 unités fassent toujours la largeur utile, barre de défilement exclue. */
-.site {
-    container-type: inline-size;
-    overflow-x: clip;
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
+::selection {
+    background: var(--accent);
+    color: var(--texte);
 }
 
-/* Le pied reste en bas d'une page courte : le contenu prend la place qui reste. */
-.site > main {
-    flex: 1 0 auto;
-}
-
-@media (min-width: 1024px) {
-    .site {
-        --u: calc(100cqw / 1920);
-        --marge: calc(56 * var(--u));
-        --gouttiere: calc(32 * var(--u));
-    }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LE VOCABULAIRE COMMUN
-══════════════════════════════════════════════════════════════════ */
-
-/* Le cadre, les légendes de figure : capitales espacées. */
-.cap {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    line-height: 1;
-}
-
-/* Les traces, les étiquettes, les données : chasse fixe, chiffres tabulaires. */
-.m {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 1.3;
-    letter-spacing: .01em;
-    color: var(--color-gris);
-    font-variant-numeric: tabular-nums;
-}
-
-.m b {
-    color: var(--color-encre);
-    font-weight: 500;
-}
-
-@media (min-width: 1024px) {
-    .cap {
-        font-size: max(11px, calc(17 * var(--u)));
-    }
-
-    .m {
-        font-size: max(11px, calc(14 * var(--u)));
-        line-height: 1;
-    }
-}
-
-/* Les deux tons : l'essentiel en encre, les mots de liaison en estompe. */
-.deux-tons {
-    color: var(--color-estompe);
-}
-
-.deux-tons b,
-.deux-tons em {
-    color: var(--color-encre);
-    font-weight: inherit;
-    font-style: normal;
-}
-
-/* Geist n'a pas l'espace fine insécable (U+202F) : on la dessine. */
-.f {
-    display: inline-block;
-    width: .17em;
-}
-
-.legende {
-    color: var(--color-gris);
-}
-
-.legende b {
-    color: var(--color-encre);
-    font-weight: 600;
-}
-
-/* Le décor en retrait : graduations, cotes, ce qui accompagne sans informer. */
-.decor {
-    opacity: .65;
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LE CADRE : la tête et le pied, au même endroit sur toutes les pages
-   La tête reste en haut de l'écran : la marque, le sommaire, télécharger.
-══════════════════════════════════════════════════════════════════ */
-
-.cadre {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+.conteneur {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
     padding-inline: var(--marge);
 }
 
-.cadre .trait {
-    flex: 1;
-    min-width: 24px;
-    height: 1px;
-    background: var(--filet);
-}
+/* ── La tête : le logo, et c'est tout ─────────────────────────────── */
 
 .tete {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    height: 56px;
-    background: var(--color-papier);
+    padding-top: 32px;
 }
 
 .tete a {
-    color: var(--color-encre);
+    display: inline-block;
 }
 
-.tete .marque {
-    padding-block: 8px;
-}
-
-.tete .sommaire {
-    display: none;
-}
-
-.tete .sommaire {
-    gap: 28px;
-}
-
-.tete .sommaire a {
-    color: var(--color-gris);
-    padding-block: 8px;
-    transition: color .2s ease;
-}
-
-.tete .sommaire a:hover,
-.tete .sommaire a[aria-current="true"] {
-    color: var(--color-encre);
-}
-
-.tete .appel {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding-block: 8px;
-    white-space: nowrap;
-}
-
-.tete .appel svg {
-    width: 14px;
-    height: 14px;
-    transition: transform .2s ease;
-}
-
-.tete .appel:hover svg {
-    transform: translateY(2px);
-}
-
-@media (min-width: 1024px) {
-    .cadre {
-        gap: calc(28 * var(--u));
-    }
-
-    .tete {
-        height: max(64px, calc(88 * var(--u)));
-    }
-
-    .tete .sommaire {
-        display: flex;
-    }
-
-    .tete .appel svg {
-        width: max(12px, calc(16 * var(--u)));
-        height: max(12px, calc(16 * var(--u)));
-    }
-}
-
-.pied {
-    padding-top: 96px;
-    padding-bottom: 32px;
-}
-
-.pied .projet {
-    padding-inline: var(--marge);
-    margin-bottom: 20px;
-    line-height: 1.7;
-}
-
-.pied a {
-    color: var(--color-encre);
-    text-decoration: underline;
-    text-decoration-color: var(--trait);
-    text-underline-offset: 3px;
-}
-
-.pied a:hover {
-    text-decoration-color: var(--color-encre);
-}
-
-.pied .cadre {
-    flex-wrap: wrap;
-    row-gap: 14px;
-}
-
-.pied .cadre .adresse {
-    color: var(--color-gris);
-}
-
-.pied nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 20px;
-}
-
-.pied nav a {
-    text-decoration: none;
-    color: var(--color-gris);
-}
-
-.pied nav a:hover,
-.pied nav a[aria-current="page"] {
-    color: var(--color-encre);
-}
-
-@media (max-width: 639px) {
-    /* Sur un téléphone, le filet passe sous l'adresse et les liens vont à la ligne. */
-    .pied .cadre .trait {
-        flex-basis: 100%;
-        order: 3;
-    }
-
-    .pied nav {
-        order: 4;
-    }
-}
-
-@media (min-width: 1024px) {
-    .pied {
-        padding-top: calc(200 * var(--u));
-        padding-bottom: calc(56 * var(--u));
-    }
-
-    .pied .projet {
-        margin-bottom: calc(28 * var(--u));
-    }
-
-    .pied nav {
-        gap: calc(28 * var(--u));
-    }
-}
-
-/* Une ancre ne se cache pas sous la tête collée en haut de l'écran. */
-[data-section],
-.etape,
-section[id] {
-    scroll-margin-top: 96px;
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LES TITRES DES SECTIONS
-══════════════════════════════════════════════════════════════════ */
-
-.section {
-    padding: 112px var(--marge) 0;
-}
-
-.entete-section {
-    max-width: 1100px;
-}
-
-.slogan {
-    font-size: clamp(34px, 9.6vw, 60px);
-    font-weight: 560;
-    letter-spacing: -.038em;
-    line-height: 1.09;
-}
-
-.question {
-    margin-top: 16px;
-    font-size: clamp(26px, 6.6vw, 40px);
-    font-weight: 470;
-    line-height: 1.19;
-    letter-spacing: -.03em;
-}
-
-.question b {
-    font-weight: 600;
-}
-
-@media (min-width: 1024px) {
-    .section {
-        padding-top: calc(240 * var(--u));
-    }
-
-    .entete-section {
-        max-width: calc(1250 * var(--u));
-    }
-
-    .slogan {
-        font-size: calc(72 * var(--u));
-        line-height: calc(78 * var(--u));
-    }
-
-    .question {
-        margin-top: calc(24 * var(--u));
-        font-size: calc(52 * var(--u));
-        line-height: calc(60 * var(--u));
-    }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   L'OUVERTURE : la première fiche du kit — la marque, le slogan, les stores
-══════════════════════════════════════════════════════════════════ */
-
-.marque-verre {
-    display: block;
-    width: 112px;
+.logo {
+    width: 88px;
     height: auto;
 }
 
-.etape-ouverture .slogan {
-    margin-top: 28px;
+/* ── Le titre en deux tons, comme « Ton campus, / en une seule app. » ── */
+
+.titre {
+    font-size: clamp(40px, 9vw, 72px);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -.035em;
 }
 
-.sous-titre {
+.titre .suite,
+.titre-section .suite {
+    color: var(--texte-3);
+}
+
+.slogan {
     margin-top: 20px;
-    max-width: 34ch;
-    font-size: 19px;
-    font-weight: 470;
-    line-height: 1.4;
-    letter-spacing: -.01em;
+    color: var(--texte-2);
+    font-size: clamp(18px, 2.2vw, 21px);
 }
 
-.sous-titre b {
-    font-weight: 560;
-}
+/* ── Le bouton plein de l'application : l'accent, un cran plus profond en bas ── */
 
-.ouverture-appel {
-    margin-top: 28px;
-    display: flex;
-    flex-wrap: wrap;
+.bouton {
+    display: inline-flex;
     align-items: center;
-    gap: 14px 24px;
+    justify-content: center;
+    min-height: 56px;
+    padding: 0 32px;
+    border-radius: var(--rayon);
+    background: linear-gradient(to bottom, var(--accent), var(--accent-profond));
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: filter .2s ease, transform .2s ease;
 }
 
-/* Sur un téléphone, l'écran de l'ouverture se montre net : les annotations sont pour les fiches. */
-@media (max-width: 1023px) {
-    .etape-ouverture .notes {
-        display: none;
-    }
+.bouton:hover {
+    filter: brightness(1.08);
 }
 
-@media (min-width: 1024px) {
-    .marque-verre {
-        width: max(96px, calc(150 * var(--u)));
-    }
+.bouton:active {
+    transform: scale(.98);
+}
 
-    .etape-ouverture .slogan {
-        margin-top: calc(44 * var(--u));
-        font-size: calc(80 * var(--u));
-        line-height: calc(84 * var(--u));
-    }
-
-    .sous-titre {
-        margin-top: calc(32 * var(--u));
-        font-size: max(17px, calc(27 * var(--u)));
-    }
-
-    .ouverture-appel {
-        margin-top: calc(48 * var(--u));
-        gap: calc(16 * var(--u)) calc(28 * var(--u));
-    }
-
-    .etape.etape-ouverture {
-        justify-content: center;
-    }
+.precision {
+    margin-top: 14px;
+    color: var(--texte-3);
+    font-size: 15px;
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   LES STATIONS : une icône dans un cercle posé sur un filet
+   L'OUVERTURE : la pile de cartes de l'application, sur sa lueur
 ══════════════════════════════════════════════════════════════════ */
 
-.station .icone {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid rgba(244, 244, 247, .5);
-    background: var(--color-papier);
+.ouverture {
     display: grid;
-    place-items: center;
-    box-sizing: border-box;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 56px;
 }
 
-.station .icone svg {
-    width: 20px;
-    height: 20px;
+.ouverture .appel {
+    margin-top: 32px;
 }
 
-.station .etiquette span {
-    margin-right: 1.2em;
-}
-
-.n1 { color: var(--color-bleu); }
-.n2 { color: var(--color-bleu-indigo); }
-.n3 { color: var(--color-indigo); }
-
-.fait {
-    font-size: 21px;
-    font-weight: 480;
-    line-height: 1.33;
-    letter-spacing: -.006em;
-}
-
-@media (min-width: 1024px) {
-    .station .icone {
-        width: max(30px, calc(38 * var(--u)));
-        height: max(30px, calc(38 * var(--u)));
-    }
-
-    .station .icone svg {
-        width: max(15px, calc(20 * var(--u)));
-        height: max(15px, calc(20 * var(--u)));
-    }
-
-    .fait {
-        font-size: max(17px, calc(28 * var(--u)));
-    }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LE KIT
-   Sur ordinateur : la scène est épinglée à gauche, l'écran de la fiche
-   active à droite de ses annotations ; les fiches défilent à droite.
-   Sur téléphone : chaque fiche porte son écran, ses repères numérotés
-   et leur liste.
-══════════════════════════════════════════════════════════════════ */
-
-.kit {
-    padding: 32px var(--marge) 0;
+.ouverture .appel .bouton {
+    width: 100%;
 }
 
 .scene {
-    display: none;
-}
-
-.etapes {
-    list-style: none;
+    position: relative;
+    padding: 40px 0 8px;
     display: grid;
-    gap: 96px;
+    place-items: center;
 }
 
-.etape .entete-etape {
+/* La lueur : les deux couleurs de l'accent, du centre vers rien. */
+.lueur {
+    position: absolute;
+    inset: -20% -40%;
+    background: radial-gradient(closest-side, rgba(99, 129, 248, .34), rgba(89, 116, 223, .11) 45%, rgba(89, 116, 223, 0));
+    pointer-events: none;
+}
+
+/* Les cartes s'empilent en colonne, décalées comme sur l'écran d'accueil : aucune n'en cache une autre. */
+.pile {
+    position: relative;
+    width: min(100%, 420px);
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+    gap: 14px;
+    transform: perspective(1000px) rotateX(16deg) rotateZ(-5deg) scale(.86);
+    animation: respire 3.6s ease-in-out 1s infinite alternate;
+}
+
+@keyframes respire {
+    to {
+        transform: perspective(1000px) translateY(-8px) rotateX(12deg) rotateZ(-3.5deg) scale(.86);
+    }
+}
+
+.pile .carte {
+    position: relative;
+    animation: monte .6s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.pile .carte:nth-child(1) {
+    margin: 0 8px 0 -8px;
+}
+
+.pile .carte:nth-child(2) {
+    margin: 0 -24px 0 24px;
+    animation-delay: .14s;
+}
+
+.pile .carte:nth-child(3) {
+    margin: 0 -8px 0 8px;
+    animation-delay: .28s;
+}
+
+@keyframes monte {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+}
+
+@media (min-width: 960px) {
+    .tete {
+        padding-top: 40px;
+    }
+
+    .logo {
+        width: 104px;
+    }
+
+    .ouverture {
+        grid-template-columns: 7fr 5fr;
+        align-items: center;
+        gap: 48px;
+        min-height: calc(100svh - 120px);
+        padding-top: 0;
+        padding-bottom: 72px;
+    }
+
+    .ouverture .appel .bouton {
+        width: auto;
+        min-width: 280px;
+    }
+
+    .scene {
+        padding: 0;
+    }
+
+    .pile {
+        transform: perspective(1000px) rotateX(16deg) rotateZ(-5deg) scale(1);
+        animation-name: respire-grand;
+    }
+
+    @keyframes respire-grand {
+        to {
+            transform: perspective(1000px) translateY(-8px) rotateX(12deg) rotateZ(-3.5deg) scale(1);
+        }
+    }
+}
+
+/* Sur un téléphone, l'ordre de l'écran d'accueil : les cartes, puis le titre et le bouton. */
+@media (max-width: 959px) {
+    .ouverture .scene {
+        order: -1;
+    }
+}
+
+/* ── Les cartes : celles des onglets, à leurs mesures ─────────────── */
+
+.carte {
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: var(--rayon);
+    padding: 16px 18px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+}
+
+.carte-cours {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
+    padding-left: 22px;
+    overflow: hidden;
+}
+
+.carte-cours::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--cyan);
+}
+
+.carte-cours .heures {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    gap: 16px;
+    font-variant-numeric: tabular-nums;
 }
 
-.etape h3 {
-    margin-top: 14px;
-    font-size: clamp(26px, 7vw, 36px);
-    font-weight: 470;
-    line-height: 1.15;
-    letter-spacing: -.03em;
+.carte-cours .debut {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -.02em;
 }
 
-.etape h3 b {
+.carte-cours .fin {
+    color: var(--texte-3);
+    font-size: 14px;
+}
+
+.carte-cours .entete {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.carte .nom {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -.012em;
+    line-height: 1.3;
+}
+
+.pastille {
+    flex-shrink: 0;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(100, 210, 255, .1);
+    color: var(--cyan);
+    font-size: 13px;
     font-weight: 600;
 }
 
-/* La fiche technique : une clé en chasse fixe, une valeur, un filet. */
-.specs {
-    margin-top: 28px;
-    border-top: 1px solid var(--filet);
+.ligne {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    color: var(--texte-2);
+    font-size: 14px;
 }
 
-.specs > div {
-    display: grid;
-    grid-template-columns: 11ch 1fr;
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--filet);
+.ligne svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
-.specs dt {
-    padding-top: .3em;
+.carte-cours .ligne {
+    color: var(--texte);
+    font-weight: 600;
 }
 
-.specs dd {
+.carte-cours .ligne svg {
+    color: var(--cyan);
+}
+
+.carte-lieu .entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.carte-lieu .nom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 17px;
-    line-height: 1.45;
-    color: var(--color-encre);
+    font-weight: 700;
 }
 
-.etape-figure {
-    margin-top: 28px;
-    max-width: 340px;
+.carte-lieu .nom svg {
+    width: 18px;
+    height: 18px;
 }
 
-/* L'écran : la capture dans un cadre au trait, et ses repères par-dessus. */
-.ecran-cadre {
-    position: relative;
+.distance {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--gris-fond);
+    color: var(--texte-2);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
-.ecran {
-    position: relative;
-    border-radius: 24px;
+.distance svg {
+    width: 14px;
+    height: 14px;
+}
+
+.affluence {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.affluence .etat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--orange);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.affluence .etat svg {
+    width: 18px;
+    height: 18px;
+}
+
+.jauge {
+    flex: 1;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--gris-fond);
     overflow: hidden;
-    outline: 1px solid var(--filet);
-    outline-offset: 7px;
+}
+
+.jauge span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--orange);
+}
+
+.affluence .taux {
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LES ÉCRANS : quatre captures de l'application, et une ligne chacune
+══════════════════════════════════════════════════════════════════ */
+
+.ecrans {
+    padding-top: 40px;
+    padding-bottom: 24px;
+}
+
+.titre-section {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+}
+
+.galerie {
+    list-style: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(70vw, 260px);
+    gap: 20px;
+    margin: 32px calc(-1 * var(--marge)) 0;
+    padding: 0 var(--marge) 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--marge);
+    scrollbar-width: none;
+}
+
+.galerie::-webkit-scrollbar {
+    display: none;
+}
+
+.galerie li {
+    scroll-snap-align: start;
+}
+
+.galerie .ecran {
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid var(--contour);
     background: #000;
     aspect-ratio: 1080 / 2290;
 }
 
-.ecran img {
-    display: block;
+.galerie .ecran img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Une figure non reproduite : le cadre vide, barré, comme une trémie sur un plan. */
-.ecran.vide {
-    background: transparent;
-    outline-style: dashed;
-}
-
-.ecran.vide svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.ecran.vide p {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    text-align: center;
-    padding: 10px;
-    background: var(--color-papier);
-    line-height: 1.6;
-}
-
-.reperes {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.repere-ecran {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 1px solid var(--color-encre);
-    background: var(--color-papier);
-}
-
-.repere-ecran span {
-    position: absolute;
-    left: 13px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 1px 4px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    line-height: 1.2;
-    color: var(--color-papier);
-    background: var(--color-encre);
-    border-radius: 2px;
-}
-
-.notes {
-    margin-top: 22px;
-    list-style: none;
-    display: grid;
-    gap: 6px;
-    counter-reset: note;
-}
-
-.notes li {
-    counter-increment: note;
-    display: grid;
-    grid-template-columns: 2.4ch 1fr;
-    gap: 8px;
-}
-
-.notes li::before {
-    content: counter(note);
-    color: var(--color-encre);
-}
-
-@media (min-width: 1024px) {
-    .kit {
-        padding-top: 0;
-    }
-
-    /* Le texte à gauche, le téléphone à droite et ses annotations dans la marge qu'il laisse. */
-    .kit-corps {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        column-gap: var(--gouttiere);
-    }
-
-    .scene {
-        display: block;
-        grid-column: 7 / span 6;
-        grid-row: 1;
-        position: sticky;
-        top: max(64px, calc(88 * var(--u)));
-        height: calc(100svh - max(64px, calc(88 * var(--u))));
-    }
-
-    .scene-interieur {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: min(46%, calc((100svh - max(64px, calc(88 * var(--u))) - 170px) * 1080 / 2290));
-    }
-
-    .scene-legende {
-        margin-bottom: 18px;
-    }
-
-    .scene-cote {
-        margin-top: 20px;
-    }
-
-    .scene .ecran img {
-        position: absolute;
-        inset: 0;
-        transition: opacity .45s ease;
-    }
-
-    .scene .ecran img:not(.active) {
-        opacity: 0;
-    }
-
-    .scene .annotations {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-        pointer-events: none;
-    }
-
-    .scene .annotation-etiquette {
-        position: absolute;
-        transform: translateY(-50%);
-        white-space: nowrap;
-        transition: opacity .3s ease;
-    }
-
-    .etapes {
-        grid-column: 1 / span 5;
-        grid-row: 1;
-        gap: 0;
-    }
-
-    .etape {
-        min-height: calc(100svh - max(64px, calc(88 * var(--u))));
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-block: calc(40 * var(--u));
-        transition: opacity .4s ease;
-    }
-
-    .etape:not(.active) {
-        opacity: .32;
-    }
-
-    .etape-figure,
-    .etape .notes {
-        display: none;
-    }
-
-    .etape h3 {
-        margin-top: calc(20 * var(--u));
-        font-size: calc(46 * var(--u));
-        line-height: calc(54 * var(--u));
-    }
-
-    .specs {
-        margin-top: calc(40 * var(--u));
-    }
-
-    .specs dd {
-        font-size: max(16px, calc(21 * var(--u)));
-    }
-}
-
-/* Les traits des annotations : une ligne de rappel, coudée, et un nœud sur l'élément. */
-.annotations line,
-.annotations polyline {
-    stroke: rgba(244, 244, 247, .55);
-    stroke-width: 1;
-    fill: none;
-}
-
-.annotations circle {
-    fill: var(--color-papier);
-    stroke: var(--color-encre);
-    stroke-width: 1;
-}
-
-.annotations .trace-en-cours {
-    stroke-dasharray: var(--longueur);
-    stroke-dashoffset: var(--longueur);
-    animation: rappel .6s cubic-bezier(.65, 0, .35, 1) forwards;
-}
-
-@keyframes rappel {
-    to { stroke-dashoffset: 0; }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LES MESURES : l'horizon, et un chiffre énorme par station
-══════════════════════════════════════════════════════════════════ */
-
-.horizon-mesures {
-    position: relative;
-    margin-top: 56px;
-    display: grid;
-    gap: 48px;
-}
-
-.horizon-mesures::before {
-    content: "";
-    position: absolute;
-    left: 19px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--filet);
-}
-
-.horizon-mesures .station {
-    position: relative;
-    padding-left: 56px;
-}
-
-.horizon-mesures .station .icone {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.horizon-mesures .etiquette {
-    padding-top: 11px;
-}
-
-.chiffre {
-    margin-top: 10px;
-    white-space: nowrap;
-    font-size: clamp(64px, 20vw, 112px);
+.galerie h3 {
+    margin-top: 16px;
+    font-size: 17px;
     font-weight: 600;
-    line-height: .95;
-    letter-spacing: -.045em;
-    font-variant-numeric: tabular-nums;
-    color: var(--color-encre);
+    letter-spacing: -.01em;
 }
 
-.chiffre .plus {
-    color: var(--color-estompe);
-}
-
-.horizon-mesures .fait {
-    margin-top: 12px;
-}
-
-.horizon-mesures .donnee {
-    margin-top: 10px;
-}
-
-.horizon-mesures .donnee a {
-    color: var(--color-encre);
-    text-decoration: underline;
-    text-decoration-color: var(--trait);
-    text-underline-offset: 3px;
-}
-
-@media (min-width: 1024px) {
-    .horizon-mesures {
-        margin-top: calc(120 * var(--u));
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--gouttiere);
-        border-top: 1px solid var(--filet);
-    }
-
-    .horizon-mesures::before {
-        left: auto;
-        right: calc(-9 * var(--u));
-        top: calc(-9 * var(--u) - .5px);
-        bottom: auto;
-        width: calc(18 * var(--u));
-        height: calc(18 * var(--u));
-        background:
-            linear-gradient(var(--trait), var(--trait)) center / 100% 1px no-repeat,
-            linear-gradient(var(--trait), var(--trait)) center / 1px 100% no-repeat;
-    }
-
-    .horizon-mesures .station {
-        padding-left: 0;
-        padding-top: calc(32 * var(--u));
-    }
-
-    .horizon-mesures .station::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: calc(-26 * var(--u));
-        bottom: 0;
-        width: 1px;
-        background: repeating-linear-gradient(to bottom, var(--pointille) 0 3px, transparent 3px 8px);
-        opacity: .65;
-    }
-
-    .horizon-mesures .station .icone {
-        transform: translateY(-50%);
-    }
-
-    .horizon-mesures .etiquette {
-        padding-top: 0;
-    }
-
-    .chiffre {
-        margin-top: calc(28 * var(--u));
-        font-size: calc(128 * var(--u));
-    }
-
-    .horizon-mesures .fait {
-        margin-top: calc(24 * var(--u));
-        max-width: 16em;
-    }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   L'HISTOIRE : la frise à l'échelle vraie (dessinée par histoire.js)
-══════════════════════════════════════════════════════════════════ */
-
-.frise {
-    position: relative;
-    margin-top: 56px;
-}
-
-.frise svg {
-    display: block;
-    width: 100%;
-    overflow: visible;
-}
-
-.frise .axe {
-    stroke: var(--color-encre);
-    stroke-width: 1;
-}
-
-.frise .trace {
-    stroke: rgba(244, 244, 247, .42);
-    fill: none;
-}
-
-.frise .graduation-texte {
-    position: absolute;
-    transform: translateX(-50%);
-    white-space: nowrap;
-}
-
-.frise .evenement {
-    position: absolute;
-    width: max-content;
-    max-width: 15em;
-    transition: opacity .4s ease, transform .4s ease;
-}
-
-.frise .evenement .date {
-    display: block;
-}
-
-.frise .evenement .quoi {
-    display: block;
-    margin-top: 4px;
+.galerie p {
+    margin-top: 2px;
+    color: var(--texte-3);
     font-size: 15px;
-    line-height: 1.35;
-    color: var(--color-encre);
+    line-height: 1.4;
 }
 
-.frise .evenement.a-venir {
-    opacity: 0;
-    transform: translateY(6px);
-}
-
-.frise .detail-titre {
-    position: absolute;
-    white-space: nowrap;
-}
-
-.frise .noeud {
-    fill: var(--color-papier);
-    stroke: var(--color-encre);
-}
-
-.frise .graduation-v {
-    transform: none;
-}
-
-.frise .aujourdhui {
-    position: absolute;
-    white-space: nowrap;
-    line-height: 1.5;
-}
-
-@media (min-width: 1024px) {
-    /* Sur ordinateur, la frise est épinglée : le défilement la trace sans qu'elle bouge. */
-    .histoire {
-        height: 230svh;
+@media (min-width: 960px) {
+    .ecrans {
+        padding-top: 72px;
     }
 
-    .histoire-plateau {
-        position: sticky;
-        top: max(64px, calc(88 * var(--u)));
-        height: calc(100svh - max(64px, calc(88 * var(--u))));
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .frise {
-        margin-top: calc(72 * var(--u));
-    }
-
-    .frise .evenement .quoi {
-        font-size: max(14px, calc(18 * var(--u)));
+    .galerie {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+        margin: 48px 0 0;
+        padding: 0;
+        overflow: visible;
     }
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   LE CARTOUCHE : le bloc-titre du plan, et le téléchargement
-══════════════════════════════════════════════════════════════════ */
+/* ── La fin de l'accueil : les stores ─────────────────────────────── */
 
-.cartouche {
-    position: relative;
-    margin-top: 48px;
-    border: 1px solid var(--trait);
-    display: grid;
+.cloture {
+    padding-top: 72px;
 }
-
-.cartouche-table > div {
-    display: grid;
-    grid-template-columns: 13ch 1fr;
-    gap: 12px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--filet);
-}
-
-.cartouche-table dt {
-    padding-top: .25em;
-}
-
-.cartouche-table dd {
-    font-size: 16px;
-    line-height: 1.45;
-}
-
-.cartouche-table a {
-    color: var(--color-encre);
-    text-decoration: underline;
-    text-decoration-color: var(--trait);
-    text-underline-offset: 3px;
-}
-
-.cartouche-telecharger {
-    padding: 24px 16px 28px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 28px 40px;
-}
-
 
 .magasins {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    margin-top: 24px;
 }
 
 .magasins a {
@@ -1089,335 +555,161 @@ section[id] {
 .magasins img {
     height: 48px;
     width: auto;
-    display: block;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LE PIED : qui fait UKit, et les pages légales
+══════════════════════════════════════════════════════════════════ */
+
+.pied {
+    margin-top: 96px;
+    padding-top: 28px;
+    padding-bottom: 40px;
+    border-top: 1px solid var(--contour);
+    color: var(--texte-3);
+    font-size: 14px;
+}
+
+.pied .conteneur {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+}
+
+.pied nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+}
+
+.pied a {
+    text-decoration: none;
+}
+
+.pied a:hover,
+.pied a[aria-current="page"] {
+    color: var(--texte);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LES PAGES DE LECTURE : engagement, mentions légales, confidentialité
+══════════════════════════════════════════════════════════════════ */
+
+/* Le texte part du même bord que le logo, sur une colonne lisible. */
+.lecture {
+    padding-top: 56px;
+}
+
+.lecture > *,
+.seule > * {
+    max-width: 720px;
+}
+
+.lecture .titre {
+    font-size: clamp(34px, 6vw, 48px);
+    letter-spacing: -.03em;
+}
+
+.lecture .chapeau {
+    margin-top: 20px;
+    color: var(--texte-2);
+    font-size: 19px;
+    line-height: 1.55;
+}
+
+.lecture section {
+    margin-top: 40px;
+}
+
+.lecture h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.016em;
+    line-height: 1.25;
+}
+
+.lecture section > * + * {
+    margin-top: 12px;
+}
+
+.lecture p,
+.lecture li,
+.lecture address {
+    color: var(--texte-2);
+    font-style: normal;
+}
+
+.lecture strong {
+    color: var(--texte);
+    font-weight: 600;
+}
+
+.lecture ul,
+.lecture ol {
+    padding-left: 1.3em;
+}
+
+.lecture li + li {
+    margin-top: 8px;
+}
+
+.lecture a {
+    color: var(--texte);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+}
+
+.lecture .note {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--contour);
+    font-size: 15px;
+}
+
+.lecture .note p {
+    color: var(--texte-3);
+}
+
+/* ── La page de téléchargement et la page introuvable : une seule surface ── */
+
+.seule {
+    padding-top: 12vh;
+}
+
+.seule .slogan {
+    margin-bottom: 32px;
 }
 
 .qr {
     display: none;
 }
 
-@media (min-width: 1024px) {
-    .cartouche {
-        margin-top: calc(80 * var(--u));
-        grid-template-columns: 7fr 5fr;
-    }
-
-    .cartouche-table {
-        border-right: 1px solid var(--trait);
-    }
-
-    .cartouche-table > div {
-        padding: calc(18 * var(--u)) calc(24 * var(--u));
-    }
-
-    .cartouche-table > div:last-child {
-        border-bottom: 0;
-    }
-
-    .cartouche-table dd {
-        font-size: max(16px, calc(21 * var(--u)));
-    }
-
-    .cartouche-telecharger {
-        padding: calc(32 * var(--u));
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-between;
-    }
-
-
-    .magasins img {
-        height: max(44px, calc(56 * var(--u)));
-    }
-
+@media (min-width: 960px) {
     .qr {
         display: flex;
-        align-items: flex-end;
-        gap: calc(20 * var(--u));
+        align-items: center;
+        gap: 20px;
+        margin-top: 40px;
+        color: var(--texte-3);
+        font-size: 15px;
     }
 
     .qr img {
-        width: max(112px, calc(140 * var(--u)));
-        height: auto;
-        background: var(--color-encre);
+        width: 128px;
+        height: 128px;
         padding: 6px;
-        border-radius: 4px;
+        border-radius: 12px;
+        background: #FFFFFF;
     }
-}
-
-/* La page de téléchargement reprend la rangée des badges et du QR code. */
-.telecharger .slogan {
-    margin-top: 16px;
-}
-
-.telecharger .rangee {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 32px 56px;
-    margin-top: 40px;
-}
-
-@media (min-width: 1024px) {
-    .telecharger .rangee {
-        margin-top: calc(56 * var(--u));
-        gap: calc(56 * var(--u));
-    }
-}
-
-
-/* ══════════════════════════════════════════════════════════════════
-   LES PAGES DE LECTURE : engagement, mentions légales, confidentialité
-   Une étiquette en chasse fixe à gauche, le texte sur une colonne lisible.
-══════════════════════════════════════════════════════════════════ */
-
-.lecture {
-    padding: 48px var(--marge) 0;
-}
-
-.lecture .titre {
-    margin-top: 16px;
-    max-width: 18ch;
-    font-size: clamp(32px, 8.4vw, 56px);
-    font-weight: 560;
-    line-height: 1.09;
-    letter-spacing: -.038em;
-}
-
-.lecture .chapeau {
-    margin-top: 24px;
-    max-width: 62ch;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--color-gris);
-}
-
-.lecture .chapeau b {
-    color: var(--color-encre);
-    font-weight: 500;
-}
-
-.lecture .blocs {
-    margin-top: 56px;
-}
-
-.bloc {
-    border-top: 1px solid var(--filet);
-    padding: 24px 0 36px;
-    display: grid;
-    gap: 12px;
-}
-
-.bloc h2 {
-    font-size: 21px;
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -.015em;
-}
-
-.bloc .texte {
-    max-width: 66ch;
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--color-gris);
-}
-
-.bloc .texte > * + * {
-    margin-top: .9em;
-}
-
-.bloc .texte strong,
-.bloc .texte b {
-    color: var(--color-encre);
-    font-weight: 500;
-}
-
-.bloc .texte ul,
-.bloc .texte ol {
-    padding-left: 1.2em;
-}
-
-.bloc .texte ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.bloc .texte ul li {
-    position: relative;
-    padding-left: 1.2em;
-}
-
-/* Un tiret de liste dessiné comme une trace : un trait court, dans le gris des traces. */
-.bloc .texte ul li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: .8em;
-    width: .6em;
-    height: 1px;
-    background: var(--trait);
-}
-
-.bloc .texte ol {
-    list-style: decimal;
-}
-
-.bloc .texte li + li {
-    margin-top: .5em;
-}
-
-.bloc .texte ol li::marker {
-    font-family: var(--font-mono);
-    color: var(--color-encre);
-}
-
-.lecture a,
-.bloc .texte a {
-    color: var(--color-encre);
-    text-decoration: underline;
-    text-decoration-color: var(--trait);
-    text-underline-offset: 3px;
-}
-
-.lecture a:hover {
-    text-decoration-color: var(--color-encre);
-}
-
-.bloc .texte address {
-    font-style: normal;
-}
-
-.lecture .note {
-    border-top: 1px solid var(--filet);
-    padding-top: 24px;
-    max-width: 66ch;
-    line-height: 1.8;
-}
-
-@media (min-width: 1024px) {
-    .lecture {
-        padding-top: calc(120 * var(--u));
-    }
-
-    .lecture .entete,
-    .bloc,
-    .lecture .note {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        column-gap: var(--gouttiere);
-    }
-
-    .lecture .entete > * {
-        grid-column: 1 / span 9;
-    }
-
-    .lecture .entete .chapeau {
-        grid-column: 4 / span 7;
-    }
-
-    .lecture .titre {
-        margin-top: calc(28 * var(--u));
-        font-size: calc(66 * var(--u));
-        line-height: calc(72 * var(--u));
-        max-width: none;
-    }
-
-    .lecture .chapeau {
-        margin-top: calc(36 * var(--u));
-        font-size: max(18px, calc(24 * var(--u)));
-    }
-
-    .lecture .blocs {
-        margin-top: calc(96 * var(--u));
-    }
-
-    .bloc {
-        padding: calc(32 * var(--u)) 0 calc(48 * var(--u));
-        row-gap: calc(12 * var(--u));
-    }
-
-    /* Le titre d'une partie dans la colonne de gauche, son texte sur la colonne de lecture. */
-    .bloc h2 {
-        grid-column: 1 / span 3;
-        font-size: max(19px, calc(26 * var(--u)));
-        padding-right: var(--gouttiere);
-    }
-
-    .bloc .texte {
-        grid-column: 4 / span 7;
-    }
-
-    .bloc .texte {
-        font-size: 18px;
-    }
-
-    .lecture .note {
-        padding-top: calc(32 * var(--u));
-        max-width: none;
-    }
-
-    .lecture .note > * {
-        grid-column: 4 / span 7;
-    }
-}
-
-/* La page de téléchargement et la page introuvable : une seule surface, centrée sur l'appel. */
-.seule {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.seule .retour {
-    margin-top: 32px;
-}
-
-.seule .retour a {
-    color: var(--color-encre);
-    text-decoration: underline;
-    text-decoration-color: var(--trait);
-    text-underline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
+        animation: none !important;
         transition: none !important;
-        scroll-behavior: auto !important;
     }
-}
-
-/* Les traces restent d'un pixel, et leurs pointillés de 3 / 5, à toutes les tailles d'écran. */
-.frise svg * {
-    vector-effect: non-scaling-stroke;
-}
-
-/* La page introuvable : une trémie, l'ouverture laissée vide sur un plan, barrée de ses diagonales. */
-.tremie {
-    position: relative;
-    margin-top: 56px;
-    max-width: 520px;
-    aspect-ratio: 400 / 240;
-}
-
-.tremie svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.tremie p {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 6px 10px;
-    background: var(--color-papier);
-    white-space: nowrap;
-}
-
-.cartouche-section.seule .cartouche {
-    max-width: 1100px;
 }
