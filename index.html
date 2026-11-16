@@ -3,389 +3,246 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-visual-viewport">
-    <title>UKit - Le kit de l'étudiant bordelais</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B12">
+    <title>UKit, le kit de survie pour l'étudiant bordelais</title>
     <meta name="description"
-        content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT, CROUS, bibliothèques et plus encore.">
+        content="L'application gratuite et open source des étudiants bordelais : emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit.">
 
     <!-- Open Graph (partage de lien : iMessage, WhatsApp, Discord, Slack…) -->
-    <meta property="og:type"        content="website">
-    <meta property="og:title"       content="UKit - Le kit de l'étudiant bordelais">
-    <meta property="og:description" content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT, CROUS, bibliothèques et plus encore.">
-    <meta property="og:url"         content="%VITE_SITE_URL%/">
-    <meta property="og:image"       content="%VITE_SITE_URL%/opengraph-image.png">
-
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="UKit - Le kit de l'étudiant bordelais">
-    <meta name="twitter:description" content="L'application open-source indispensable pour les étudiants bordelais : emploi du temps, ENT, CROUS, bibliothèques et plus encore.">
-    <meta name="twitter:image"       content="%VITE_SITE_URL%/opengraph-image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="UKit, le kit de survie pour l'étudiant bordelais">
+    <meta property="og:description"
+        content="Emploi du temps, restos U, bibliothèques, salles libres et compte universitaire, au même endroit.">
+    <meta property="og:url" content="%VITE_SITE_URL%/">
+    <meta property="og:image" content="%VITE_SITE_URL%/opengraph-image.png">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/icon.png">
+    <!-- La géométrie de l'ouverture est calée sur Geist : la police arrive avant le premier rendu. -->
+    <link rel="preload" href="/polices/geist.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/polices/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/src/style.css">
     <script type="module" src="/src/main.js"></script>
 </head>
 
-<body
-    class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-primary-blue selection:text-white overflow-x-hidden relative">
+<body>
+    <div class="site">
 
-    <!-- Fond animé particles (rendu par tsParticles via main.js) -->
-    <div id="tsparticles" class="fixed inset-0 z-[-1] w-full h-full pointer-events-none"
-        style="-webkit-mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%); mask-image: linear-gradient(to bottom, black 60%, rgba(0,0,0,0.8) 100%);">
-    </div>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         HEADER DESKTOP
-         Barre fixe avec logo + bouton télécharger, masquée sur mobile.
-    ══════════════════════════════════════════════════════════════════ -->
-    <header
-        class="hidden lg:block fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 shadow-sm">
-        <nav class="container mx-auto px-6 h-20 flex justify-between items-center">
-            <img src="/logo.png" alt="UKit" class="h-12 transition-transform duration-300 cursor-pointer">
-            <button onclick="handleDownload()"
-                class="group flex items-center gap-2.5 bg-gradient-to-r from-primary-blue to-primary-purple text-white px-7 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-base font-bold">
-                <span>Télécharger</span>
-            </button>
-        </nav>
-    </header>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         HEADER MOBILE
-         Barre fixe allégée avec logo, bouton info et bouton télécharger.
-    ══════════════════════════════════════════════════════════════════ -->
-    <div
-        class="lg:hidden fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-xs border-b border-white/40 px-6 py-3 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-1">
-            <img src="/logo.png" alt="UKit" onclick="scrollToTop()"
-                class="h-8 transition-transform active:scale-95 cursor-pointer">
-            <button onclick="openInfoModal()" class="text-slate-500 hover:text-slate-900 p-2 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+        <!-- ══ LA TÊTE DU CADRE ═══════════════════════════════════════════ -->
+        <header class="cadre tete">
+            <a class="cap marque" href="/">UKit</a>
+            <span class="trait"></span>
+            <a class="cap appel" href="/download.html">Télécharger
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14" />
+                    <path d="m19 12-7 7-7-7" />
                 </svg>
-            </button>
-        </div>
+            </a>
+        </header>
 
-        <button onclick="handleDownload()"
-            class="bg-gradient-to-r from-primary-blue to-primary-purple text-white px-5 py-2.5 rounded-full shadow-md active:shadow-sm active:translate-y-0.5 text-sm font-bold flex items-center gap-2">
-            <span>Télécharger</span>
-        </button>
-    </div>
+        <main>
+            <!-- ══ L'OUVERTURE : la slide témoin, à l'échelle de l'écran ═══════ -->
+            <section class="planche" aria-labelledby="slogan">
+                <img class="a logo" style="--x:56;--y:150" src="/epure/logo-verre.svg" width="850" height="343"
+                    alt="UKit">
+                <p class="a m cote sur-trait centre" style="--x:486;--y:519">ukit.svg · 850 × 343</p>
 
-    <!-- ══════════════════════════════════════════════════════════════
-         MODALE À PROPOS (mobile)
-         Ouverte via le bouton info du header mobile.
-    ══════════════════════════════════════════════════════════════════ -->
-    <div id="info-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeInfoModal()"></div>
-        <div
-            class="relative bg-white border border-slate-200 rounded-3xl p-6 flex flex-col items-center gap-4 max-w-xs w-full shadow-2xl">
-            <button onclick="closeInfoModal()"
-                class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 p-1 rounded-lg transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h3 class="text-lg font-bold text-slate-900">À propos</h3>
-            <p class="text-slate-500 text-sm text-center">
-                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank"
-                    class="text-slate-900 font-medium hover:underline">KAE Lab</a><br>
-                Fork de <a href="https://github.com/kb-dev/UKit" target="_blank"
-                    class="text-slate-900 font-medium hover:underline">kb-dev</a>.
-            </p>
-            <p class="text-slate-400 text-xs">Sous licence Apache 2.0</p>
-            <div class="flex items-center gap-2 w-full">
-                <a href="https://github.com/KAE-Lab/UKit" target="_blank"
-                    class="flex-1 text-slate-700 hover:text-slate-900 transition flex items-center justify-center gap-2 bg-slate-100 px-4 py-2 rounded-full border border-slate-200 text-sm font-medium">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    GitHub
-                </a>
-                <a href="https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md" target="_blank"
-                    class="flex-1 text-slate-700 hover:text-slate-900 transition flex items-center justify-center gap-2 bg-slate-100 px-4 py-2 rounded-full border border-slate-200 text-sm font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                    Confidentialité
-                </a>
-            </div>
-        </div>
-    </div>
+                <h1 id="slogan" class="a slogan deux-tons" style="--x:56;--y:560">Le <b>kit de survie</b><br>pour
+                    l’<b>étudiant bordelais</b>.</h1>
+                <p class="a m ordi decor" style="--x:529;--y:615" data-fiche>geist 560 · 66 / 72</p>
 
-    <!-- ══════════════════════════════════════════════════════════════
-         SCROLL WRAPPER
-         Le scroll se fait ici plutôt que sur le body pour empêcher
-         la barre d'adresse mobile de se déplacer pendant le scroll.
-    ══════════════════════════════════════════════════════════════════ -->
-    <div id="scroll-wrapper">
+                <p class="a m contenu" style="--x:56;--y:720"><b>contenu du kit</b> · emploi du temps · scolarité ·
+                    restos u · bibliothèques · salles libres</p>
 
-        <!-- ── SECTION HERO ──────────────────────────────────────────
-             Zone sticky : le contenu reste fixé pendant le scroll
-             jusqu'à ce que l'ancre .snap-point soit franchie.
-             L'IntersectionObserver bascule alors vers la grille de
-             features (voir main.js > transitionObserver).
-        ─────────────────────────────────────────────────────────── -->
-        <div id="scrolly-container" class="relative w-full bg-transparent">
-
-            <!-- Ancre invisible observée par transitionObserver -->
-            <div class="snap-point absolute top-0 h-px w-full"></div>
-
-            <div class="sticky top-0 h-[var(--app-height)] w-full flex items-center justify-center">
-
-                <div id="scale-wrapper" class="w-full flex justify-center origin-center transition-transform duration-300">
-                    
-                    <div class="flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full max-w-6xl mx-auto pt-16 lg:pt-0 px-6">
-
-                        <div class="grid flex-1 w-full items-center mt-20 lg:mt-0">
-
-                        <!-- Texte hero (visible avant le scroll) -->
-                        <div id="hero-text"
-                            class="col-start-1 row-start-1 flex flex-col items-center lg:items-start text-center lg:text-left transition-opacity duration-700 opacity-100 z-20">
-                            <h1
-                                class="text-4xl lg:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">
-                                Le kit de survie pour <br>
-                                <span
-                                    class="bg-gradient-to-r from-primary-blue to-primary-purple text-transparent bg-clip-text">l'étudiant
-                                    bordelais.</span>
-                            </h1>
-                            <p class="hidden lg:block text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl">
-                                Consultez votre emploi du temps, accédez à l'ENT et plus encore en une seule application
-                                fluide et open-source.
-                            </p>
-                        </div>
-
-                        <!-- Grille de features (visible après le scroll) -->
-                        <div id="features-grid"
-                            class="col-start-1 row-start-1 flex flex-row lg:grid lg:grid-cols-3 gap-3 lg:gap-5 overflow-x-auto lg:overflow-x-visible -mx-6 px-6 pt-2 pb-4 lg:mx-0 lg:px-0 lg:py-0 w-auto lg:w-full snap-x snap-mandatory tabs-scroll transition-opacity duration-700 opacity-0 pointer-events-none z-10">
-
-                            <button onclick="switchTab('navigation')" id="tab-navigation"
-                                class="tab-btn active-tab text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-900 whitespace-nowrap transition-colors">Navigation</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">Planning quotidien et hebdomadaire en
-                                    un geste.</p>
-                            </button>
-
-                            <button onclick="switchTab('search')" id="tab-search"
-                                class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-500 whitespace-nowrap transition-colors">Recherche</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">Retrouvez votre groupe en quelques
-                                    secondes.</p>
-                            </button>
-
-                            <button onclick="switchTab('filters')" id="tab-filters"
-                                class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-500 whitespace-nowrap transition-colors">Filtres</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">Masquez les cours qui ne vous
-                                    concernent pas.</p>
-                            </button>
-
-                            <button onclick="switchTab('browser')" id="tab-browser"
-                                class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-500 whitespace-nowrap transition-colors">ENT</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">L'ENT universitaire intégré
-                                    directement dans l'app.</p>
-                            </button>
-
-                            <button onclick="switchTab('crous')" id="tab-crous"
-                                class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 7.5V5.25m0 0a2.25 2.25 0 110 4.5m0-4.5h-9m9 0H18a2.25 2.25 0 012.25 2.25v.75m0 0a2.25 2.25 0 01-2.25 2.25H15m3-3V15a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 15V7.5A2.25 2.25 0 016 5.25h9z" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-500 whitespace-nowrap transition-colors">CROUS</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">Menus des Restos U et cafétérias en
-                                    temps réel.</p>
-                            </button>
-
-                            <button onclick="switchTab('bu')" id="tab-bu"
-                                class="tab-btn text-left p-5 rounded-2xl border border-transparent bg-white/40 backdrop-blur-xs hover:bg-white/60 text-slate-500 transition-all shrink-0 lg:w-full h-full">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 shrink-0 text-slate-500 transition-colors" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                                    </svg>
-                                    <span
-                                        class="font-bold text-slate-500 whitespace-nowrap transition-colors">Bibliothèques</span>
-                                </div>
-                                <p class="text-slate-500 text-sm hidden lg:block">Affluence et horaires de vos BU
-                                    favorites.</p>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Maquette téléphone avec vidéos superposées -->
-                    <div
-                        class="relative shrink-0 w-full max-w-[240px] lg:max-w-[300px] translate-y-25 lg:translate-y-0">
-                        <div
-                            class="relative w-full bg-slate-900 p-2 lg:p-2.25 shadow-2xl rounded-[2.5rem] lg:rounded-[3rem]">
-
-                            <div
-                                class="relative w-full overflow-hidden rounded-[2rem] lg:rounded-[2.25rem] bg-white grid">
-
-                                <!-- Encoche dynamique (Dynamic Island) -->
-                                <div
-                                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[42%] h-5.5 bg-slate-900 rounded-b-xl z-50 
-                                before:absolute before:content-[''] before:-left-3 before:top-0 before:w-3 before:h-3 before:bg-transparent before:rounded-tr-md before:shadow-[3px_-3px_0_0_#0f172a] 
-                                after:absolute after:content-[''] after:-right-3 after:top-0 after:w-3 after:h-3 after:bg-transparent after:rounded-tl-md after:shadow-[-3px_-3px_0_0_#0f172a]">
-                                </div>
-
-                                <!-- Écran hero (screenshot statique) -->
-                                <img id="hero-screen" src="/app-screenshot.png" alt="Capture d'écran de UKit"
-                                    class="col-start-1 row-start-1 w-full object-contain block transition-opacity duration-700 opacity-100 z-20">
-
-                                <!-- Écran features (vidéos superposées, une seule visible à la fois) -->
-                                <div id="features-screen"
-                                    class="col-start-1 row-start-1 w-full h-full transition-opacity duration-700 opacity-0 z-10 bg-white grid">
-                                    <div id="video-navigation"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-100 z-10">
-                                        <video src="/navigation.mov" autoplay loop muted playsinline
-                                            class="w-full"></video>
-                                    </div>
-                                    <div id="video-search"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
-                                        <video src="/search.mov" loop muted playsinline class="w-full"></video>
-                                    </div>
-                                    <div id="video-filters"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
-                                        <video src="/filters.mov" loop muted playsinline class="w-full"></video>
-                                    </div>
-                                    <div id="video-browser"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
-                                        <video src="/browser.mov" loop muted playsinline class="w-full"></video>
-                                    </div>
-                                    <div id="video-crous"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
-                                        <video src="/crous.mov" loop muted playsinline class="w-full"></video>
-                                    </div>
-                                    <div id="video-bu"
-                                        class="video-panel col-start-1 row-start-1 w-full transition-opacity duration-300 opacity-0 z-0">
-                                        <video src="/bu.mov" loop muted playsinline class="w-full"></video>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="magasins tel">
+                    <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                        <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127" height="40">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
+                        <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
+                    </a>
                 </div>
-            </div>
-        </div>
 
-        <div class="absolute bottom-0 h-px w-full snap-end"></div>
+                <p class="a cap legende legende-fig" style="--x:1283;--y:166">Fig. 01 · <b>Le U</b></p>
+                <img class="a fig" style="--x:1283;--y:210" src="/epure/fig01-u.svg" width="480" height="474"
+                    alt="Le U du logo, répété quarante fois en écho, du bleu à l'indigo">
 
-    </div> </div> </div>
+                <!-- Les cotes et les angles du logo, mesurés sur le dessin ; décor rendu à 65 %. -->
+                <div class="decor ordi" aria-hidden="true">
+                    <p class="a cap legende" style="--x:1089;--y:84">32,6°</p>
+                    <p class="a m" style="--x:56;--y:92">dégradé · 21°</p>
+                    <p class="a m" style="--x:374;--y:92">#007aff · 32 %</p>
+                    <p class="a m" style="--x:821;--y:92">#5e5ce6 · 78 %</p>
+                    <p class="a m" style="--x:314;--y:458">r 117</p>
+                    <p class="a m" style="--x:689;--y:169">ø 51</p>
+                    <p class="a m" style="--x:542;--y:309">120°</p>
+                </div>
 
-    <!-- ══════════════════════════════════════════════════════════════
-         MODALE QR CODE
-         Affichée sur desktop à la place d'un lien de téléchargement
-         direct (géré par handleDownload() dans main.js).
-    ══════════════════════════════════════════════════════════════════ -->
-    <div id="qr-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQrModal()"></div>
-        <div
-            class="relative bg-white border border-slate-200 rounded-3xl p-8 lg:p-10 flex flex-col items-center gap-6 max-w-sm w-full shadow-2xl">
-            <div class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-blue" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                <svg class="traces" viewBox="0 68 1920 702" aria-hidden="true">
+                    <g fill="none" stroke="rgba(244,244,247,.42)" stroke-width="1" vector-effect="non-scaling-stroke"
+                        opacity=".65">
+                        <!-- Les arêtes de l'écho prolongées jusqu'au filet de tête, et leur angle. -->
+                        <polyline points="1011,68 1864,613.9" stroke-dasharray="3 5" />
+                        <circle cx="1011" cy="68" r="2.6" fill="#F4F4F7" stroke="none" />
+                        <polyline points="1389.1,68 1864,371.9" stroke-dasharray="3 5" />
+                        <circle cx="1389.1" cy="68" r="2.6" fill="#F4F4F7" stroke="none" />
+                        <circle cx="1285.2" cy="243.4" r="3.5" fill="#0B0B12" stroke="rgba(244,244,247,.85)" />
+                        <path d="M1075 68 A64 64 0 0 1 1064.9 102.5" />
+                        <!-- La cote du logo, prolongée jusqu'à la face avant du U qu'il engendre. -->
+                        <polyline points="56,526 916,526" />
+                        <polyline points="56,519 56,533" />
+                        <polyline points="916,519 916,533" />
+                        <polyline points="916,526 1123.4,526 1337.3,389.1" />
+                        <circle cx="1337.3" cy="389.1" r="4.5" fill="#0B0B12" stroke="rgba(244,244,247,.85)" />
+                        <!-- La réglette du dégradé et ses deux arrêts. -->
+                        <polyline points="56,118 916,118" stroke="rgba(244,244,247,.3)" />
+                        <rect x="374.4" y="114" width="8" height="8" fill="#007AFF" stroke="none" />
+                        <rect x="820.9" y="114" width="8" height="8" fill="#5E5CE6" stroke="none" />
+                        <!-- Le grand cercle du U, le point du i, l'angle du K. -->
+                        <circle cx="220" cy="378" r="118.5" stroke-dasharray="3 5" />
+                        <polyline points="214,378 226,378" />
+                        <polyline points="220,372 220,384" />
+                        <polyline points="220,378 303.7,461.7" stroke="rgba(244,244,247,.3)" />
+                        <polyline points="627.8,176.4 679.4,176.4" stroke="rgba(244,244,247,.55)" />
+                        <polyline points="649.6,176.4 657.6,176.4" />
+                        <polyline points="653.6,172.4 653.6,180.4" />
+                        <path d="M510.6 279.8 A42 42 0 0 1 510.7 352.6" stroke="rgba(244,244,247,.5)" />
+                        <!-- Lignes de capitales (pointillé) et de pied (trait) du slogan. -->
+                        <polyline points="56,572.5 517,572.5" stroke-dasharray="3 5" stroke="rgba(244,244,247,.28)" />
+                        <polyline points="56,622.2 517,622.2" stroke="rgba(244,244,247,.32)" />
+                        <polyline points="56,644.5 793,644.5" stroke-dasharray="3 5" stroke="rgba(244,244,247,.28)" />
+                        <polyline points="56,694.2 793,694.2" stroke="rgba(244,244,247,.32)" />
+                    </g>
                 </svg>
-                <h3 class="text-xl font-bold text-slate-900">Scanner pour télécharger</h3>
+            </section>
+
+            <!-- ══ L'HORIZON : trois faits sur UKit ═══════════════════════════ -->
+            <section class="horizon" aria-label="UKit en trois faits">
+                <div class="station">
+                    <span class="icone" aria-hidden="true"><!-- lucide map-pin, ISC -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                    </span>
+                    <p class="m etiquette"><span class="n1">01</span>origine.talence</p>
+                    <p class="fait deux-tons">Conçu au <b>Collège Sciences<br>et Technologies</b>.</p>
+                    <p class="m donnee">44.81° n · 0.60° o</p>
+                </div>
+                <div class="station">
+                    <span class="icone" aria-hidden="true"><!-- lucide users, ISC -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </span>
+                    <p class="m etiquette"><span class="n2">02</span>usage.etudiants</p>
+                    <p class="fait deux-tons"><b>Plus de 2<span class="f"></span>000 étudiants</b><br>l’utilisent déjà.
+                    </p>
+                    <p class="m donnee">ios · android</p>
+                </div>
+                <div class="station">
+                    <span class="icone" aria-hidden="true"><!-- lucide history, ISC -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F4F4F7" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                            <path d="M12 7v5l4 2" />
+                        </svg>
+                    </span>
+                    <p class="m etiquette"><span class="n3">03</span>historique.2012</p>
+                    <p class="fait deux-tons"><b>Depuis 2012</b>,<br>de promo en promo.</p>
+                    <p class="m donnee"><b>2012</b> edt bordeaux i · <b>2017</b> ukit</p>
+                </div>
+            </section>
+
+            <!-- ══ LE KIT : quatre captures de l'application ══════════════════ -->
+            <section class="section" aria-labelledby="titre-kit">
+                <div class="entete">
+                    <p class="m"><b>le kit</b> · 4 onglets</p>
+                    <h2 id="titre-kit" class="question deux-tons"><b>Emploi du temps</b>, <b>restos U</b>,
+                        <b>bibliothèques</b>, <b>salles libres</b> et <b>compte universitaire</b>, au même endroit.</h2>
+                </div>
+
+                <div class="figures">
+                    <figure class="figure">
+                        <figcaption class="cap legende">Fig. 02 · <b>Planning</b></figcaption>
+                        <div class="ecran"><img src="/captures/planning.webp" width="720" height="1600" loading="lazy"
+                                alt="L'onglet Planning en vue semaine : les cours du lundi, avec leurs horaires et leurs salles"></div>
+                        <p class="m cote-ecran decor">1080 × 2400 · android 15</p>
+                        <p class="fait deux-tons"><b>Ton emploi du temps</b>, en jour ou en semaine.</p>
+                        <p class="m donnee">hors ligne · filtres par ue · rappels</p>
+                    </figure>
+                    <figure class="figure">
+                        <figcaption class="cap legende">Fig. 03 · <b>Bibliothèques</b></figcaption>
+                        <div class="ecran"><img src="/captures/bibliotheques.webp" width="720" height="1600"
+                                loading="lazy"
+                                alt="La liste des bibliothèques : une BU ouverte, remplie à 40 %, une autre fermée jusqu'à lundi"></div>
+                        <p class="m cote-ecran decor">1080 × 2400 · android 15</p>
+                        <p class="fait deux-tons"><b>L'affluence des BU</b>, en temps réel.</p>
+                        <p class="m donnee">ouverte ou fermée · horaires · favoris</p>
+                    </figure>
+                    <figure class="figure">
+                        <figcaption class="cap legende">Fig. 04 · <b>Restos U</b></figcaption>
+                        <div class="ecran"><img src="/captures/resto.webp" width="720" height="1600" loading="lazy"
+                                alt="Le menu du midi d'une cafétéria du CROUS, entrées, plats et desserts, et ses horaires"></div>
+                        <p class="m cote-ecran decor">1080 × 2400 · android 15</p>
+                        <p class="fait deux-tons"><b>Le menu du jour</b>, avant de faire la queue.</p>
+                        <p class="m donnee">menus de la semaine · horaires · plan</p>
+                    </figure>
+                    <figure class="figure">
+                        <figcaption class="cap legende">Fig. 05 · <b>Salles libres</b></figcaption>
+                        <div class="ecran"><img src="/captures/salles.webp" width="720" height="1600" loading="lazy"
+                                alt="Les salles libres d'un bâtiment à 17 h, étage par étage, avec l'heure jusqu'à laquelle chacune reste disponible"></div>
+                        <p class="m cote-ecran decor">1080 × 2400 · android 15</p>
+                        <p class="fait deux-tons"><b>Une salle libre</b>, étage par étage.</p>
+                        <p class="m donnee">par heure · bâtiments en accès libre</p>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ══ TÉLÉCHARGER ═════════════════════════════════════════════════ -->
+            <section id="telecharger" class="section telecharger" aria-labelledby="titre-telecharger">
+                <p class="m"><b>télécharger</b> · ios · android</p>
+                <h2 id="titre-telecharger" class="slogan deux-tons"><b>Gratuit</b>, sans compte,<br><b>open
+                        source</b>.</h2>
+                <div class="rangee">
+                    <div class="magasins">
+                        <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                            <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127"
+                                height="40">
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
+                            <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
+                        </a>
+                    </div>
+                    <div class="qr">
+                        <img src="/qrcode.png" width="1184" height="1184" loading="lazy"
+                            alt="QR code de téléchargement de UKit">
+                        <p class="m">depuis un ordinateur :<br>scanne avec ton téléphone</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ══ LE PIED DU CADRE ═══════════════════════════════════════════ -->
+        <footer class="pied">
+            <p class="m projet">maintenu par <a href="https://github.com/KAE-Lab" rel="noopener">kae lab</a> · fork de
+                <a href="https://github.com/kb-dev/UKit" rel="noopener">kb-dev</a> · licence apache 2.0 · <a
+                    href="https://github.com/KAE-Lab/UKit" rel="noopener">code source</a></p>
+            <div class="cadre">
+                <span class="cap adresse">ukit-bordeaux.fr</span>
+                <span class="trait"></span>
             </div>
-            <div class="bg-slate-50 rounded-2xl border border-slate-100">
-                <img src="/qrcode.png" alt="QR Code de téléchargement UKit" class="w-56 h-56 rounded-xl block">
-            </div>
-        </div>
+        </footer>
     </div>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         FOOTER DESKTOP
-         Barre fixe en bas, masquée sur mobile.
-    ══════════════════════════════════════════════════════════════════ -->
-    <footer
-        class="hidden lg:block fixed bottom-0 left-0 w-full z-50 border-t border-white/20 bg-white/40 backdrop-blur-xs shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
-        <div
-            class="container mx-auto px-6 py-6 lg:py-0 lg:h-20 flex flex-col lg:flex-row justify-between items-center gap-4">
-            <p class="text-slate-500 text-sm">
-                Maintenu par la team <a href="https://github.com/KAE-Lab" target="_blank"
-                    class="text-slate-600 hover:text-primary-blue transition-colors font-medium">KAE Lab</a> &bull; Fork
-                de <a href="https://github.com/kb-dev/UKit" target="_blank"
-                    class="text-slate-600 hover:text-primary-blue transition-colors font-medium">kb-dev</a>.
-            </p>
-            <div class="flex items-center gap-4">
-                <span class="text-slate-500 text-sm">Sous licence Apache 2.0</span>
-                <a href="https://github.com/KAE-Lab/UKit/blob/main/PRIVACY.md" target="_blank"
-                    class="text-slate-600 hover:text-slate-900 transition flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 text-sm font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                    Confidentialité
-                </a>
-                <a href="https://github.com/KAE-Lab/UKit" target="_blank"
-                    class="text-slate-600 hover:text-slate-900 transition flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 text-sm font-medium">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    GitHub
-                </a>
-            </div>
-        </div>
-    </footer>
-
 </body>
 
 </html>

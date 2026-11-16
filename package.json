@@ -21,10 +21,6 @@
     "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
   },
-  "dependencies": {
-    "@tsparticles/engine": "^3.9.1",
-    "@tsparticles/slim": "^3.9.1"
-  },
   "engines": {
     "node": ">=20.19.4"
   }
