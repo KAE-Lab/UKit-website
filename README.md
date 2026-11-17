@@ -64,9 +64,14 @@ sortent deux cartes de l'onglet Campus.
   `#0B0B12`, carte `#15151E`, textes `#FFFFFF` / `#BCBCCB` / `#8A8A98`, filet `#2A2A37`, accent
   `#6381F8` à `#5974DF`, rayon de 16. Chaque module prend la teinte de l'en-tête de son onglet
   (`fondDOnglet`), en lueur derrière son titre.
-- **Une hiérarchie de fiche produit** : le nom du module en grand titre, comme un onglet de
-  l'application ; une phrase factuelle ; trois points forts en valeur lisible d'abord ; puis une
-  fiche clé / valeur pour le détail, et une fiche technique générale en fin de page.
+- **Une hiérarchie de fiche produit, dans les composants de l'application 6.3.1** : le nom du
+  module en grand titre, comme un onglet ; une phrase factuelle ; trois signaux sur une seule carte,
+  l'instrument de la Scolarité (`InstrumentScolarite.tsx`) ; puis le détail en groupe des Réglages,
+  une rangée par clé et la valeur en gris, et une fiche technique générale en fin de page. Les
+  composants se relèvent sur le banc Android de la version courante, pas sur les captures de la doc,
+  qui peuvent dater d'une version antérieure.
+- **La Scolarité est recréée en HTML, avec des valeurs d'exemple** : l'onglet connecté montrerait un
+  dossier. Libellés et unités sont ceux de l'application (« à rendre », « non lus », « documents »).
 - **Les icônes sont celles de l'application, et comme elle les emploie** : Lucide, tirées de son
   paquet (`lucide-react-native` 1.61.0), au trait de 1,75, neutres. Pas de carré de couleur : la
   deuxième passe de 7-J l'a retiré de l'application, jugé « prototype ».

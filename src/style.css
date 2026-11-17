@@ -317,7 +317,6 @@ button:focus-visible {
         scale: .86;
     }
 
-
     .flottante-1 {
         left: -8px;
     }
@@ -332,7 +331,6 @@ button:focus-visible {
 
 }
 
-
 /* ── Les cartes : celles des onglets, à leurs mesures ─────────────── */
 
 .carte {
@@ -342,14 +340,6 @@ button:focus-visible {
     padding: 16px 18px;
     box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
 }
-
-
-
-
-
-
-
-
 
 .ligne {
     display: flex;
@@ -366,15 +356,6 @@ button:focus-visible {
     flex-shrink: 0;
 }
 
-
-
-.carte-lieu .entete {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
 .carte-lieu .nom {
     white-space: nowrap;
     display: flex;
@@ -387,6 +368,11 @@ button:focus-visible {
 .carte-lieu .nom svg {
     width: 18px;
     height: 18px;
+}
+
+/* La distance au bout de la ligne du lieu, comme dans la liste du Campus. */
+.ligne .distance {
+    margin-left: auto;
 }
 
 .distance {
@@ -521,69 +507,124 @@ button:focus-visible {
     max-width: 290px;
 }
 
-/* Les points forts : trois valeurs à lire d'abord, comme les widgets de l'application. */
-.points-forts {
-    list-style: none;
-    display: grid;
-    gap: 12px;
+/* L'instrument : trois signaux sur une seule carte, des chiffres plutôt que des phrases, comme la
+   Scolarité de l'application (InstrumentScolarite.tsx). */
+.instrument {
     margin-top: 32px;
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: var(--rayon);
+    overflow: hidden;
 }
 
-.points-forts li {
+.instrument ul {
+    list-style: none;
     display: grid;
-    align-content: start;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.instrument li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+}
+
+/* Le filet entre deux colonnes, en retrait du haut et du bas comme dans l'application. */
+.instrument li + li::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 0;
+    width: 1px;
+    background: var(--bordure);
+}
+
+.instrument li svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 10px;
+    color: var(--texte-2);
+}
+
+.instrument .chiffre {
+    font-size: 34px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+}
+
+/* Un zéro s'estompe : un chiffre qui ne demande rien ne pèse pas autant qu'un compteur. */
+.instrument .chiffre.zero {
+    color: var(--texte-3);
+}
+
+.instrument .mot {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.25;
+}
+
+.instrument li span {
+    color: var(--texte-2);
+    font-size: 15px;
+    line-height: 1.35;
+}
+
+.instrument-pied {
+    display: flex;
     align-items: center;
-    padding: 18px 20px;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--bordure);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.instrument-pied svg {
+    width: 20px;
+    height: 20px;
+    color: var(--texte-2);
+}
+
+/* La fiche : un groupe des Réglages de l'application, une rangée par clé, la valeur en gris. */
+.fiche {
+    margin-top: 16px;
     background: var(--carte);
     border: 1px solid var(--contour);
     border-radius: var(--rayon);
 }
 
-.points-forts svg {
-    grid-row: span 2;
-    width: 24px;
-    height: 24px;
-    color: var(--texte-2);
-}
-
-.points-forts strong {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    line-height: 1.2;
-}
-
-.points-forts span {
-    color: var(--texte-3);
-    font-size: 15px;
-    line-height: 1.35;
-}
-
-/* La fiche : une clé, une valeur, un filet. */
-.fiche {
-    margin-top: 28px;
-    border-bottom: 1px solid var(--bordure);
-}
-
 .fiche > div {
+    position: relative;
     display: grid;
     align-items: baseline;
     grid-template-columns: minmax(110px, 9.5em) 1fr;
     gap: 16px;
-    padding: 14px 0;
-    border-top: 1px solid var(--bordure);
+    padding: 14px 20px;
+}
+
+.fiche > div + div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 20px;
+    height: 1px;
+    background: var(--bordure);
 }
 
 .fiche dt {
-    color: var(--texte-3);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.45;
 }
 
 .fiche dd {
+    color: var(--texte-2);
     font-size: 16px;
     line-height: 1.45;
 }
@@ -619,74 +660,75 @@ button:focus-visible {
 
 .fiche-courte > div {
     grid-template-columns: 7.5em 1fr;
-    padding: 11px 0;
+    padding: 12px 18px;
 }
 
-/* La Scolarité : le bloc « En un coup d'œil » de l'onglet, avec ses libellés réels. */
-.coup-d-oeil {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+.fiche-courte > div + div::before {
+    left: 18px;
+}
+
+/* La Scolarité : l'onglet connecté, tel que 6.3.1 le dessine, avec des valeurs d'exemple. */
+.apercu-scolarite {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
 }
 
-.widget {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 20px;
+.intertitre {
+    margin: 0 0 10px 4px;
+    color: var(--texte-2);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.apercu-scolarite .instrument {
+    margin-top: 0;
+}
+
+.apercu-scolarite .instrument + .intertitre {
+    margin-top: 28px;
+}
+
+.groupe-reglages {
     background: var(--carte);
     border: 1px solid var(--contour);
-    border-radius: 22px;
+    border-radius: var(--rayon);
 }
 
-.widget-large {
-    grid-column: span 2;
-    flex-direction: row;
+.rangee {
+    display: flex;
     align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
 }
 
-.widget-icone {
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: var(--gris-fond);
-    color: var(--texte);
-}
-
-.widget-icone svg {
+.rangee > svg {
+    flex-shrink: 0;
     width: 24px;
     height: 24px;
+    color: var(--texte-2);
 }
 
-.widget-texte {
+.rangee > svg:last-child {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    color: var(--texte-3);
+}
+
+.rangee-texte {
     display: flex;
     flex-direction: column;
     line-height: 1.3;
 }
 
-.widget-texte strong {
-    font-size: 20px;
+.rangee-texte strong {
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: -.016em;
 }
 
-.widget-texte span {
+.rangee-texte span {
     color: var(--texte-2);
     font-size: 15px;
-}
-
-.widget-suite {
-    margin-left: auto;
-    color: var(--texte-3);
-}
-
-.widget-suite svg {
-    width: 22px;
-    height: 22px;
 }
 
 /* Sur un téléphone, une ligne de fiche s'empile : l'intitulé au-dessus de sa valeur. */
@@ -698,26 +740,46 @@ button:focus-visible {
         gap: 2px;
     }
 
-    .fiche dt {
-        font-size: 14px;
-    }
-}
-
-@media (min-width: 640px) {
-    .points-forts {
-        grid-template-columns: repeat(3, 1fr);
+    .fiche dd {
+        font-size: 15px;
     }
 
-    .points-forts li {
+    .module-texte .instrument ul {
         grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        align-items: start;
-        row-gap: 6px;
     }
 
-    .points-forts svg {
-        grid-row: auto;
-        margin-bottom: 10px;
+    .module-texte .instrument li {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        column-gap: 16px;
+        row-gap: 2px;
+        padding: 16px 20px;
+    }
+
+    .module-texte .instrument li svg {
+        grid-row: span 2;
+        margin: 2px 0 0;
+    }
+
+    .module-texte .instrument li + li::before {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: 60px;
+        width: auto;
+        height: 1px;
+    }
+
+    .module-texte .instrument .chiffre {
+        font-size: 28px;
+    }
+
+    .apercu-scolarite .instrument li {
+        padding: 16px 14px;
+    }
+
+    .apercu-scolarite .instrument .chiffre {
+        font-size: 28px;
     }
 }
 
@@ -756,7 +818,11 @@ button:focus-visible {
 
 .fiche-technique > div {
     grid-template-columns: minmax(130px, 13em) 1fr;
-    padding: 16px 0;
+    padding: 16px 24px;
+}
+
+.fiche-technique > div + div::before {
+    left: 24px;
 }
 
 .fiche-technique dd {
@@ -770,7 +836,6 @@ button:focus-visible {
 .cloture .magasins {
     margin-top: 28px;
 }
-
 
 .magasins {
     display: flex;
@@ -792,7 +857,6 @@ button:focus-visible {
     height: 48px;
     width: auto;
 }
-
 
 /* ══════════════════════════════════════════════════════════════════
    LE PIED : qui fait UKit, et les pages légales

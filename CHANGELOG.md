@@ -29,8 +29,9 @@ un push sur `main` le publie — les entrées sont datées.
   accueil (fond sombre et sa lueur, vraies cartes de l'appli, titre en deux tons, bouton plein) dans
   une composition propre au site, avec les couleurs du thème sombre, les icônes Lucide neutres et la
   police de l'application. L'accueil devient une fiche produit, au ton impersonnel : un module par
-  onglet (Planning, Campus, Scolarité), chacun avec sa teinte d'onglet, ses points forts et sa fiche
-  clé / valeur, puis la fiche technique (prix, plateformes, langues, établissements, code) et les
+  onglet (Planning, Campus, Scolarité), chacun avec sa teinte d'onglet, ses trois signaux sur une
+  carte et son détail en groupe des Réglages, relevés sur l'application 6.3.1 au banc Android, puis
+  la fiche technique (prix, plateformes, langues, établissements, code) et les
   stores, sur cinq captures de l'application 6.3 en thème sombre. Les pages de lecture prennent la
   même forme. L'image Open Graph est refaite ; le badge App Store est la version française
   officielle.
