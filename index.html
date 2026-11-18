@@ -37,8 +37,9 @@
             <div class="scene" aria-hidden="true">
                 <div class="lueur"></div>
                 <div class="composition">
-                    <div class="telephone telephone-ouverture"><div class="ecran"><img src="/captures/planning.webp"
-                                width="720" height="1527" alt=""></div></div>
+                    <div class="telephone telephone-ouverture"><div class="coque"><div class="ecran"><img
+                                src="/captures/planning.webp" width="780" height="1688" alt=""></div><span
+                                class="encoche"></span><span class="boutons"></span></div></div>
                     <!-- Deux cartes de l'onglet Campus sortent du téléphone, avec les données d'exemple de
                          l'application (src/features/Onboarding/components/exemples.ts). -->
                     <div class="carte carte-lieu flottante flottante-1">
@@ -62,7 +63,7 @@
         <section class="module module-planning" id="planning" aria-labelledby="titre-planning">
             <div class="conteneur module-grille">
                 <div class="module-media">
-                    <div class="telephone"><div class="ecran"><img src="/captures/planning-semaine.webp" width="720" height="1527" loading="lazy" alt="L&#x27;onglet Planning en vue semaine : les sept cours du lundi, avec leurs horaires et leurs salles"></div></div>
+                    <div class="telephone"><div class="coque"><div class="ecran"><img src="/captures/planning-semaine.webp" width="780" height="1688" loading="lazy" alt="L&#x27;onglet Planning en vue semaine : les sept cours du lundi, avec leurs horaires et leurs salles"></div><span class="encoche"></span><span class="boutons"></span></div></div>
                 </div>
                 <div class="module-texte">
                     <h2 id="titre-planning" class="titre-module">Planning</h2>
@@ -93,7 +94,7 @@
                     favoris et recherche. Les annonces des associations étudiantes en tête de l’onglet.</p>
                 <div class="sous-modules">
                 <article class="sous-module">
-                    <div class="telephone"><div class="ecran"><img src="/captures/resto.webp" width="720" height="1527" loading="lazy" alt="Le menu du midi d&#x27;une cafétéria du CROUS : entrées, plats et desserts, avec ses horaires"></div></div>
+                    <div class="telephone"><div class="coque"><div class="ecran"><img src="/captures/resto.webp" width="780" height="1688" loading="lazy" alt="Le menu du jour d&#x27;un restaurant universitaire : entrées, plats et desserts du midi, plats du soir"></div><span class="encoche"></span><span class="boutons"></span></div></div>
                     <h3>Restaurants universitaires</h3>
                     <p class="accroche">Menus du jour et des jours suivants.</p>
                     <dl class="fiche fiche-courte">
@@ -102,7 +103,7 @@
                 </dl>
                 </article>
                 <article class="sous-module">
-                    <div class="telephone"><div class="ecran"><img src="/captures/bibliotheques.webp" width="720" height="1527" loading="lazy" alt="La liste des bibliothèques : une BU ouverte et remplie à 35 %, une autre fermée jusqu&#x27;à lundi"></div></div>
+                    <div class="telephone"><div class="coque"><div class="ecran"><img src="/captures/bibliotheques.webp" width="780" height="1688" loading="lazy" alt="La liste des bibliothèques : une BU remplie à 45 %, une autre à 95 %, avec leurs distances"></div><span class="encoche"></span><span class="boutons"></span></div></div>
                     <h3>Bibliothèques</h3>
                     <p class="accroche">Affluence en temps réel.</p>
                     <dl class="fiche fiche-courte">
@@ -111,7 +112,7 @@
                 </dl>
                 </article>
                 <article class="sous-module">
-                    <div class="telephone"><div class="ecran"><img src="/captures/salles.webp" width="720" height="1527" loading="lazy" alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune libre jusqu&#x27;à 22 h"></div></div>
+                    <div class="telephone"><div class="coque"><div class="ecran"><img src="/captures/salles.webp" width="780" height="1688" loading="lazy" alt="Les salles libres d&#x27;un bâtiment à 17 h, étage par étage, chacune libre jusqu&#x27;à 22 h"></div><span class="encoche"></span><span class="boutons"></span></div></div>
                     <h3>Salles libres</h3>
                     <p class="accroche">Salles inoccupées, heure par heure.</p>
                     <dl class="fiche fiche-courte">
@@ -195,10 +196,13 @@
                     <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
                 </a>
             </div>
-            <div class="qr">
-                <img src="/qrcode.png" width="1184" height="1184" loading="lazy" alt="QR code de téléchargement de UKit">
-                <p>Depuis un ordinateur,<br>scanner le code avec un téléphone.</p>
-            </div>
+            <details class="qr">
+                <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1" /><rect width="5" height="5" x="16" y="3" rx="1" /><rect width="5" height="5" x="3" y="16" rx="1" /><path d="M21 16h-3a2 2 0 0 0-2 2v3" /><path d="M21 21v.01" /><path d="M12 7v3a2 2 0 0 1-2 2H7" /><path d="M3 12h.01" /><path d="M12 3h.01" /><path d="M12 16v.01" /><path d="M16 12h1" /><path d="M21 12v.01" /><path d="M12 21v-1" /></svg><span>Code QR, pour télécharger depuis un ordinateur</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
+                <div class="qr-contenu">
+                    <img src="/qrcode.png" width="1184" height="1184" loading="lazy" alt="Code QR qui ouvre la page de téléchargement de UKit">
+                    <p>À scanner avec l’appareil photo du téléphone.</p>
+                </div>
+            </details>
         </section>
     </main>
 

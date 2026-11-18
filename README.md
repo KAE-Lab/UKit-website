@@ -38,11 +38,12 @@ confidentialite.html   la confidentialité du site
 src/
   style.css            toute la mise en forme, chaque page la charge
 public/
-  captures/            cinq captures de l'application 6.3, thème sombre, banc Android (1080 × 2290 sans barre d'état, réduites à 720)
+  captures/            cinq écrans de l'application 6.3.1, thème sombre, composés comme sur un iPhone 13 Pro (780 × 1688)
   licences/            la licence des icônes Lucide (ISC), liée depuis les mentions légales
   …                    logo, icône, logo PNG historique, badges des stores, QR code, image Open Graph
 vite.config.js         une entrée par page
 eslint.config.js       les règles recommandées, et c'est tout
+tools/ecrans.py        compose les captures du banc en écrans d'iPhone (Python, Pillow)
 .env.production        VITE_SITE_URL, l'adresse publique — versionnée, ce n'est pas un secret
 ```
 
@@ -84,9 +85,19 @@ sortent deux cartes de l'onglet Campus.
   (`docs/features/`) et son CHANGELOG avant d'entrer sur le site.
 - **Sombre seulement.** Le mouvement respecte `prefers-reduced-motion`.
 
+**Les téléphones sont des iPhone 13 Pro de face**, à leurs cotes réelles, celles du portfolio
+(`kln-portfolio`, `js/phone.js`) : un millimètre vaut `100cqw / 71,5`, si bien que bordure, coins,
+encoche et boutons suivent la largeur donnée au téléphone.
+
 **Les captures se refont sur le banc Android** de l'application (`tools/appareil/banc.sh`, AVD `ukit`,
-thème sombre), barre d'état rognée. Rien de personnel : ni compte universitaire connecté, ni visage
-identifiable ; les noms des enseignants du planning sont caviardés.
+thème sombre), réglé à la géométrie de l'iPhone 13 Pro : l'application y fait sa mise en page
+d'iPhone. `tools/ecrans.py` redessine la barre d'état d'iOS à l'heure de la capture et la barre
+d'accueil ; son en-tête dit comment prendre chaque écran. Rien de personnel : ni compte universitaire
+connecté, ni visage (la liste des bibliothèques se photographie sur une position sans photo
+d'étudiants) ; les noms des enseignants du planning sont masqués par le script.
+
+**Le code QR ne sert que depuis un ordinateur** : il est replié sous une rangée et disparaît sur un
+écran tactile. Ouvert, il garde son fond blanc, que tous les appareils photo lisent.
 
 ## Développement
 

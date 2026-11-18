@@ -204,22 +204,49 @@ button:focus-visible {
     justify-items: center;
 }
 
-/* Le téléphone : la capture dans un boîtier sombre, légèrement tourné vers le texte. */
+/* L'iPhone 13 Pro de face, à ses cotes réelles, celles du portfolio (kln-portfolio, js/phone.js) :
+   corps de 71,5 x 146,7 mm, écran de 64,6 x 139,8 mm aux coins de 7,84 mm, bordure noire de 3,45 mm,
+   encoche de 26,8 x 5,5 mm, cadre d'acier graphite. Un millimètre vaut 100cqw / 71,5 : tout suit la
+   largeur donnée au téléphone. */
 .telephone {
+    --mm: calc(100cqw / 71.5);
+    container-type: inline-size;
     position: relative;
     width: 100%;
     max-width: 280px;
-    padding: 7px;
-    border-radius: 40px;
-    background: #050509;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 80px rgba(0, 0, 0, .55);
+}
+
+.coque {
+    position: relative;
+    aspect-ratio: 71.5 / 146.7;
+    border: calc(.6 * var(--mm)) solid transparent;
+    border-radius: calc(11.29 * var(--mm));
+    /* Le verre noir devant, l'acier sur la tranche : plus clair sur les arêtes qui prennent la lumière. */
+    background:
+        linear-gradient(#000, #000) padding-box,
+        linear-gradient(150deg, #9a9ba0, #3a3b3f 22%, #66676c 48%, #2c2d30 74%, #85868b) border-box;
+    box-shadow: 0 40px 80px -24px rgba(0, 0, 0, .75), 0 0 0 1px rgba(0, 0, 0, .6);
+}
+
+/* L'écouteur, une fente dans la bordure au-dessus de l'encoche. */
+.coque::before {
+    content: "";
+    position: absolute;
+    top: calc(.75 * var(--mm));
+    left: 50%;
+    width: calc(9.5 * var(--mm));
+    height: calc(.6 * var(--mm));
+    border-radius: calc(.3 * var(--mm));
+    background: #232428;
+    transform: translateX(-50%);
 }
 
 .telephone .ecran {
-    border-radius: 33px;
+    position: absolute;
+    inset: calc(2.85 * var(--mm));
+    border-radius: calc(7.84 * var(--mm));
     overflow: hidden;
-    background: #000;
-    aspect-ratio: 1080 / 2290;
+    background: #0b0b12;
 }
 
 .telephone .ecran img {
@@ -228,8 +255,77 @@ button:focus-visible {
     object-fit: cover;
 }
 
+/* Le reflet du verre, à peine. */
+.telephone .ecran::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, 0) 34%);
+    pointer-events: none;
+}
+
+/* L'encoche : une languette pendue au bord haut de l'écran, évasée là où elle le rejoint, la caméra
+   avant à droite. */
+.encoche {
+    position: absolute;
+    top: calc(2.85 * var(--mm));
+    left: 50%;
+    width: calc(26.8 * var(--mm));
+    height: calc(5.5 * var(--mm));
+    border-radius: 0 0 calc(2.4 * var(--mm)) calc(2.4 * var(--mm));
+    background: radial-gradient(circle at calc(50% + 7.4 * var(--mm)) 50%, #1d2a3c 0, #0b1018 calc(.75 * var(--mm)), #000 calc(1.05 * var(--mm)));
+    transform: translateX(-50%);
+}
+
+.encoche::before,
+.encoche::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: calc(.9 * var(--mm));
+    height: calc(.9 * var(--mm));
+}
+
+.encoche::before {
+    right: 100%;
+    background: radial-gradient(circle at 0 100%, transparent calc(.9 * var(--mm)), #000 calc(.9 * var(--mm) + .5px));
+}
+
+.encoche::after {
+    left: 100%;
+    background: radial-gradient(circle at 100% 100%, transparent calc(.9 * var(--mm)), #000 calc(.9 * var(--mm) + .5px));
+}
+
+/* Les boutons sur la tranche : à gauche le commutateur de silence et les deux volumes, à droite
+   l'alimentation. */
+.boutons::before,
+.boutons::after {
+    content: "";
+    position: absolute;
+    width: calc(.8 * var(--mm));
+    border-radius: calc(.4 * var(--mm));
+}
+
+.boutons::before {
+    left: calc(-1.2 * var(--mm));
+    top: calc(20.5 * var(--mm));
+    height: calc(38.5 * var(--mm));
+    background: linear-gradient(to bottom,
+        #55565b 0 calc(6 * var(--mm)), transparent 0 calc(14.5 * var(--mm)),
+        #55565b 0 calc(25 * var(--mm)), transparent 0 calc(28 * var(--mm)),
+        #55565b 0);
+}
+
+.boutons::after {
+    right: calc(-1.2 * var(--mm));
+    top: calc(36 * var(--mm));
+    height: calc(17 * var(--mm));
+    background: #55565b;
+}
+
 .telephone-ouverture {
     width: 230px;
+    max-width: none;
     transform: perspective(1200px) rotateY(-14deg) rotateX(4deg);
     animation: apparait .8s ease both;
 }
@@ -983,26 +1079,78 @@ button:focus-visible {
     margin-bottom: 32px;
 }
 
+/* Le code QR, replié sous une rangée au style des Réglages : il ne sert que depuis un ordinateur, et
+   ne s'ouvre qu'au clic. Ouvert, il garde son fond blanc, qui le rend lisible par tous les appareils
+   photo. Sur un écran tactile, la rangée disparaît : on ne scanne pas son propre écran. */
 .qr {
+    width: 460px;
+    max-width: 100%;
+    margin-top: 32px;
+    background: var(--carte);
+    border: 1px solid var(--contour);
+    border-radius: var(--rayon);
+}
+
+.qr summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    list-style: none;
+    cursor: pointer;
+    color: var(--texte);
+    font-size: 16px;
+}
+
+.qr summary::-webkit-details-marker {
     display: none;
 }
 
-@media (min-width: 960px) {
-    .qr {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-top: 40px;
-        color: var(--texte-3);
-        font-size: 15px;
-    }
+.qr summary svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--texte-2);
+}
 
-    .qr img {
-        width: 128px;
-        height: 128px;
-        padding: 6px;
-        border-radius: 12px;
-        background: #FFFFFF;
+.qr summary svg:last-child {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    color: var(--texte-3);
+    transition: transform .2s ease;
+}
+
+.qr[open] summary svg:last-child {
+    transform: rotate(180deg);
+}
+
+.qr summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--rayon);
+}
+
+.qr-contenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 4px 18px 18px;
+    color: var(--texte-2);
+    font-size: 15px;
+}
+
+.qr-contenu img {
+    width: 144px;
+    height: 144px;
+    padding: 8px;
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .qr {
+        display: none;
     }
 }
 

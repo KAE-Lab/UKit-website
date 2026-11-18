@@ -25,6 +25,11 @@ un push sur `main` le publie — les entrées sont datées.
 
 ### Modifié
 
+- **Des iPhone réalistes, et un code QR discret**, 2026-11-18 : les téléphones deviennent des
+  iPhone 13 Pro de face, à leurs cotes réelles (cadre d'acier, bordure, encoche, boutons), et leurs
+  écrans sont pris au format de l'iPhone, avec la barre d'état d'iOS et la barre d'accueil
+  (`tools/ecrans.py`). Le code QR, qui faisait une tache blanche sur le fond sombre, se replie sous
+  une rangée et n'apparaît qu'au clic, jamais sur un écran tactile.
 - **Le site prend le style de l'application**, 2026-11-17 : le vocabulaire du premier écran de son
   accueil (fond sombre et sa lueur, vraies cartes de l'appli, titre en deux tons, bouton plein) dans
   une composition propre au site, avec les couleurs du thème sombre, les icônes Lucide neutres et la
