@@ -2,9 +2,13 @@
 
 Les évolutions notables du site. Le format s'inspire de
 [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ; le site n'a pas de numéro de version,
-un push sur `main` le publie — les entrées sont datées.
+un push sur `main` le publie — les entrées sont datées. Une section par publication, à la date de la
+poussée sur `main` ; ce qui attend sur une branche va sous un `[Non publié]` en tête, ouvert à ce
+moment-là.
 
-## [Non publié]
+## 2026-11-18
+
+La refonte, publiée par la poussée de `88517e9`.
 
 ### Ajouté
 
@@ -15,14 +19,6 @@ un push sur `main` le publie — les entrées sont datées.
 - **Une page introuvable** (`/404.html`), 2026-11-16 : sans elle, Cloudflare Pages rendait l'accueil à
   toute adresse inconnue.
 
-- **La page d'engagement du chantier campus** (`/engagement.html`), 2026-09-07 : ce qu'on demande,
-  ce qu'on en fait et ce qu'on ne fera jamais quand quelqu'un prête un accès à son portail pour que
-  UKit s'adapte à son campus. Citée par le formulaire de retours de l'application ; sa méthode côté
-  équipe est dans le dépôt de l'application (`docs/adaptation-campus.md`).
-- **Le socle documentaire et l'outillage** du dépôt, au niveau de celui de l'application : README,
-  CONTRIBUTING, ce CHANGELOG, `.nvmrc` et `engines`, `.env.example`, ESLint, commitlint par un hook,
-  et une vérification (lint et build) à chaque poussée.
-
 ### Modifié
 
 - **Des iPhone réalistes, et un code QR discret**, 2026-11-18 : les téléphones deviennent des
@@ -30,7 +26,9 @@ un push sur `main` le publie — les entrées sont datées.
   écrans sont pris au format de l'iPhone, avec la barre d'état d'iOS et la barre d'accueil
   (`tools/ecrans.py`). Le code QR, qui faisait une tache blanche sur le fond sombre, se replie sous
   une rangée et n'apparaît qu'au clic, jamais sur un écran tactile.
-- **Le site prend le style de l'application**, 2026-11-17 : le vocabulaire du premier écran de son
+- **Le site prend le style de l'application**, 2026-11-16 et 17, et non celui de l'Épure, l'identité
+  des supports de communication, essayée le 16 (`568ef74`) et quittée le soir même : une personne qui passe du site
+  à l'application ne doit pas changer d'univers. Le vocabulaire du premier écran de son
   accueil (fond sombre et sa lueur, vraies cartes de l'appli, titre en deux tons, bouton plein) dans
   une composition propre au site, avec les couleurs du thème sombre, les icônes Lucide neutres et la
   police de l'application. L'accueil devient une fiche produit, au ton impersonnel : un module par
@@ -41,6 +39,26 @@ un push sur `main` le publie — les entrées sont datées.
   même forme. L'image Open Graph est refaite ; le badge App Store est la version française
   officielle.
 
+### Retiré
+
+- 2026-11-16 : Tailwind et les particules (`tailwindcss`, `@tailwindcss/vite`, `@tsparticles/engine`,
+  `@tsparticles/slim`), les modales de l'accueil, tout le JavaScript de l'accueil (`src/main.js`,
+  `src/fond.js`), et les sept vidéos et la capture de l'ancienne interface (36 Mo).
+
+## 2026-09-07
+
+### Ajouté
+
+- **La page d'engagement du chantier campus** (`/engagement.html`) : ce qu'on demande, ce qu'on en
+  fait et ce qu'on ne fera jamais quand quelqu'un prête un accès à son portail pour que UKit s'adapte
+  à son campus. Citée par le formulaire de retours de l'application ; sa méthode côté équipe est dans
+  le dépôt de l'application (`docs/adaptation-campus.md`).
+- **Le socle documentaire et l'outillage** du dépôt, au niveau de celui de l'application : README,
+  CONTRIBUTING, ce CHANGELOG, `.nvmrc` et `engines`, `.env.example`, ESLint, commitlint par un hook,
+  et une vérification (lint et build) à chaque poussée.
+
+### Modifié
+
 - **Le fond est extrait dans `src/fond.js`** (feuille de style et particules) : une page secondaire
   ne charge plus `main.js`, qui attend les éléments de l'accueil et échouait sur la page de
   téléchargement — l'erreur était silencieuse, et interrompait le module à mi-chemin.
@@ -49,10 +67,6 @@ un push sur `main` le publie — les entrées sont datées.
   vrais stores, au lieu d'un APK de fork et d'un identifiant App Store factice.
 
 ### Retiré
-
-- 2026-11-16 : Tailwind et les particules (`tailwindcss`, `@tailwindcss/vite`, `@tsparticles/engine`,
-  `@tsparticles/slim`), les modales de l'accueil, tout le JavaScript de l'accueil (`src/main.js`,
-  `src/fond.js`), et les sept vidéos et la capture de l'ancienne interface (36 Mo).
 
 - Quatre dépendances jamais importées (`three`, `tsparticles`, `@tsparticles/shape-rounded-rect`,
   `postcss`/`autoprefixer` sans configuration), et les restes du gabarit Vite (`counter.js`, les
