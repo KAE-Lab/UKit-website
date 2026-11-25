@@ -6,6 +6,15 @@ un push sur `main` le publie — les entrées sont datées. Une section par publ
 poussée sur `main` ; ce qui attend sur une branche va sous un `[Non publié]` en tête, ouvert à ce
 moment-là.
 
+## 2026-11-25
+
+### Ajouté
+
+- **La page « Mets à jour UKit pour nous écrire »** (`/mets-a-jour`) : le formulaire de retour de
+  l'application devient natif à la 7.0, et les versions d'avant ouvriront cette page à la bascule, quand
+  la 7.0 sera sur les deux stores. Les deux stores, et « écrire quand même » vers l'ancien formulaire.
+  Hors de l'index des moteurs ; aucune page ne la cite encore.
+
 ## 2026-11-18
 
 La refonte, publiée par la poussée de `88517e9`.
