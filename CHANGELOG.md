@@ -10,6 +10,13 @@ moment-là.
 
 ### Ajouté
 
+- **La page du lien d'un ami** (`/ami`), pour la 7.1 de l'application : un étudiant partage son emploi
+  du temps par un lien ou un code QR, et le contenu voyage dans le fragment de l'adresse, que le
+  navigateur n'envoie jamais au site. La page le lit dans le navigateur pour le seul bouton « Ouvrir
+  dans UKit » (le schéma `ukit-bordeaux://`), et propose les stores sinon ; « ce lien est incomplet »
+  quand le fragment manque. Hors de l'index des moteurs, sans référent vers les stores. La page
+  Confidentialité le dit.
+
 - **Les règles de la communauté** (`/communaute`), pour la 7.0 de l'application : ce qui se publie
   (signalements d'une liste fermée, votes, retours), ce qui est interdit, comment la communauté se
   corrige et comment la modération travaille (attestation de l'appareil, plafonds, réputation, retrait,

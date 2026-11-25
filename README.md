@@ -10,7 +10,8 @@
 ## Ce que le site est
 
 Quelques pages statiques, et rien derrière : pas de serveur, pas de base, pas de compte, pas de
-cookie ni de mesure d'audience, pas de script sauf la redirection de la page de téléchargement.
+cookie ni de mesure d'audience, pas de script sauf la redirection de la page de téléchargement et le
+bouton de la page `/ami`.
 Ce qu'il dit de l'application est ce que le [README de UKit](https://github.com/KAE-Lab/UKit#readme)
 dit, en moins de mots.
 
@@ -20,6 +21,7 @@ dit, en moins de mots.
 | Télécharger | `/download.html` | rediriger vers le store du téléphone qui l'ouvre ; sur un ordinateur, montrer les deux badges et le QR code |
 | Mets à jour | `/mets-a-jour` | la page de passage des versions d'avant la 7.0 de l'application, dont le formulaire de retour est devenu natif : les deux stores, et « écrire quand même » vers l'ancien formulaire ; aucune page ne la cite avant la bascule, que décrit [la spécification du formulaire](https://github.com/KAE-Lab/UKit/blob/prochaine-version/docs/phase-8/3-formulaire.md#la-bascule-du-formulaire) |
 | Règles de la communauté | `/communaute` | ce qui se publie dans l'application (signalements, votes, retours), ce qui est interdit, comment la modération travaille, comment signaler un abus ; l'application l'ouvre depuis le rappel des règles, à la première contribution (`URL.REGLES_DE_LA_COMMUNAUTE`) |
+| Un ami | `/ami` | la page du lien qu'un étudiant partage depuis l'application (7.1, [la spécification](https://github.com/KAE-Lab/UKit/blob/v7.1/docs/phase-8/8-amis.md)) : l'emploi du temps voyage dans le fragment (`#…`), qu'un navigateur n'envoie jamais au serveur ; [`src/ami.js`](src/ami.js) le lit dans le navigateur, pour la seule adresse du bouton « Ouvrir dans UKit » (`ukit-bordeaux://ami#…`), sans l'afficher ni l'envoyer, et la page propose les stores ; son adresse est une constante de l'application (`ADRESSE_DU_LIEN`) |
 | Engagement | `/engagement.html` | ce qu'on demande, ce qu'on en fait et ce qu'on ne fera jamais, quand quelqu'un prête un accès à son portail pour que UKit s'adapte à son campus ([docs/adaptation-campus.md](https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md), côté équipe) |
 | Mentions légales | `/mentions-legales.html` | l'éditeur (l'association KAE Lab), le directeur de la publication, l'hébergeur, les licences et les marques (loi n° 2004-575, art. 1-1) |
 | Confidentialité | `/confidentialite.html` | ce que le site fait de tes données (rien qu'il garde), l'hébergeur, les liens sortants ; renvoie à `PRIVACY.md` pour l'application |
@@ -39,6 +41,7 @@ download.html          la page de téléchargement
 engagement.html        la page d'engagement du chantier campus
 mets-a-jour.html       la page de passage vers le formulaire natif de la 7.0
 communaute.html        les règles de la communauté de l'application
+ami.html               la page du lien d'un ami, et src/ami.js, son seul script
 mentions-legales.html  les mentions légales
 confidentialite.html   la confidentialité du site
 404.html               la page introuvable

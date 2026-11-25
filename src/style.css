@@ -1084,6 +1084,14 @@ button:focus-visible {
     margin-bottom: 32px;
 }
 
+/* Le second geste d'une page de passage (/ami) : son intitule, au-dessus des stores. */
+.seule .relance {
+    margin-top: 48px;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -.016em;
+}
+
 /* La voie de repli d'une page de passage : une phrase sous les stores, le lien a l'accent. */
 .autre-voie {
     margin-top: 32px;

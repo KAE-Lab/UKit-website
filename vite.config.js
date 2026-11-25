@@ -16,6 +16,7 @@ export default defineConfig({
                 engagement: page('engagement'),
                 metsAJour: page('mets-a-jour'),
                 communaute: page('communaute'),
+                ami: page('ami'),
                 mentionsLegales: page('mentions-legales'),
                 confidentialite: page('confidentialite'),
                 introuvable: page('404'),

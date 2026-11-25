@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B0B12">
+    <title>Un emploi du temps partagé dans UKit</title>
+    <meta name="description" content="Un ami partage son emploi du temps : UKit le range sur ton téléphone et montre vos créneaux libres en commun.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Un emploi du temps partagé dans UKit">
+    <meta property="og:description" content="Un ami partage son emploi du temps : UKit le range sur ton téléphone et montre vos créneaux libres en commun.">
+    <meta property="og:url" content="%VITE_SITE_URL%/ami">
+    <meta property="og:image" content="%VITE_SITE_URL%/opengraph-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Une page de passage, ouverte par le lien d'un ami : rien a indexer. -->
+    <meta name="robots" content="noindex">
+    <!-- Ni l'adresse ni son fragment ne partent vers les stores : la page ne transmet rien. -->
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="icon" type="image/png" href="/icon.png">
+    <link rel="stylesheet" href="/src/style.css">
+    <script type="module" src="/src/ami.js"></script>
+</head>
+
+<body>
+    <header class="tete conteneur">
+        <a href="/" aria-label="UKit, accueil"><img class="logo" src="/logo-ukit.svg" width="850" height="343" alt="UKit"></a>
+    </header>
+
+    <main class="seule conteneur">
+        <h1 class="titre">Un emploi du temps partagé</h1>
+        <p class="slogan">Un ami t’a envoyé son emploi du temps. UKit le range sur ton téléphone et montre vos créneaux libres en commun ; son contenu ne passe pas par ce site.</p>
+        <p id="ouvrir" hidden><a class="bouton" href="/download.html">Ouvrir dans UKit</a></p>
+        <p id="incomplet" class="precision" hidden>Ce lien est incomplet. Demande à ton ami de le renvoyer.</p>
+        <h2 class="relance">Pas encore UKit ?</h2>
+        <div class="magasins">
+            <a href="https://apps.apple.com/app/id1394708917" rel="noopener">
+                <img src="/badge-app-store.svg" alt="Télécharger dans l'App Store" width="127" height="40">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.bordeaux1.emplois" rel="noopener">
+                <img src="/badge-google-play.svg" alt="Disponible sur Google Play" width="135" height="40">
+            </a>
+        </div>
+        <p class="autre-voie">Une fois l’application installée, touche de nouveau le lien de ton ami.</p>
+    </main>
+
+    <footer class="pied">
+        <div class="conteneur">
+            <p>UKit est développé par <a href="https://kaelab.dev" rel="noopener">KAE Lab</a>, association étudiante.</p>
+            <nav aria-label="Pages légales">
+                <a href="/mentions-legales.html">Mentions légales</a>
+                <a href="/confidentialite.html">Confidentialité</a>
+                <a href="https://github.com/KAE-Lab/UKit" rel="noopener">Code source</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+
+</html>
