@@ -15,6 +15,7 @@ export default defineConfig({
                 download: page('download'),
                 engagement: page('engagement'),
                 metsAJour: page('mets-a-jour'),
+                communaute: page('communaute'),
                 mentionsLegales: page('mentions-legales'),
                 confidentialite: page('confidentialite'),
                 introuvable: page('404'),

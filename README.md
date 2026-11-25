@@ -19,6 +19,7 @@ dit, en moins de mots.
 | L'accueil | `/` | la fiche produit de l'application : l'ouverture (titre, bouton, un téléphone et deux cartes de l'appli), un module par onglet (Planning, Campus, Scolarité) avec ses points forts et sa fiche, la fiche technique, les stores |
 | Télécharger | `/download.html` | rediriger vers le store du téléphone qui l'ouvre ; sur un ordinateur, montrer les deux badges et le QR code |
 | Mets à jour | `/mets-a-jour` | la page de passage des versions d'avant la 7.0 de l'application, dont le formulaire de retour est devenu natif : les deux stores, et « écrire quand même » vers l'ancien formulaire ; aucune page ne la cite avant la bascule, que décrit [la spécification du formulaire](https://github.com/KAE-Lab/UKit/blob/prochaine-version/docs/phase-8/3-formulaire.md#la-bascule-du-formulaire) |
+| Règles de la communauté | `/communaute` | ce qui se publie dans l'application (signalements, votes, retours), ce qui est interdit, comment la modération travaille, comment signaler un abus ; l'application l'ouvre depuis le rappel des règles, à la première contribution (`URL.REGLES_DE_LA_COMMUNAUTE`) |
 | Engagement | `/engagement.html` | ce qu'on demande, ce qu'on en fait et ce qu'on ne fera jamais, quand quelqu'un prête un accès à son portail pour que UKit s'adapte à son campus ([docs/adaptation-campus.md](https://github.com/KAE-Lab/UKit/blob/main/docs/adaptation-campus.md), côté équipe) |
 | Mentions légales | `/mentions-legales.html` | l'éditeur (l'association KAE Lab), le directeur de la publication, l'hébergeur, les licences et les marques (loi n° 2004-575, art. 1-1) |
 | Confidentialité | `/confidentialite.html` | ce que le site fait de tes données (rien qu'il garde), l'hébergeur, les liens sortants ; renvoie à `PRIVACY.md` pour l'application |
@@ -26,7 +27,9 @@ dit, en moins de mots.
 
 La page d'engagement est **citée par le formulaire de retours** de l'application, l'ancien comme le
 natif (`URL.ENGAGEMENT_CAMPUS`) : son adresse ne change pas sans eux. La page « Mets à jour » le sera
-par le catalogue de l'application, à la bascule : son adresse non plus.
+par le catalogue de l'application, à la bascule : son adresse non plus. La page des règles est une constante
+de l'application (`URL.REGLES_DE_LA_COMMUNAUTE`) : son adresse, `/communaute`, ne change pas sans une
+version de l'application.
 
 ## Structure
 
@@ -35,6 +38,7 @@ index.html             l'accueil
 download.html          la page de téléchargement
 engagement.html        la page d'engagement du chantier campus
 mets-a-jour.html       la page de passage vers le formulaire natif de la 7.0
+communaute.html        les règles de la communauté de l'application
 mentions-legales.html  les mentions légales
 confidentialite.html   la confidentialité du site
 404.html               la page introuvable

@@ -10,6 +10,12 @@ moment-là.
 
 ### Ajouté
 
+- **Les règles de la communauté** (`/communaute`), pour la 7.0 de l'application : ce qui se publie
+  (signalements d'une liste fermée, votes, retours), ce qui est interdit, comment la communauté se
+  corrige et comment la modération travaille (attestation de l'appareil, plafonds, réputation, retrait,
+  blocage d'une clé, sans valeurs chiffrées), comment signaler un abus et contester une décision, ce
+  que l'association fait et ne fait pas, et le renvoi au règlement sur les services numériques et à la
+  politique de confidentialité. L'application l'ouvre depuis le rappel des règles.
 - **La page « Mets à jour UKit pour nous écrire »** (`/mets-a-jour`) : le formulaire de retour de
   l'application devient natif à la 7.0, et les versions d'avant ouvriront cette page à la bascule, quand
   la 7.0 sera sur les deux stores. Les deux stores, et « écrire quand même » vers l'ancien formulaire.
